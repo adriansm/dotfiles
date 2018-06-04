@@ -1,0 +1,4 @@
+# Ignore these files globally in this repo.
+*.swp
+.DS_Store
+*~

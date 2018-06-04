@@ -1,0 +1,41 @@
+" MS Ctrl Mappings
+noremap <C-c> "+y
+noremap <C-x> "+x
+noremap <C-v> "+gP
+cnoremap <C-v> <C-R>+
+inoremap <C-v> <C-R>+
+
+" Undo and Redo
+noremap <C-z> u
+inoremap <C-z> <C-0><C-R>
+noremap <C-Y> <C-R>
+inoremap <C-Y> <C-O><C-R>
+
+" CTRL-A is Select all
+noremap <C-A> gggH<C-O>G
+inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+cnoremap <C-A> <C-C>gggH<C-O>G
+onoremap <C-A> <C-C>gggH<C-O>G
+snoremap <C-A> <C-C>gggH<C-O>G
+xnoremap <C-A> <C-C>ggVG
+
+" CTRL-Tab is Next window
+noremap <C-Tab> <C-W>w
+inoremap <C-Tab> <C-O><C-W>w
+cnoremap <C-Tab> <C-C><C-W>w
+onoremap <C-Tab> <C-C><C-W>w
+
+" Logical size of GVim window
+set lines=35 columns=99
+
+" Don't display the menu or toolbar. Just the screen.
+set guioptions-=m
+set guioptions-=T
+
+" Font.
+if has('mac')
+  set guifont=Roboto\ Mono\ for\ Powerline:h12
+elseif has('unix')
+  set guifont=Roboto\ Mono\ for\ Powerline\ 12
+endif
+
