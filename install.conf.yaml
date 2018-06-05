@@ -8,6 +8,10 @@
     ~/.aliases: aliases
     ~/.bash: bash
     ~/.bash_aliases: bash/bashrc
+    ~/.gitattributes: git/gitattributes
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore: git/gitignore
+    ~/.gitk: git/gitk
     ~/.tmux: tmux
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim: vim
