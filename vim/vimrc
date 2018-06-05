@@ -426,7 +426,7 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 2
     "\ 'right_alt' : '<',
     "\ 'space' : ' '}
 
-let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux/design.conf"
+let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux.design.conf"
 
 " ** CtrlP options **
 let g:ctrlp_custom_ignore = {

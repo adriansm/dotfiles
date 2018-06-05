@@ -31,6 +31,9 @@
     ~/.zprofile: zsh/zprofile
     ~/.zshrc: zsh/zshrc
 
+- sync:
+    ~/.tmux.design.conf: tmux/design.conf
+
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [vim +PlugInstall +qall, Installing Vim Plugins]
