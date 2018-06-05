@@ -1,6 +1,13 @@
 - defaults:
     link:
         relink: true
+        relative: true
+    sync:
+        rsync: 'rsync'                        # rsync executable to be used
+        options: ['--delete', '--safe-links'] # list of options for rsync
+        create: false                         # create missing directory hierarchy
+        stdout: false                         # ignore stdout of rsync process
+        stderr: false                         # ignore stderr of rsync process
 
 - clean: ['~']
 

@@ -10,3 +10,6 @@
 [submodule "zsh/zplug"]
 	path = zsh/zplug
 	url = https://github.com/zplug/zplug
+[submodule "plugins/dotbot-sync"]
+	path = plugins/dotbot-sync
+	url = https://github.com/j1r1k/dotbot-sync.git
