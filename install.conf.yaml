@@ -8,6 +8,7 @@
     ~/.aliases: aliases
     ~/.bash: bash
     ~/.bash_aliases: bash/bashrc
+    ~/.curlrc: curl/curlrc
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
