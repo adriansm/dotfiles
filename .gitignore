@@ -2,5 +2,3 @@
 *.swp
 .DS_Store
 *~
-sec/*
-!sec/README.md

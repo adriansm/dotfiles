@@ -154,4 +154,4 @@
 	smtpserverport = 587
 
 [include]
-	path = ~/.sec/gitconfig
+	path = ~/.gitconfig.local
