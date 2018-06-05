@@ -1,0 +1,85 @@
+startup_message off
+deflogin on
+defutf8 on
+autodetach on
+bell "%c bell -> %n%f %t^G"
+defflow auto
+scrollback 5000
+defscrollback 50000
+vbell_msg "[[[ ding ]]]"
+vbell off
+activity "%c activity -> %n%f %t"
+altscreen on
+shell -bash
+shelltitle '] |bash'
+msgwait 2
+
+#Termcap
+# Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
+# (This fixes the "Aborted because of window size change" konsole symptoms found
+#  in bug #134198)
+termcapinfo xterm* 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+termcapinfo xterm*|linux*|rxvt*|Eterm* OP
+
+termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo xterm*|Eterm|mlterm|rxvt|screen-256color 'ti@:te@:hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007'
+
+bind ^k
+bind ^\
+bind \\ quit
+bind K kill
+bind I login on
+bind O login off
+bind } history
+
+#caption    always "%{Wk} %= [ %H ][ Load: %l ]"
+#hardstatus alwayslastline "%{= Kw} %-w%{+b kW}%n %t%{= Kw}%+w %= %{= Kw} %d/%M %c "
+
+# adrian
+#caption    always "%{= Bw}%-w%{= mW}%n %t%{-}%+w %-=@%H - %LD %d %LM - %c"
+hardstatus alwayslastline
+hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-=@%{KG}%H%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
+
+bind f eval "hardstatus ignore"
+bind F eval "hardstatus alwayslastline"
+
+#fixing the backspace bug
+bindkey -d ^? stuff ^H
+bindkey -d ^@ stuff ^H
+
+# alt+[1-9] select window
+select 1
+#bindkey ^[0 select 0
+#bindkey ^[1 select 1
+#bindkey ^[2 select 2
+#bindkey ^[3 select 3
+#bindkey ^[4 select 4
+#bindkey ^[5 select 5
+#bindkey ^[6 select 6
+#bindkey ^[7 select 7
+#bindkey ^[8 select 8
+#bindkey ^[9 select 9
+bindkey -k k8 copy #F8 for copy mode
+
+#screen -t "" 0 bash
+attrcolor b ".I"
+#defbce "on"
+
+# do not trash BackSpace, usually DEL
+bindkey -k kb
+bindkey -d -k kb
+
+## do not trash Delete, usually ESC [ 3 ~
+bindkey -k kD
+bindkey -d -k kD
+
+#bindkey "^<" prev
+#bindkey "^z" next
+
+# CTRL+arrow key for Putty
+bindkey "^[[D" prev
+bindkey "^[[C" next
+
+# CTRL+arrow keys for XSHell
+bindkey "\033[1;5D" prev
+bindkey "\033[1;5C" next

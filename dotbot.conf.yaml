@@ -20,11 +20,13 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.gitk: git/gitk
+    ~/.screenrc: screen/screenrc
     ~/.tmux: tmux
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim: vim
     ~/.vimrc: vim/vimrc
     ~/.gvimrc: vim/gvimrc
+    ~/.wget/wgetrc: wget/wgetrc
     ~/.zsh: zsh
     ~/.zshenv: zsh/zshenv
     ~/.zshprofile: zsh/zshenv
