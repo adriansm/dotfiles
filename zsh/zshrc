@@ -1,0 +1,26 @@
+_ZSHRC_FILE=${(%):-%N}
+#ZSH_HOME=$(dirname $(realpath ${(%):-%N}))
+ZSH_HOME=$_ZSHRC_FILE:A:h
+
+# don't fetch for prompt
+export PURE_GIT_PULL=0
+export PURE_GIT_UNTRACKED_DIRTY=0
+
+# Zplug load
+source $ZSH_HOME/zplug.zsh
+
+# Plugins config
+bindkey '^ ' autosuggest-accept
+
+# alter defaults from oh-my-zsh
+setopt +o nomatch
+unsetopt share_history
+unsetopt inc_append_history
+
+# Local config
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

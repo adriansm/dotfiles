@@ -5,6 +5,7 @@
 - clean: ['~']
 
 - link:
+    ~/.aliases: aliases
     ~/.bash: bash
     ~/.bash_aliases: bash/bashrc
     ~/.tmux: tmux
@@ -12,6 +13,10 @@
     ~/.vim: vim
     ~/.vimrc: vim/vimrc
     ~/.gvimrc: vim/gvimrc
+    ~/.zsh: zsh
+    ~/.zshenv: zsh/zshenv
+    ~/.zshprofile: zsh/zshenv
+    ~/.zshrc: zsh/zshrc
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
