@@ -21,6 +21,7 @@
     ~/.zsh: zsh
     ~/.zshenv: zsh/zshenv
     ~/.zshprofile: zsh/zshenv
+    ~/.zprofile: zsh/zprofile
     ~/.zshrc: zsh/zshrc
 
 - shell:
