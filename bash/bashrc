@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# local settings
+[ -f $HOME/.bashrc.local ] && source $HOME/.bashrc.local
+
+READLINK=${READLINK:-readlink}
+[ -n "$(which realpath)" ] && READLINK=realpath
+MY_BASH_PATH=$(dirname $($READLINK ${BASH_ARGV[0]}))
+
+# common utilities
+source $MY_BASH_PATH/common.sh
+
+# update bash prompt
+source $MY_BASH_PATH/prompt.sh
+
+case $OSTYPE in
+    linux-*)
+        # Any linux specific settings go here
+        ;;
+    darwin*)
+        # Mac OSX
+        MY_BASH_PATH=$(dirname $(readlink ${BASH_ARGV[0]}))
+        export CLICOLOR=1
+        ;;
+    *)
+        echo "WARNING! Unsupported OS $OSTYPE"
+        ;;
+esac
+
+# google specific settings
+[ -f $HOME/.at_google ] && source $MY_BASH_PATH/google.sh
+
+source $MY_BASH_PATH/android.sh

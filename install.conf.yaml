@@ -5,6 +5,8 @@
 - clean: ['~']
 
 - link:
+    ~/.bash: bash
+    ~/.bash_aliases: bash/bashrc
     ~/.tmux: tmux
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim: vim
