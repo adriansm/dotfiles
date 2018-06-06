@@ -1,6 +1,4 @@
-_ZSHRC_FILE=${(%):-%N}
-#ZSH_HOME=$(dirname $(realpath ${(%):-%N}))
-ZSH_HOME=$_ZSHRC_FILE:A:h
+: ${ZSH_HOME:=${${(%):-%N}:A:h}}
 
 # don't fetch for prompt
 export PURE_GIT_PULL=0

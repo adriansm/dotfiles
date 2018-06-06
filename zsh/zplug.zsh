@@ -1,3 +1,5 @@
+: ${ZSH_HOME:=${${(%):-%N}:A:h}}
+
 # zplug environment variables
 export ZPLUG_LOADFILE=$ZSH_HOME/zplug_packages.zsh
 
