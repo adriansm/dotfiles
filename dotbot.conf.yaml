@@ -15,6 +15,7 @@
     ~/.aliases: aliases
     ~/.bash: bash
     ~/.bash_aliases: bash/bashrc
+    ~/.ctags: ctags/ctags
     ~/.curlrc: curl/curlrc
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
