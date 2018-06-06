@@ -9,9 +9,10 @@
         stdout: false                         # ignore stdout of rsync process
         stderr: false                         # ignore stderr of rsync process
 
-- clean: ['~', '~/nano.d']
+- clean: ['~', '~/nano.d', '~/.local/bin']
 
 - link:
+    ~/.ackrc:
     ~/.aliases:
     ~/.agignore:
     ~/.bash: bash
@@ -22,8 +23,15 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.gitk: git/gitk
+    ~/.local/bin:
+        glob: true
+        path: bin/*
+        create: true
+        relink: true
     ~/.nanorc: nano/nanorc
-    ~/.nano.d/syntax-highlighting: nano/syntax-highlighting
+    ~/.nano.d/syntax-highlighting:
+        path: nano/syntax-highlighting
+        create: true
     ~/.pythonrc: python/pythonrc
     ~/.pylintrc: python/pylintrc
     ~/.screenrc:
