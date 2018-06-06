@@ -20,6 +20,8 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.gitk: git/gitk
+    ~/.nanorc: nano/nanorc
+    ~/.nano.d/syntax-highlighting: nano/syntax-highlighting
     ~/.pythonrc: python/pythonrc
     ~/.pylintrc: python/pylintrc
     ~/.screenrc: screen/screenrc
