@@ -9,14 +9,15 @@
         stdout: false                         # ignore stdout of rsync process
         stderr: false                         # ignore stderr of rsync process
 
-- clean: ['~']
+- clean: ['~', '~/nano.d']
 
 - link:
-    ~/.aliases: aliases
+    ~/.aliases:
+    ~/.agignore:
     ~/.bash: bash
     ~/.bash_aliases: bash/bashrc
-    ~/.ctags: ctags/ctags
-    ~/.curlrc: curl/curlrc
+    ~/.ctags:
+    ~/.curlrc:
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
@@ -25,13 +26,13 @@
     ~/.nano.d/syntax-highlighting: nano/syntax-highlighting
     ~/.pythonrc: python/pythonrc
     ~/.pylintrc: python/pylintrc
-    ~/.screenrc: screen/screenrc
+    ~/.screenrc:
     ~/.tmux: tmux
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim: vim
     ~/.vimrc: vim/vimrc
     ~/.gvimrc: vim/gvimrc
-    ~/.wget/wgetrc: wget/wgetrc
+    ~/.wgetrc:
     ~/.zsh: zsh
     ~/.zshenv: zsh/zshenv
     ~/.zshprofile: zsh/zshenv
