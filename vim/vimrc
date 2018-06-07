@@ -100,7 +100,7 @@ call plug#begin(expand('~/.vim/plugged'))
   " search tool from vim
   Plug 'mileszs/ack.vim'
   "Plug 'rking/ag.vim'
-  Plug 'mhinz/vim-grepper'
+  Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
   " set vim bookmarks
   Plug 'MattesGroeger/vim-bookmarks'
@@ -473,8 +473,11 @@ nnoremap <leader>fw :Grepper -open -cword -noprompt<cr>
 nnoremap <leader>fr :Grepper -open -dir repo,filecwd -cword -noprompt<cr>
 nnoremap <leader>fs :Grepper -open -side -dir repo,filecwd -cword -noprompt<cr>
 
-runtime plugin/grepper.vim
-let g:grepper.git.grepprg .= ' --no-color'
+let g:grepper               = {}
+let g:grepper.tools         = ['git', 'ag', 'rg']
+let g:grepper.jump          = 1
+let g:grepper.simple_prompt = 1
+let g:grepper.quickfix      = 0
 
 " ** File Explorer **
 let g:explVertical=1

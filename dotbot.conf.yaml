@@ -19,10 +19,17 @@
     ~/.bash_aliases: bash/bashrc
     ~/.ctags:
     ~/.curlrc:
+    ~/.config/nvim/autoload: 
+        path: vim/autoload
+        create: true
+    ~/.config/nvim/init.vim:
+        path: vim/vimrc
+        create: true
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.gitk: git/gitk
+    ~/.gvimrc: vim/gvimrc
     ~/.local/bin:
         glob: true
         path: bin/*
@@ -40,7 +47,6 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim: vim
     ~/.vimrc: vim/vimrc
-    ~/.gvimrc: vim/gvimrc
     ~/.wgetrc:
     ~/.zsh: zsh
     ~/.zshenv: zsh/zshenv
