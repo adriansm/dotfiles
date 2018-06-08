@@ -51,7 +51,6 @@ call plug#begin(expand('~/.vim/plugged'))
 
   " Easily add comments
   Plug 'scrooloose/nerdcommenter'
-  Plug 'SirVer/ultisnips'
 
   " Quick shortcuts
   Plug 'tpope/vim-unimpaired'
@@ -105,12 +104,6 @@ call plug#begin(expand('~/.vim/plugged'))
   " set vim bookmarks
   Plug 'MattesGroeger/vim-bookmarks'
 
-  " If enabling google's version need to disable this
-  if !get(g:, 'use_google_ycm', 0)
-    " Code Completion
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --java-completer --go-completer' }
-  endif
-  "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
   Plug 'Valloric/ListToggle'
 
   "*** Others ***
@@ -120,6 +113,16 @@ call plug#begin(expand('~/.vim/plugged'))
 
   " defaults everyone can agree on
   Plug 'tpope/vim-sensible'
+
+if exists('+python')
+  Plug 'SirVer/ultisnips'
+  " If enabling google's version need to disable this
+  if !get(g:, 'use_google_ycm', 0)
+    " Code Completion
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --java-completer' }
+  endif
+  "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+endif
 
 " Initialize plugin system
 call plug#end()
