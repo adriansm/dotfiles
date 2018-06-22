@@ -1,0 +1,226 @@
+#!/bin/zsh
+
+: ${FASTBOOT_BIN:=$(command -v fastboot)}
+: ${ADB_BIN:=$(command -v adb)}
+
+function paddedstr()
+{
+  local len=$1
+  shift
+  local str=$*
+
+  local npadding=$(expr $len - ${#str})
+  local padding
+  [ $npadding -gt 0 ] && padding=$(printf '%*s' $npadding ' ') || padding=
+  echo "${str}${padding}"
+}
+
+function print_android_info()
+{
+  local pretty=$1
+  local aserial=$2
+  local dev=$3
+  local rev=$4
+  local build=$5
+  local devrev
+
+  [ -n "$rev" -a "$rev" != "0" ] && devrev="${dev# } (${rev# })" || devrev=${dev}
+  if $pretty; then
+    echo -n "$(paddedstr 16 $aserial) | "
+    [ -z "$build" ] && build="N/A"
+    echo -n "$(paddedstr 16 $build) | "
+    echo "$(paddedstr 22 $devrev)"
+  else
+    echo -n ${devrev}
+    [ -n "$build" ] && echo -n ":${build# }"
+    echo ":${aserial}"
+  fi
+}
+
+function get_android_adb_var()
+{
+  local aserial=$1
+  local varname=$2
+  echo -n $($ADB_BIN -s $aserial shell getprop $varname)
+}
+
+function get_android_adb_info()
+{
+  local aserial=$1
+  local pretty=${2:-false}
+  [ "$aserial" = "" ] && return 1
+
+  local state=$($ADB_BIN -s $aserial get-state 2>/dev/null)
+  [ "$state" != "device" ] && return 1
+
+  local build=$(get_android_adb_var $aserial ro.build.id)
+  local dev=$(get_android_adb_var $aserial ro.hardware)
+  local rev=$(get_android_adb_var $aserial ro.revision)
+
+  print_android_info $pretty "$aserial" "$dev" "$rev" "$build"
+
+  return 0
+}
+
+function get_android_fb_var()
+{
+  local aserial=$1
+  local varname=$2
+  local pre=
+  [ -z "$(command -v timeout)" ] || pre="timeout 1s"
+  local val=$(${=pre} fastboot -s $aserial getvar $varname 2>&1 | grep ^${varname} | sed -E "s/${varname}: //g")
+  [ -n "$val" -a "$val" != "unknown variable" ] && [[ "$val" =~ ^[[:alnum:]].* ]] && echo $val
+}
+
+function get_android_fb_info()
+{
+  local aserial=$1
+  local pretty=${2:-false}
+  [ "$aserial" = "" ] && return 1
+
+  local fb_connected=$($FASTBOOT_BIN devices | grep ^$aserial)
+  if [ -n "$fb_connected" ]; then
+    local dev=$(get_android_fb_var $aserial product)
+    # if no output found now, it's likely going to fail for next ones too
+    [ -n "$dev" ] || return 1
+    local rev=$(get_android_fb_var $aserial hw-revision)
+    local build=$(get_android_fb_var $aserial version-bootloader)
+
+    print_android_info $pretty "$aserial" "$dev" "$rev" "$build"
+
+    return 0
+  fi
+
+  return 1
+}
+
+function list_android_devices()
+{
+  declare -a devices
+
+  command adb start-server || ( echo "Unable to start adb"; return 1 )
+
+  local adb_devices=$(command adb devices -l | sed -n "2,100p")
+  local fb_devices=$(command fastboot devices -l)
+  for dev in ${(f)adb_devices} ${(f)fb_devices}; do
+    local aserial=${dev%% *}
+    local devinfo=
+    local mode=
+    if [[ $dev == *"fastboot"* ]]; then
+      mode=fastboot
+      devinfo=$(get_android_fb_info $aserial true)
+    else
+      mode=adb
+      devinfo=$(get_android_adb_info $aserial true)
+    fi
+    if [ -n "$devinfo" ]; then
+      echo "$devinfo $mode"
+    else
+      echo "$dev"
+    fi
+  done
+}
+
+function select_android_device_fzf()
+{
+  local devices=("${(@f)$(list_android_devices)}")
+  if [ -z "$devices" ]; then
+    echo "No devices connected!"
+    return 1
+  fi
+
+  local fzf_header="Choose from available connected devices: "
+  local fzf_args=(
+    --height=$((3+${#devices[@]}))
+    --exit-0
+    --reverse
+    --inline-info
+  )
+  if [ -n "$1" ]; then
+    fzf_args+=(
+      --select-1
+      --query="$*"
+    )
+  fi
+
+  local selection=$(echo "${(j:\n:)devices}" | fzf ${fzf_args} --header="${fzf_header}")
+  # assumes serial is the first argument
+  local aserial=${selection%% *}
+
+  if [ -z "$aserial" ]; then
+    if [ -n "$1" ]; then
+      echo "No devices matching: \"$@\""
+    else
+      echo "No device selected"
+    fi
+    return 1
+  fi
+
+  export ANDROID_SERIAL=${aserial}
+  local devinfo=$(get_android_adb_info $ANDROID_SERIAL || get_android_fb_info $ANDROID_SERIAL || echo "$ANDROID_SERIAL")
+  echo "Selected device: $devinfo"
+}
+
+function select_android_device_list()
+{
+  local devices=("${(@f)$(list_android_devices)}")
+  if [ -z "$devices" ]; then
+    echo "No devices connected!"
+    return 1
+  fi
+
+  local counter=0
+  local selection=$1
+  declare -a serial_list
+  if [ -z "$selection" ]; then
+    echo "Choose from connected devices"
+
+    for dev in ${devices}; do
+      let counter=counter+1
+      serial_list[$counter]=${dev%% *}
+
+      echo "${counter}. ${dev}"
+    done
+
+    read selection\?"Select option: "
+  fi
+  echo
+  if ! [[ "$selection" =~ ^[0-9]+$ ]]; then
+    echo "Invalid option \"$selection\". Should be numeric"
+    return 1
+  elif [ "${serial_list[$selection]}" = "" ]; then
+    echo "Invalid option \"$selection\""
+    return 1
+  fi
+
+  export ANDROID_SERIAL=${serial_list[$selection]}
+  local devinfo=$(get_android_adb_info $ANDROID_SERIAL || get_android_fb_info $ANDROID_SERIAL || echo "$ANDROID_SERIAL")
+  echo "Selected device #${selection}: $devinfo"
+
+  return 0
+}
+
+function usage()
+{
+  print "Usage: select_android_device [OPTIONS] [DEVICE]
+
+If provided will try to find a device that matches closely DEVICE argument
+
+Options:
+  -l      List Android devices connected and exit
+  -h      Print this help"
+}
+
+while getopts 'lh?' arg; do
+  case $arg in
+    l) list_android_devices; return 0 ;;
+    h|?) usage; return 0; ;;
+  esac
+done
+
+if [ -n "$(command -v fzf)" ]; then
+  select_android_device_fzf $@
+else
+  select_android_device_list $@
+fi
+
