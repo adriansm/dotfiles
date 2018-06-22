@@ -476,11 +476,20 @@ nnoremap <leader>fw :Grepper -open -cword -noprompt<cr>
 nnoremap <leader>fr :Grepper -open -dir repo,filecwd -cword -noprompt<cr>
 nnoremap <leader>fs :Grepper -open -side -dir repo,filecwd -cword -noprompt<cr>
 
-let g:grepper               = {}
-let g:grepper.tools         = ['git', 'ag', 'rg']
-let g:grepper.jump          = 1
-let g:grepper.simple_prompt = 1
-let g:grepper.quickfix      = 0
+let g:grepper               = {
+      \ 'tools':          ['git', 'ag', 'rg'],
+      \ 'jump':           1,
+      \ 'simple_prompt':  1,
+      \ 'quickfix':       1,
+      \ 'git':            { 'grepprg': 'git grep --no-color -nI' }
+      \ }
+
+
+"let g:grepper.tools         = ['git', 'ag', 'rg']
+"let g:grepper.jump          = 1
+"let g:grepper.simple_prompt = 1
+"let g:grepper.quickfix      = 0
+"let g:grepper.git.grepprg   = 'git grep --no-color -nI'
 
 " ** File Explorer **
 let g:explVertical=1
