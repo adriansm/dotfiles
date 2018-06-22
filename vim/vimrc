@@ -114,10 +114,10 @@ call plug#begin(expand('~/.vim/plugged'))
   " defaults everyone can agree on
   Plug 'tpope/vim-sensible'
 
-if exists('+python')
+if exists('+python') || has("nvim")
   Plug 'SirVer/ultisnips'
   " If enabling google's version need to disable this
-  if !get(g:, 'use_google_ycm', 0)
+  if get(g:, 'use_google_ycm', 0) == 0
     " Code Completion
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --java-completer' }
   endif

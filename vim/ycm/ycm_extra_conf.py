@@ -96,6 +96,7 @@ BL_FLAGS = [
   '-IQcomModulePkg/Include/Library', # TODO: make this dynamic
 ]
 
+PATH_FLAGS = ['-isystem', '-I', '-iquote', '--sysroot=', '-Wp,-MD,']
 SOURCE_EXTENSIONS = ['.c', '.cpp', '.cxx', '.cc', '.m', '.mm']
 SOURCE_DIRECTORIES = ['.', 'src', 'lib']
 HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh']
@@ -143,22 +144,32 @@ def FindNearestDir(path, target, build_folder=None):
 def FindNearest(path, target, build_folder=None):
   return os.path.join(FindNearestDir(path, target, build_folder), target)
 
-
-def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
+def ProcessFlags(compiler_flags, working_directory):
+  flags = list(compiler_flags)
   if not working_directory:
-    return list(flags)
+    return flags
+
   new_flags = []
-  make_next_absolute = True
-  path_flags = ['-isystem', '-I', '-iquote', '--sysroot=', '-Wp,-MD,']
+  make_next_absolute = False
+
   for flag in flags:
     new_flag = flag
+
+    if flag.startswith('@'):
+      path = flag.strip('"@')
+      if path.startswith('/'):
+        path = os.path.join(working_directory, path)
+      if os.path.exists(path):
+        with open(path) as fp:
+          flags += fp.read().splitlines()
+      continue
 
     if make_next_absolute:
       make_next_absolute = False
       if not flag.startswith('/'):
         new_flag = os.path.join(working_directory, flag)
 
-    for path_flag in path_flags:
+    for path_flag in PATH_FLAGS:
       if flag == path_flag:
         make_next_absolute = True
         break
@@ -248,7 +259,7 @@ def FlagsForCompilationDatabase(filename):
       logging.info(
         "No compilation info for " + filename + " in compilation database")
       return None
-    return MakeRelativePathsInFlagsAbsolute(
+    return ProcessFlags(
       compilation_info.compiler_flags_,
       compilation_info.compiler_working_dir_)
   except RuntimeError:
@@ -262,7 +273,7 @@ def FlagsForClangComplete(root):
     flags = open(path, 'r').read().splitlines()
 
     relative_to = os.path.dirname(path)
-    clang_complete_flags = MakeRelativePathsInFlagsAbsolute(flags, relative_to)
+    clang_complete_flags = ProcessFlags(flags, relative_to)
     return clang_complete_flags
   except RuntimeError:
     # not found
@@ -305,7 +316,7 @@ def FlagsForAndroid(filename):
     logging.info("Found android build at " + android_top)
 
     flags = FlagsForPath(filename)
-    flags += MakeRelativePathsInFlagsAbsolute(ANDROID_FLAGS, android_top)
+    flags += ProcessFlags(ANDROID_FLAGS, android_top)
     return flags
   except RuntimeError:
     # not android build
@@ -346,7 +357,7 @@ def FlagsForKernelRepo(kernel_top):
     if 'BRANCH' in config:
       out_dir = os.path.join(repo_top, 'out', config['BRANCH'])
       if os.path.exists(os.path.join(out_dir, 'vmlinux')):
-        flags += MakeRelativePathsInFlagsAbsolute(KERNEL_OUT_FLAGS, out_dir)
+        flags += ProcessFlags(KERNEL_OUT_FLAGS, out_dir)
 
     return flags
   except RuntimeError:
@@ -362,13 +373,14 @@ def FlagsForKernel(filename):
     logging.info("Found kernel build at " + kernel_top)
 
     flags = BASE_FLAGS
-    flags += MakeRelativePathsInFlagsAbsolute(KERNEL_SRC_FLAGS, kernel_top)
+    flags += ProcessFlags(KERNEL_SRC_FLAGS, kernel_top)
     repo_flags = FlagsForKernelRepo(kernel_top)
     if repo_flags:
+      # repo flags are already processed
       flags += repo_flags
     else:
       # assume that kernel is built alongside source
-      flags += MakeRelativePathsInFlagsAbsolute(KERNEL_OUT_FLAGS, kernel_top)
+      flags += ProcessFlags(KERNEL_OUT_FLAGS, kernel_top)
 
     return flags
   except RuntimeError:
@@ -384,7 +396,7 @@ def FlagsForBL(filename):
     logging.info("Found bootloader at " + bl_top)
 
     flags = BASE_FLAGS
-    flags += MakeRelativePathsInFlagsAbsolute(BL_FLAGS, bl_top)
+    flags += ProcessFlags(BL_FLAGS, bl_top)
 
     return flags
   except RuntimeError:
