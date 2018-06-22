@@ -17,6 +17,9 @@ OH_MY_ZSH_PLUGINS=(
   'pip'
   'z'
 )
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+  OH_MY_ZSH_PLUGINS+=('brew' 'osx')
+fi
 
 zplug "robbyrussell/oh-my-zsh", use:"lib/{${(j:,:)OH_MY_ZSH_LIBS}}.zsh"
 for p in $OH_MY_ZSH_PLUGINS; do
