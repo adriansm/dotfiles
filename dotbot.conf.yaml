@@ -9,7 +9,7 @@
         stdout: false                         # ignore stdout of rsync process
         stderr: false                         # ignore stderr of rsync process
 
-- clean: ['~', '~/nano.d', '~/.local/bin']
+- clean: ['~', '~/nano.d', '~/.local/bin', '~/.config.nvim']
 
 - link:
     ~/.ackrc:
@@ -19,7 +19,7 @@
     ~/.bash_aliases: bash/bashrc
     ~/.ctags:
     ~/.curlrc:
-    ~/.config/nvim/autoload: 
+    ~/.config/nvim/autoload:
         path: vim/autoload
         create: true
     ~/.config/nvim/init.vim:

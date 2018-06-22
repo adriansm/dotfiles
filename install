@@ -2,21 +2,22 @@
 
 CONFIG="dotbot.conf.yaml"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTBOT_DIR="$BASEDIR/dotbot"
-DOTBOT_BIN="$DOTBOT_DIR/bin/dotbot"
 
+DOTBOT_DIR="$BASEDIR/dotbot"
 PLUGIN_DIR="$BASEDIR/plugins"
 
+DOTBOT_BIN="$DOTBOT_DIR/bin/dotbot"
+
 PLUGINS=(
-$PLUGIN_DIR/dotbot-sync/sync.py
+    dotbot-sync/sync.py
 )
 
-git -C "${DOTBOT_DIR}" submodule sync --recursive
-git submodule update --init --recursive
+cd "${BASEDIR}"
+git submodule update --init --recursive $DOTBOT_DIR $PLUGIN_DIR
 
 DOTBOT_ARGS=
 for p in $PLUGINS; do
-	DOTBOT_ARGS+=" -p $p"
+	DOTBOT_ARGS+=" -p $PLUGIN_DIR/$p"
 done
 
 "${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" $DOTBOT_ARGS "${@}"
