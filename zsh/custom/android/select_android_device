@@ -123,9 +123,9 @@ function show_android_device()
 {
   local aserial=${1:-$ANDROID_SERIAL}
   local info=$(get_android_adb_info $ANDROID_SERIAL || get_android_fb_info $ANDROID_SERIAL)
-  eval "declare -A devinfo=${info#*=}"
 
-  [ -n "$devinfo" ] || return 1
+  [ -n "$info" ] || return 1
+  eval "declare -A devinfo=${info#*=}"
 
   echo -n "${devinfo[dev]} (${devinfo[rev]})"
   [ -n "${devinfo[build]}" ] && echo -n ":${devinfo[build]# }"
