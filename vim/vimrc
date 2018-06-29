@@ -208,8 +208,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " Color column after text width
 if exists('+colorcolumn')
-  " let &colorcolumn="+" . join(range(1,120), ",+")
-    set colorcolumn=+1
+    let &colorcolumn="+" . join(range(1,140), ",+")
+    "set colorcolumn=+1
 else
     au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
