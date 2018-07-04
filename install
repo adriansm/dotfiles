@@ -13,7 +13,7 @@ PLUGINS=(
 )
 
 cd "${BASEDIR}"
-git submodule update --init --recursive $DOTBOT_DIR $PLUGIN_DIR
+git submodule update --init --recursive --quiet $DOTBOT_DIR $PLUGIN_DIR
 
 DOTBOT_ARGS=
 for p in $PLUGINS; do

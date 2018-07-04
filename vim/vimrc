@@ -114,7 +114,7 @@ call plug#begin(expand('~/.vim/plugged'))
   " defaults everyone can agree on
   Plug 'tpope/vim-sensible'
 
-if exists('+python') || has("nvim")
+if has('python')
   Plug 'SirVer/ultisnips'
   " If enabling google's version need to disable this
   if get(g:, 'use_google_ycm', 0) == 0
