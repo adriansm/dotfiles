@@ -9,7 +9,8 @@ PLUGIN_DIR="$BASEDIR/plugins"
 DOTBOT_BIN="$DOTBOT_DIR/bin/dotbot"
 
 PLUGINS=(
-    dotbot-sync/sync.py
+    dotbot-sync
+    dotbot-brew
 )
 
 cd "${BASEDIR}"
@@ -17,7 +18,7 @@ git submodule update --init --recursive --quiet $DOTBOT_DIR $PLUGIN_DIR
 
 DOTBOT_ARGS=
 for p in $PLUGINS; do
-	DOTBOT_ARGS+=" -p $PLUGIN_DIR/$p"
+	DOTBOT_ARGS+=" --plugin-dir $PLUGIN_DIR/$p"
 done
 
 "${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" $DOTBOT_ARGS "${@}"
