@@ -1,8 +1,0 @@
-brew "ctags"
-brew "neovim"
-brew "ripgrep"
-brew "rsync"
-brew "the_silver_searcher"
-brew "tmux"
-brew "vim"
-brew "zsh"

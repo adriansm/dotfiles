@@ -1,3 +1,9 @@
-- brewfile:
-    - deploy/Brewfile
-
+-brew:
+    - ctags
+    - neovim
+    - ripgrep
+    - rsync
+    - the_silver_searcher
+    - tmux
+    - vim
+    - zsh
