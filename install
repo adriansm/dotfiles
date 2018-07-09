@@ -8,22 +8,41 @@ PLUGIN_DIR="$BASEDIR/plugins"
 
 DOTBOT_BIN="$DOTBOT_DIR/bin/dotbot"
 
-PLUGINS="dotbot-sync dotbot-brew"
-
-cd "${BASEDIR}"
-git submodule update --init --recursive --quiet $DOTBOT_DIR $PLUGIN_DIR
+PLUGINS="
+    dotbot-sync
+"
 
 DOTBOT_ARGS=
 for p in $PLUGINS; do
 	DOTBOT_ARGS+=" --plugin-dir $PLUGIN_DIR/$p"
 done
 
-"${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" $DOTBOT_ARGS "${@}"
+function run_dotbot()
+{
+    "${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" $DOTBOT_ARGS $@
+}
 
-if [[ "$OSTYPE" = "darwin"* ]]; then
-    echo
-    echo "Running mac specific configuration..."
-
-    "${DOTBOT_BIN}" -d "${BASEDIR}" -c deploy/mac.conf.yaml $DOTBOT_ARGS "${@}"
+cd "${BASEDIR}"
+if [ "$EUID" -ne 0 ]; then
+    # avoid updating modules if running as root
+    git submodule update --init --recursive --quiet $DOTBOT_DIR $PLUGIN_DIR
+else
+    echo "Running as root!"
 fi
+run_dotbot "${@}"
 
+# Only run platform specific configs if there are no arguments
+if [ $# -eq 0 ]; then
+    echo
+    case $OSTYPE in
+    darwin*)
+        echo "Running mac specific configuration..."
+        run_dotbot -c deploy/mac.conf.yaml --plugin-dir "$PLUGIN_DIR/dotbot-brew" "${@}"
+        ;;
+    linux*)
+        echo "Do you want to run Linux deploy script? May prompt for root password! (y/n)"
+        read -n 1 REPLY
+        [ "$REPLY" = "y" -o -z "$REPLY" ] && $BASEDIR/deploy/install_linux
+        ;;
+    esac
+fi
