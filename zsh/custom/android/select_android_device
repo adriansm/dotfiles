@@ -234,9 +234,16 @@ while getopts 'aflhp?' arg; do
 done
 shift $((OPTIND-1))
 
-if [ "$pref" != "list" -a -n "$(command -v fzf)" ]; then
-  select_android_device_fzf $@
-elif [ "$pref" != "fzf" ]; then
-  select_android_device_list $@
+if [ "$pref" = "auto" ]; then
+  [ -n "$(command -v fzf)" ] && pref="fzf" || pref="list"
 fi
+
+case $pref in
+  fzf)
+    select_android_device_fzf $@ ;;
+  list)
+    select_android_device_list $@ ;;
+  *)
+    echo "Shouldn't be here ($pref)"
+esac
 
