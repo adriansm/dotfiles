@@ -3,12 +3,13 @@
 : ${FASTBOOT_BIN:=$(whence -p fastboot)}
 : ${ADB_BIN:=$(whence -p adb)}
 
-declare -a ANDROID_DEVICES_COLUMNS=(serial devrev build protocol)
+declare -a ANDROID_DEVICES_COLUMNS=(serial devrev build protocol transport)
 declare -A ANDROID_DEVICES_HEADERS=(
   [serial]=" Serial No"
   [devrev]=" Device (Revision)"
   [build]="  Android Build"
   [protocol]="  Mode "
+  [transport]=" Transport"
 )
 
 function get_android_adb_var()
@@ -31,46 +32,64 @@ function get_android_fb_var()
 function get_android_adb_info()
 {
   local aserial=${1:-$ANDROID_SERIAL}
+  local state=${2[(w)1]}
+  local transport=${2[(w)2]}
   [ "$aserial" = "" ] && return 1
-
-  local state=$($ADB_BIN -s $aserial get-state 2>/dev/null)
-  [ "$state" != "device" ] && return 1
 
   declare -A devinfo=(
     [serial]="$aserial"
-    [dev]="$(get_android_adb_var $aserial ro.hardware)"
-    [rev]="$(get_android_adb_var $aserial ro.revision)"
-    [build]="$(get_android_adb_var $aserial ro.build.id)"
-    [protocol]="adb"
+    [protocol]=adb
+    [transport]=$transport
   )
+
+  if [ "$state" != "device" ]; then
+    devinfo[dev]="Unknown"
+    devinfo[protocol]+=" ($state)"
+  else
+    devinfo[dev]="$(get_android_adb_var $aserial ro.hardware)"
+    devinfo[rev]="$(get_android_adb_var $aserial ro.revision)"
+    devinfo[build]="$(get_android_adb_var $aserial ro.build.id)"
+  fi
   declare -p devinfo
 }
 
 function get_android_fb_info()
 {
   local aserial=${1:-$ANDROID_SERIAL}
+  local transport=${2[(w)2]}
   [ "$aserial" = "" ] && return 1
 
   local fb_connected=$($FASTBOOT_BIN devices | grep ^$aserial)
   [ -n "$fb_connected" ] || return 1
-  local dev=$(get_android_fb_var $aserial product)
-  # if no output found now, it's likely going to fail for next ones too
-  [ -n "$dev" ] || return 1
 
   declare -A devinfo=(
-    [serial]=$aserial
-    [dev]=$dev
-    [rev]=$(get_android_fb_var $aserial hw-revision)
-    [build]=$(get_android_fb_var $aserial version-bootloader)
+    [serial]="$aserial"
     [protocol]=fastboot
+    [transport]=$transport
   )
+
+  local dev=$(get_android_fb_var $aserial product)
+  # if no output found now, it's likely going to fail for next ones too
+  if [ -n "$dev" ]; then
+    devinfo[dev]=$dev
+    devinfo[rev]=$(get_android_fb_var $aserial hw-revision)
+    devinfo[build]=$(get_android_fb_var $aserial version-bootloader)
+  else
+    devinfo[dev]="Unknown"
+  fi
   declare -p devinfo
 }
 
 function print_row()
 {
+  [ $# -gt 0 ] || return
+
   eval "declare -A devinfo=${1#*=}"
-  [ -z "${devinfo[devrev]}" ] && devinfo[devrev]="${devinfo[dev]} (${devinfo[rev]})"
+  if [ -z "${devinfo[devrev]}" ]; then
+    local tmp=${devinfo[dev]}
+    [ -n "${devinfo[rev]}" ] && tmp+=" (${devinfo[rev]})"
+    devinfo[devrev]=$tmp
+  fi
 
   declare -a fields=()
   for k in "${(@k)ANDROID_DEVICES_COLUMNS}"; do
@@ -102,15 +121,15 @@ function list_android_devices_helper()
   if command adb start-server; then
     local adb_devices=$(command adb devices -l | sed -n "2,100p")
     for dev in ${(f)adb_devices}; do
-      local aserial=${dev%% *}
-      print_row "$(get_android_adb_info $aserial)"
+      local aserial=${dev[(w)1]}
+      print_row "$(get_android_adb_info $aserial ${dev##*  })"
     done
   fi
 
   local fb_devices=$(command fastboot devices -l)
   for dev in ${(f)fb_devices}; do
     local aserial=${dev%% *}
-    print_row "$(get_android_fb_info $aserial)"
+    print_row "$(get_android_fb_info $aserial ${dev##*  })"
   done
 }
 
