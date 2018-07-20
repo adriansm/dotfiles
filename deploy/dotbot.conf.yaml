@@ -25,6 +25,12 @@
     ~/.config/nvim/init.vim:
         path: vim/vimrc
         create: true
+    ~/.config/oni/config.tsx:
+        path: oni/config.tsx
+        create: true
+    ~/.config/oni/.editorconfig:
+        path: oni/editorconfig
+        create: true
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
