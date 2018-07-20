@@ -1,0 +1,13 @@
+#!/bin/sh
+
+sudo apt-get update
+
+# Terminal
+sudo apt-get install -y tmux zsh
+
+# Editors
+sudo apt-get install -y vim neovim
+
+# Source navigation
+sudo apt-get install -y exuberant-ctags ripgrep silversearcher-ag
+

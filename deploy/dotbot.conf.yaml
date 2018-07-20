@@ -23,7 +23,7 @@
         path: vim/autoload
         create: true
     ~/.config/nvim/init.vim:
-        path: vim/vimrc
+        path: vim/init.vim
         create: true
     ~/.config/oni/config.tsx:
         path: oni/config.tsx
@@ -52,7 +52,7 @@
     ~/.tmux: tmux
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim: vim
-    ~/.vimrc: vim/vimrc
+    ~/.vimrc: vim/init.vim
     ~/.wgetrc:
     ~/.zsh: zsh
     ~/.zshenv: zsh/zshenv
