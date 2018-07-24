@@ -1,4 +1,8 @@
-""" This file contains 
+"
+" UI Vim Settings
+"
+" Settings that affect UI, color scheme of editor and other related settings
+"
 
 """"""""""""""""""""""""""""""
 " Design Changes
@@ -27,14 +31,6 @@ set background=dark
 let g:solarized_termcolors=256
 let g:rehash256=1
 colorscheme adrian
-
-" Color column after text width
-if exists('+colorcolumn')
-    let &colorcolumn="+" . join(range(1,140), ",+")
-    "set colorcolumn=+1
-else
-    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-endif
 
 highlight ColorColumn term=reverse ctermbg=1 guibg=gray2
 augroup colorcolumn

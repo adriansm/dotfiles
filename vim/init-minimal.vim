@@ -15,12 +15,12 @@ endif
 " ** User Interface **
 set history=50
 set wildmode=list:longest,full
+"set wildmenu            " enhanced command completion
 
 " ** Text Formatting **
 set nowrap              " Do not wrap words (view)
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
-set wildmenu            " enhanced command completion
 set visualbell          " use visual bell instead of beeping
 set list listchars=tab:→\ ,
 

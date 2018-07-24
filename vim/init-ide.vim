@@ -1,6 +1,12 @@
+"
+" IDE Vim Settings
+"
+" Settings that help vim behave more like an IDE
+"
+
 set clipboard=unnamed,unnamedplus
 
-map <C-n> :NERDTreeToggle<CR>
+noremap <C-e> :NERDTreeToggle<CR>
 map <Leader>t :TagbarToggle<CR>
 
 " ** CtrlP options **
@@ -8,7 +14,7 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
   \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
   \}
-let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_working_path_mode = 'ra'
 
 " Allow use of leader as well as CtrlP
 nmap <leader>p :CtrlP<cr>

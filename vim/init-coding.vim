@@ -52,15 +52,18 @@ nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoTo<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <C-q>      :YcmCompleter GetDoc
+nnoremap <C-q>      :YcmCompleter GetDoc<CR>
 
 nnoremap <F9>       :YcmForceCompileAndDiagnostics<CR>
 
-"let g:ycm_confirm_extra_conf                  = 0
-let g:ycm_global_ycm_extra_conf               = '~/.vim/ycm/ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files = 0
-let g:ycm_always_populate_location_list       = 1
-let g:ycm_server_log_level                    = 'debug'
+"let g:ycm_confirm_extra_conf                        = 0
+let g:ycm_global_ycm_extra_conf                      = '~/.vim/ycm/ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tags_files        = 0
+let g:ycm_always_populate_location_list              = 1
+"let g:ycm_autoclose_preview_window_after_completion  = 1
+let g:ycm_autoclose_preview_window_after_insertion   = 1
+let g:ycm_min_num_of_chars_for_completion            = 4
+let g:ycm_collect_identifiers_from_tags_files        = 1
 
 " ** Syntastic **
 function! DetectCheckPatch(file)
@@ -131,11 +134,14 @@ let g:grepper               = {
       \ 'git':            { 'grepprg': 'git grep --no-color -nI' }
       \ }
 
+" inc search plugin
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
 """"""""""""""""""""""""""""""
 " Auto Completion
 """"""""""""""""""""""""""""""
-set nocp
-
 " ** OmniCppComplete **
 let OmniCpp_NamespaceSearch   = 1
 let OmniCpp_GlobalScopeSearch = 1
@@ -146,8 +152,8 @@ let OmniCpp_MayCompleteScope  = 1
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 " automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
+" au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" set completeopt=menuone,menu,longest,preview
 
 " Operations on changed lines
 function! GlobalChangedLines(ex_cmd)

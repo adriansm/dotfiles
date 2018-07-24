@@ -22,8 +22,12 @@ Plug 'plasticboy/vim-markdown',         { 'for': 'markdown' }
 "*** Code Editor ***
 
 Plug 'scrooloose/nerdcommenter'         " Easily adds comments
+" Plug 'tpope/vim-commentary'             " Easily add comments
 Plug 'tpope/vim-unimpaired'             " Quick navigation using
 Plug 'wellle/targets.vim'               " Quick shortcuts
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+
 
 " Status bar plugins
 Plug 'vim-airline/vim-airline'
@@ -46,6 +50,7 @@ Plug 'majutsushi/tagbar',           { 'on': 'TagbarToggle' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'Valloric/ListToggle'
+Plug 'tpope/vim-vinegar'
 
 Plug 'tpope/vim-fugitive'           " The git plugin
 Plug 'airblade/vim-gitgutter'       " show signs of lines add/deleted
