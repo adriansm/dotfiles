@@ -99,7 +99,7 @@ function print_row()
   eval "declare -A devinfo=${1#*=}"
   if [ -z "${devinfo[devrev]}" ]; then
     local tmp=${devinfo[dev]}
-    [ -n "${devinfo[rev]}" ] && tmp+=" (${devinfo[rev]})"
+    [ -n "${devinfo[rev]}" -a "${devinfo[rev]}" != "0" ] && tmp+=" (${devinfo[rev]})"
     devinfo[devrev]=$tmp
   fi
 
@@ -159,7 +159,7 @@ function show_android_device()
   eval "declare -A devinfo=${info#*=}"
 
   >&2 echo -n "${devinfo[dev]}"
-  [ -n "${devinfo[rev]}" ] && >&2 echo -n " (${devinfo[rev]})"
+  [ -n "${devinfo[rev]}" -a "${devinfo[rev]}" != "0" ] && echo -n " (${devinfo[rev]})"
   [ -n "${devinfo[build]}" ] && >&2 echo -n ":${devinfo[build]# }"
   >&2 echo -n ":"
   echo -n "${aserial}"
