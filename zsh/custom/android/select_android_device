@@ -1,15 +1,16 @@
+#!/bin/zsh
 #!/usr/bin/env zsh
 
-: ${FASTBOOT_BIN:=$(whence -p fastboot)}
-: ${ADB_BIN:=$(whence -p adb)}
+[ ! -x "$FASTBOOT_BIN" ] && FASTBOOT_BIN=$(whence -p fastboot)
+[ ! -x "$ADB_BIN" ] && ADB_BIN=$(whence -p adb)
 
 declare -a ANDROID_DEVICES_COLUMNS=(serial devrev build protocol transport)
 declare -A ANDROID_DEVICES_HEADERS=(
-  [serial]=" Serial No"
-  [devrev]=" Device (Revision)"
-  [build]="  Android Build"
-  [protocol]="  Mode "
-  [transport]=" Transport"
+  serial    " Serial No"
+  devrev    " Device (Revision)"
+  build     "  Android Build"
+  protocol  "  Mode "
+  transport " Transport"
 )
 
 function get_android_adb_var()
@@ -25,7 +26,7 @@ function get_android_fb_var()
   local varname=$2
   local pre=
   [ -z "$(command -v timeout)" ] || pre="timeout 1s"
-  local val=$(${=pre} fastboot -s $aserial getvar $varname 2>&1 | grep ^${varname} | sed -E "s/${varname}: //g")
+  local val=$(${=pre} $FASTBOOT_BIN -s $aserial getvar $varname 2>&1 | grep ^${varname} | sed -E "s/${varname}: //g")
   [ -n "$val" -a "$val" != "unknown variable" ] && [[ "$val" =~ ^[[:alnum:]].* ]] && echo $val
 }
 
@@ -43,9 +44,9 @@ function get_android_adb_info()
   fi
 
   declare -A devinfo=(
-    [serial]="$aserial"
-    [protocol]=adb
-    [transport]=$transport
+    serial      "$aserial"
+    protocol    "adb"
+    transport   $transport
   )
 
   if [ "$state" != "device" ]; then
@@ -74,9 +75,9 @@ function get_android_fb_info()
   fi
 
   declare -A devinfo=(
-    [serial]="$aserial"
-    [protocol]=fastboot
-    [transport]=$transport
+    serial      "$aserial"
+    protocol    "fastboot"
+    transport   $transport
   )
 
   local dev=$(get_android_fb_var $aserial product)
@@ -130,14 +131,14 @@ function list_android_devices_helper()
   shift $((OPTIND-1))
 
   if command adb start-server; then
-    local adb_devices=$(command adb devices -l | sed -n "2,100p")
+    local adb_devices=$(command $ADB_BIN devices -l | sed -n "2,100p")
     for dev in ${(f)adb_devices}; do
       local aserial=${dev[(w)1]}
       print_row "$(get_android_adb_info $aserial ${dev##*  })"
     done
   fi
 
-  local fb_devices=$(command fastboot devices -l)
+  local fb_devices=$(command $FASTBOOT_BIN devices -l)
   for dev in ${(f)fb_devices}; do
     local aserial=${dev%% *}
     print_row "$(get_android_fb_info $aserial ${dev##*  })"
@@ -157,10 +158,12 @@ function show_android_device()
   [ -n "$info" ] || return 1
   eval "declare -A devinfo=${info#*=}"
 
-  echo -n "${devinfo[dev]}"
-  [ -n "${devinfo[rev]}" ] && echo -n " (${devinfo[rev]})"
-  [ -n "${devinfo[build]}" ] && echo -n ":${devinfo[build]# }"
-  echo ":${aserial}"
+  >&2 echo -n "${devinfo[dev]}"
+  [ -n "${devinfo[rev]}" ] && >&2 echo -n " (${devinfo[rev]})"
+  [ -n "${devinfo[build]}" ] && >&2 echo -n ":${devinfo[build]# }"
+  >&2 echo -n ":"
+  echo -n "${aserial}"
+  >&2 echo
 }
 
 function select_android_device_fzf()
@@ -191,15 +194,15 @@ function select_android_device_fzf()
 
   if [ -z "$aserial" ]; then
     if [ -n "$1" ]; then
-      echo "No devices matching: \"$@\""
+      >&2 echo "No devices matching: \"$@\""
     else
-      echo "No device selected"
+      >&2 echo "No device selected"
     fi
     return 1
   fi
 
   export ANDROID_SERIAL=${aserial}
-  echo -n "Selected device: "
+  >&2 echo -n "Selected device: "
   show_android_device
 }
 
@@ -207,7 +210,7 @@ function select_android_device_list()
 {
   local devices=("${(@f)$(list_android_devices)}")
   if [ -z "$devices" ]; then
-    echo "No devices connected!"
+    >&2 echo "No devices connected!"
     return 1
   fi
 
@@ -215,28 +218,28 @@ function select_android_device_list()
   local selection=$1
   declare -a serial_list
   if [ -z "$selection" ]; then
-    echo "Choose from connected devices"
+    >&2 echo "Choose from connected devices"
 
     for dev in ${devices}; do
       let counter=counter+1
       serial_list[$counter]=${dev%% *}
 
-      echo "${counter}. ${dev}"
+      >&2 echo "${counter}. ${dev}"
     done
 
     read selection\?"Select option: "
   fi
   echo
   if ! [[ "$selection" =~ ^[0-9]+$ ]]; then
-    echo "Invalid option \"$selection\". Should be numeric"
+    >&2 echo "Invalid option \"$selection\". Should be numeric"
     return 1
   elif [ "${serial_list[$selection]}" = "" ]; then
-    echo "Invalid option \"$selection\""
+    >&2 echo "Invalid option \"$selection\""
     return 1
   fi
 
   export ANDROID_SERIAL=${serial_list[$selection]}
-  echo -n "Selected device #${selection}: "
+  >&2 echo -n "Selected device #${selection}: "
   show_android_device
 }
 
