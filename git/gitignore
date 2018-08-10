@@ -1,6 +1,8 @@
 # Compiled source
 *.pyc
 *.pyo
+*.o
+*.d
 
 # IDE specific
 dwsync.xml
