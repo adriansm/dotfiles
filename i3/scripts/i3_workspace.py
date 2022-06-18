@@ -48,7 +48,7 @@ class Workspace():
     return None
 
   def parse_name(self, name):
-    data = re.match(r'(?P<num>\d+):?(?P<icons>([ ][^A-Za-z])*) ??(?P<shortname>\w+[ ]?$)?', name).groupdict()
+    data = re.match(r'(?P<num>\d+):?(?P<icons>([ ][^A-Za-z])*) ?(?P<shortname>\w+[ ]?$)?', name).groupdict()
 
     self.name_parts['num'] = int(data['num'])
     if data['icons']:
@@ -124,11 +124,10 @@ class Workspace():
     self.update(update)
 
   def set_suggestedname(self, **kwargs):
-    name = kwargs.get('name')
-    icons = kwargs.get('icons')
-    update = {}
-    if name:
-      update['suggestedname'] = name
+    update = {
+        'suggestedname': kwargs.get('name'),
+    }
+    icons = kwargs.get('icons', None)
     if icons is not None:
       update['icons'] = icons
 
