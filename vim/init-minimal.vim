@@ -100,10 +100,16 @@ set smartcase           " do not ignore if search pattern has CAPS
 "
 " Clipboard Management
 "
-set clipboard=unnamed,unnamedplus
+" set clipboard=unnamed,unnamedplus
+set clipboard+=unnamedplus
 
-vnoremap <leader>y :OSCYank<CR>
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
+vnoremap <leader>y :OSCyank<CR>
+noremap <c-c> "+y
+
+
+if !exists('g:vscode')
+  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
+endif
 
 "Paste toggle - when pasting something in, don't indent.
 set pastetoggle=<F3>
