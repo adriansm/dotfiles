@@ -48,7 +48,7 @@ class Workspace():
     return None
 
   def parse_name(self, name):
-    data = re.match(r'(?P<num>\d+):?(?P<icons>([ ][^A-Za-z])*) ?(?P<shortname>\w+[ ]?$)?', name).groupdict()
+    data = re.match(r'(?P<num>\d+):?(?P<icons>([ ][^A-Za-z])*) ??(?P<shortname>\w+[ ]?$)?', name).groupdict()
 
     self.name_parts['num'] = int(data['num'])
     if data['icons']:
