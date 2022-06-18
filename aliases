@@ -38,8 +38,7 @@ function dirdiff()
     vim $@ +DirDiff $DIR1 $DIR2
 }
 
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-else
+if ! [[ "$OSTYPE" =~ ^darwin ]]; then
     alias ls='ls --color'
     test "$(command -v vi)" && alias vi="rrr vi"
     test "$(command -v vim)" && alias vim="rrr vim"
