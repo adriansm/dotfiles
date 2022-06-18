@@ -1,7 +1,3 @@
-[user]
-	email = adriansm@gmail.com
-	name = Adrian Salido
-
 [core]
 	pager = diff-so-fancy | less --tabs=8 -RFX
 	whitespace = fix,trailing-space,space-before-tabs,cr-at-eol
@@ -57,6 +53,7 @@
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
+	renamelimit = 9999
 
 [mergetool]
 	prompt = false
