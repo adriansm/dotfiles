@@ -107,8 +107,8 @@ local on_attach = function(client, bufnr)
 end
 
 function M.setup()
-  nvim_lsp = prequire('lspconfig')
-  if not nvim_lsp then
+  lspconfig = prequire('lspconfig')
+  if not lspconfig then
     return
   end
 
@@ -118,27 +118,15 @@ function M.setup()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
   end
 
-  local lsp_installer = prequire('nvim-lsp-installer')
-  if lsp_installer then
-    local on_server_ready = function(server)
-        local opts = {
-          on_attach = on_attach,
-          capabilities = capabilities
-        }
-
-        -- (optional) Customize the options passed to the server
-        -- if server.name == "tsserver" then
-        --     opts.root_dir = function() ... end
-        -- end
-
-        -- This setup() function is exactly the same as lspconfig's setup function.
-        -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-        server:setup(opts)
+  local lspinstaller = prequire('nvim-lsp-installer')
+  if lspinstaller then
+    lspinstaller.setup{}
+    for _, server in ipairs(lspinstaller.get_installed_servers()) do
+      lspconfig[server.name].setup{
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
     end
-
-    -- Register a handler that will be called for all installed servers.
-    -- Alternatively, you may also register handlers on specific server instances instead (see example below).
-    lsp_installer.on_server_ready(on_server_ready)
   end
 end
 
