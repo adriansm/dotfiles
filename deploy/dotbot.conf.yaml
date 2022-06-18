@@ -50,7 +50,6 @@
     ~/.ssh/rc: ssh/rc
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.urxvt:
     ~/.vim:
     ~/.vimrc: vim/init.vim
     ~/.wgetrc:
@@ -75,6 +74,7 @@
             - the_silver_searcher
             - ctags
 
+# Simple packages that don't have X/wm dependency
 - if:
     os: linux
     actions:
@@ -82,6 +82,7 @@
             - build-essential
             - exuberant-ctags
             - neovim
+            - rsync
             - ruby
             - silversearcher-ag
             - tmux
@@ -104,6 +105,7 @@
             ~/.local/share/fonts:
                 glob: true
                 path: fonts/*
+            ~/.urxvt:
             ~/.xsessionrc:
             ~/.xsettingsd:
             ~/.Xresources:
@@ -124,6 +126,8 @@
             - xsecurelock
             - xsettingsd
             - xss-lock
+
+# Gnome settings if dconf is installed
 - if:
     and:
         os: linux
