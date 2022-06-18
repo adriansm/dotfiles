@@ -264,7 +264,8 @@ for_window [class="^Google-chrome$|chrome-personal"] border none
 for_window [class="^Mate|^Blueman|^Goobuntu"] floating enable
 for_window [class="prodcertstatus"] floating enable
 for_window [instance="XDialogPeer"] floating enable
-for_window [instance="Emulator"] floating enable
+for_window [instance="^Emulator$"] floating enable
+for_window [instance="^com-glavsoft-viewer-Viewer$"] floating enable
 
 # Android bug tool
 for_window [class="Google-chrome" instance="^crx_loihechlnnjagmecjghjnghfmobgalmg$"] floating enable
