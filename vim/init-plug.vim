@@ -30,16 +30,18 @@ endif
 " Source Code Editor
 "
 
-Plug 'scrooloose/nerdcommenter'         " Easily adds comments
+" Plug 'scrooloose/nerdcommenter'         " Easily adds comments
 " Plug 'tpope/vim-commentary'             " Easily add comments
+Plug 'tomtom/tcomment_vim'
 
 
 "
 " Code Browsing
 "
 Plug 'tpope/vim-unimpaired'             " Quick navigation using []
-Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch.vim'         " Highlight incremental searches
 Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'wellle/targets.vim'               " Quick shortcuts
 
 
