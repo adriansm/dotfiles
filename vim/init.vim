@@ -8,11 +8,11 @@ else
 endif
 
 call plug#begin(expand($VIMHOME.'/plugged'))
-
 source $VIMHOME/init-plug.vim   " All plugins required
+" Initialize plugin system
+call plug#end()
+
 source $VIMHOME/init-coding.vim " All required to get coding including syntax and code completion
 source $VIMHOME/init-ui.vim     " All UI components such as color scheme
 source $VIMHOME/init-ide.vim    " Added components to help navigate like IDE
 
-" Initialize plugin system
-call plug#end()

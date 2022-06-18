@@ -48,22 +48,84 @@ endif
 nnoremap <expr> <leader>tg ':!ctags -f '.projectroot#guess().'/tags -R '.projectroot#guess().' <cr><cr>'
 
 " ** YouCompleteMe **
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoTo<CR>
-nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <C-q>      :YcmCompleter GetDoc<CR>
+if get(g:, 'lang_completion', '') == 'ycm'
+  nnoremap <silent>gs :YcmCompleter GoToDeclaration<CR>
+  nnoremap <silent>gd :YcmCompleter GoToDefinition<CR>
+  nnoremap <leader>gg :YcmCompleter GoTo<CR>
+  nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+  nnoremap <silent>gh :YcmCompleter GetDoc<CR>
 
-nnoremap <F9>       :YcmForceCompileAndDiagnostics<CR>
+  nnoremap <F9>       :YcmForceCompileAndDiagnostics<CR>
 
-"let g:ycm_confirm_extra_conf                        = 0
-let g:ycm_global_ycm_extra_conf                      = '~/.vim/ycm/ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files        = 0
-let g:ycm_always_populate_location_list              = 1
-"let g:ycm_autoclose_preview_window_after_completion  = 1
-let g:ycm_autoclose_preview_window_after_insertion   = 1
-let g:ycm_min_num_of_chars_for_completion            = 4
-let g:ycm_collect_identifiers_from_tags_files        = 1
+  let g:ycm_confirm_extra_conf                        = 0
+  let g:ycm_global_ycm_extra_conf                      = '~/.vim/ycm/ycm_extra_conf.py'
+  let g:ycm_collect_identifiers_from_tags_files        = 0
+  let g:ycm_always_populate_location_list              = 1
+  "let g:ycm_autoclose_preview_window_after_completion  = 1
+  let g:ycm_autoclose_preview_window_after_insertion   = 1
+  let g:ycm_min_num_of_chars_for_completion            = 4
+  let g:ycm_collect_identifiers_from_tags_files        = 1
+elseif get(g:, 'lang_completion', '') == 'lps'
+  "let g:LanguageClient_serverCommands = {
+  "    \ 'cpp': ['/usr/local/google/home/salidoa/workspace/tools/llvm-6.0.1.src/build/bin/clangd'],
+  "    \ 'c': ['/usr/local/google/home/salidoa/workspace/tools/llvm-6.0.1.src/build/bin/clangd']
+  "    \ }
+  "let g:LanguageClient_serverCommands = {
+  "    \ 'cpp': ['clangd'],
+  "    \ 'c': ['clangd'],
+  "    \ 'vim': ['vim']
+  "    \ }
+  let g:LanguageClient_serverCommands = {
+    \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
+    \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
+    \ }
+
+  let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+  let g:LanguageClient_settingsPath = expand($VIMHOME.'/settings.json')
+  "set completefunc=LanguageClient#complete
+  "set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
+  nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+  nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+  nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+
+  "augroup LanguageClient_config
+  "  au!
+  "  au BufEnter * let b:Plugin_LanguageClient_started = 0
+  "  au User LanguageClientStarted setl signcolumn=yes
+  "  au User LanguageClientStarted let b:Plugin_LanguageClient_started = 1
+  "  au User LanguageClientStopped setl signcolumn=auto
+  "  au User LanguageClientStopped let b:Plugin_LanguageClient_stopped = 0
+  "  au CursorMoved * if b:Plugin_LanguageClient_started | call LanguageClient_textDocument_hover() | endif
+  "augroup END
+
+  let g:LanguageClient_loggingLevel = 'INFO'
+  let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+  let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
+
+  let g:deoplete#enable_at_startup = 1
+  "if exists('*deoplete#custom#option')
+    call deoplete#custom#option({
+          \ 'auto_complete_delay': 200,
+          \ 'smart_case': v:true,
+          \ 'complete_method': 'complete',
+          \ 'ignore_sources': {'_': ['buffer', 'around']}
+          \ })
+    call deoplete#custom#source('LanguageClient',
+              \ 'min_pattern_length',
+              \ 2)
+    " let g:deoplete#disable_auto_complete = 1
+    "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    "" deoplete tab-complete
+    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    inoremap <expr><S-tab> pumvisible() ? "\<c-p>" : "\<S-tab>"
+    inoremap <expr><CR> pumvisible() ? deoplete#close_popup() : "\<CR>"
+  "endif
+endif
+
 
 " ** Syntastic **
 function! DetectCheckPatch(file)
@@ -104,7 +166,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ -f\ --nogroup\ --nocolor
   "set grepprg=ag\ --vimgrep
 
   " Replace ack searcher
@@ -115,7 +177,7 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching  = 0
+  let g:ctrlp_use_caching  = 1
 endif
 
 " quick search with ctrl-shift-K binding
@@ -127,11 +189,13 @@ nnoremap <leader>fr :Grepper -open -dir repo,filecwd -cword -noprompt<cr>
 nnoremap <leader>fs :Grepper -open -side -dir repo,filecwd -cword -noprompt<cr>
 
 let g:grepper               = {
-      \ 'tools':          ['git', 'ag', 'rg'],
+      \ 'tools':          ['rg', 'ag', 'git'],
       \ 'jump':           1,
       \ 'simple_prompt':  1,
       \ 'quickfix':       1,
-      \ 'git':            { 'grepprg': 'git grep --no-color -nI' }
+      \ 'git':            { 'grepprg': 'git grep --no-color -nI' },
+      \ 'rg':             { 'grepprg': 'rg -L --vimgrep' },
+      \ 'ag':             { 'grepprg': 'ag -f --vimgrep' }
       \ }
 
 " inc search plugin

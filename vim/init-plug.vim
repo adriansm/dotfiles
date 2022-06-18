@@ -44,7 +44,11 @@ Plug 'sheerun/vim-wombat-scheme'
 "*** Code Browse ***
 
 Plug 'ctrlpvim/ctrlp.vim'           " Fast file switching
-Plug 'junegunn/fzf',                { 'dir': '~/.fzf', 'do': './install --key-bindings --completion' }
+Plug 'junegunn/fzf',                {
+      \ 'dir': '~/.fzf',
+      \ 'do': './install --key-bindings --completion'
+      \ }
+Plug 'junegunn/fzf.vim'
 
 Plug 'majutsushi/tagbar',           { 'on': 'TagbarToggle' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
@@ -63,13 +67,31 @@ Plug 'bogado/file-line'             " Go to line when opening with 'vim file:lin
 Plug 'MattesGroeger/vim-bookmarks'  " set vim bookmarks
 
 if has('python')
-Plug 'SirVer/ultisnips'
-" If enabling google's version need to disable this
-if get(g:, 'use_google_ycm', 0) == 0
-  " Code Completion
-  Plug 'Valloric/YouCompleteMe',    { 'do': './install.py --clang-completer --java-completer' }
+  Plug 'SirVer/ultisnips'
+  if get(g:, 'lang_completion', '') == 'ycm'
+    " Code Completion
+    Plug 'Valloric/YouCompleteMe',    {
+          \ 'do': './install.py --clang-completer --java-completer'
+          \ }
+    "Plug 'rdnetto/YCM-Generator',      { 'branch': 'stable'}
+  endif
 endif
-"Plug 'rdnetto/YCM-Generator',      { 'branch': 'stable'}
+
+if get(g:, 'lang_completion', '') == 'lps'
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+if has('python3')
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+endif
 endif
 
 "*** Others ***

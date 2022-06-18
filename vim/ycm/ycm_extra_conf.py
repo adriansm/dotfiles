@@ -96,7 +96,8 @@ BL_FLAGS = [
   '-IQcomModulePkg/Include/Library', # TODO: make this dynamic
 ]
 
-PATH_FLAGS = ['-isystem', '-I', '-iquote', '--sysroot=', '-Wp,-MD,']
+PATH_FLAGS = ['-isystem', '-I', '-iquote', '--sysroot=', '-Wp,-MD,', '-include']
+BLACKLIST_FLAGS = ['-save-temps']
 SOURCE_EXTENSIONS = ['.c', '.cpp', '.cxx', '.cc', '.m', '.mm']
 SOURCE_DIRECTORIES = ['.', 'src', 'lib']
 HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh']
@@ -153,6 +154,9 @@ def ProcessFlags(compiler_flags, working_directory):
   make_next_absolute = False
 
   for flag in flags:
+    if flag in BLACKLIST_FLAGS:
+      continue
+
     new_flag = flag
 
     if flag.startswith('@'):
