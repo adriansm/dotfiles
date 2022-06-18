@@ -16,6 +16,26 @@ if [[ -f $HOME/.aliases.local ]]; then
     source ~/.aliases.local
 fi
 
+function run_realpath() {
+    local exe=$1
+    shift 1
+    local args=()
+    for i in $@; do
+        if [[ -h $i ]]; then
+            args+=$(realpath $i)
+        else
+            args+=$i
+        fi
+    done
+
+    command $exe -p "${args[@]}"
+}
+
+alias vi="run_realpath vi"
+alias vim="run_realpath vim"
+alias nvim="run_realpath nvim"
+alias gvim="run_realpath gvim"
+
 function fixtmux() {
     eval $(tmux show-env -s)
 }
