@@ -32,7 +32,11 @@ endif
 
 " Plug 'scrooloose/nerdcommenter'         " Easily adds comments
 " Plug 'tpope/vim-commentary'             " Easily add comments
-Plug 'tomtom/tcomment_vim'
+if has('nvim')
+  Plug 'numToStr/Comment.nvim'
+else
+  Plug 'tomtom/tcomment_vim'
+endif
 
 
 "
@@ -170,7 +174,7 @@ if get(g:, 'lang_completion', '') == 'coc'
   Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
 
-if get(g:, 'lang_completion', '') == 'nvim'
+if get(g:, 'lang_completion', '') == 'nvim' && has('nvim')
   " A collection of configurations for Neovim’s built-in LSP
   Plug 'neovim/nvim-lspconfig'
   Plug 'williamboman/nvim-lsp-installer'

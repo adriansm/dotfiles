@@ -1,7 +1,7 @@
 if !exists('g:lspconfig') | finish | endif
 
 lua << EOF
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 EOF
 
 lua << EOF
@@ -24,6 +24,7 @@ local on_attach = function(client, bufnr)
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   if vim.g.loaded_lspsaga then
+    buf_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
     buf_set_keymap('n', 'gh', '<Cmd>Lspsaga hover_doc<CR>', opts)
     buf_set_keymap('n', 'gr', '<Cmd>Lspsaga lsp_finder<CR>', opts)
     buf_set_keymap('n', 'gp', '<Cmd>Lspsaga preview_definition<CR>', opts)
@@ -33,7 +34,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('v', '<leader>ca', '<cmd>Lspsaga range_code_action<CR>', opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', opts)
   else
-    --buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -57,7 +58,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
   -- formatting
-  if client.name == 'tsserver' then
+  if client.name == 'tsserver' or client.name == 'clangd' then
     client.resolved_capabilities.document_formatting = false
   end
 
