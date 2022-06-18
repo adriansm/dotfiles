@@ -11,7 +11,7 @@ floating_modifier $super
 #autostart
 exec --no-startup-id xsettingsd &
 exec --no-startup-id compton --fading --daemon --paint-on-overlay --backend glx
-exec dex -ae i3
+exec --no-startup-id dex -ae i3
 
 set $i3lock ~/.config/i3/i3_lock.sh
 # Lock screen after 5 mins of idle
@@ -36,7 +36,6 @@ bindsym Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' -e 'viewnior $f'
 bindsym --release Control+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --select -e 'viewnior $f'
 bindsym $super+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --focused -e 'viewnior $f'
 bindsym $alt+Control+l exec xset s activate
-bindsym $super+n exec google-chrome
 bindsym $super+Shift+f exec thunar;workspace 3;focus
 
 #change volume
@@ -120,28 +119,45 @@ bindsym $alt+Control+Left workspace prev
 bindsym $alt+Control+j workspace next
 bindsym $alt+Control+k workspace prev
 
-bindsym $super+1 workspace 1
-bindsym $super+2 workspace 2
-bindsym $super+3 workspace 3
-bindsym $super+4 workspace 4
-bindsym $super+5 workspace 5
-bindsym $super+6 workspace 6
-bindsym $super+7 workspace 7
-bindsym $super+8 workspace 8
-bindsym $super+9 workspace 9
-bindsym $super+0 workspace 10
+# worksace shortcuts
+set $personal_chrome google-chrome --user-data-dir=~/.config/chrome-personal --class=chrome-personal
+
+bindsym $super+Shift+n exec $personal_chrome
+bindsym $super+n exec google-chrome
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "10:personal"
+
+bindsym $super+1 workspace $ws1
+bindsym $super+2 workspace $ws2
+bindsym $super+3 workspace $ws3
+bindsym $super+4 workspace $ws4
+bindsym $super+5 workspace $ws5
+bindsym $super+6 workspace $ws6
+bindsym $super+7 workspace $ws7
+bindsym $super+8 workspace $ws8
+bindsym $super+9 workspace $ws9
+bindsym $super+0 workspace $ws0; exec "(ps -C chrome -o %a | grep chrome-personal) || $personal_chrome"
 
 # move focused container to workspace
-bindsym $super+Shift+1 move container to workspace 1
-bindsym $super+Shift+2 move container to workspace 2
-bindsym $super+Shift+3 move container to workspace 3
-bindsym $super+Shift+4 move container to workspace 4
-bindsym $super+Shift+5 move container to workspace 5
-bindsym $super+Shift+6 move container to workspace 6
-bindsym $super+Shift+7 move container to workspace 7
-bindsym $super+Shift+8 move container to workspace 8
-bindsym $super+Shift+9 move container to workspace 9
-bindsym $super+Shift+0 move container to workspace 10
+bindsym $super+Shift+1 move container to workspace $ws1
+bindsym $super+Shift+2 move container to workspace $ws2
+bindsym $super+Shift+3 move container to workspace $ws3
+bindsym $super+Shift+4 move container to workspace $ws4
+bindsym $super+Shift+5 move container to workspace $ws5
+bindsym $super+Shift+6 move container to workspace $ws6
+bindsym $super+Shift+7 move container to workspace $ws7
+bindsym $super+Shift+8 move container to workspace $ws8
+bindsym $super+Shift+9 move container to workspace $ws9
+bindsym $super+Shift+0 move container to workspace $ws0
 
 # reload the configuration file
 bindsym $super+Shift+c restart
@@ -185,7 +201,7 @@ bar {
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 1
 for_window [class=Viewnior|Gnome-calculator] floating enable
-for_window [class=google-chrome] border none
+for_window [class=google-chrome|chrome-personal] border none
 
 # colour of border, background, text, indicator, and child_border
 client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
