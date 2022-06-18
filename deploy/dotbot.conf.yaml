@@ -19,7 +19,6 @@
   ]
 
 - link:
-    ~/.dotfiles: ''
     ~/.ackrc:
     ~/.aliases:
     ~/.agignore:
@@ -93,4 +92,3 @@
     - the_silver_searcher
     - tmux
     - vim
-    - zsh

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 CONFIG="deploy/dotbot.conf.yaml"
+APT_BINS="git gcc python ruby zsh"
+APT_PKGS="git-core build-essential python ruby zsh"
+
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 DOTBOT_DIR="$BASEDIR/dotbot"
@@ -19,10 +22,21 @@ for p in $PLUGINS; do
 	DOTBOT_ARGS+=" --plugin-dir $PLUGIN_DIR/$p"
 done
 
+function install_linux()
+{
+    which $APT_BINS 1>/dev/null && return
+    echo "Installing required packages"
+    sudo apt-get install -y $APT_PKGS
+}
+
 function run_dotbot()
 {
     "${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" $DOTBOT_ARGS $@
 }
+
+if [[ "$OSTYPE" == "linux"* ]]; then
+    install_linux
+fi
 
 cd "${BASEDIR}"
 if [ "$EUID" -ne 0 ]; then
