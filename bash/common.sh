@@ -10,5 +10,7 @@ export HISTIGNORE="&:bg:fg:ll:h"
 
 export PATH=~/bin:~/.local/bin:$PATH
 
-## Force tmux to start in 256 color mode ##
-alias tmux='tmux -2'
+# aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash

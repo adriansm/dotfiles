@@ -11,7 +11,7 @@
         stdout: false                         # ignore stdout of rsync process
         stderr: false                         # ignore stderr of rsync process
 
-- clean: ['~', '~/nano.d', '~/.local/bin', '~/.config.nvim']
+- clean: ['~', '~/.nano.d', '~/.local/bin', '~/.config/nvim']
 
 - link:
     ~/.dotfiles: ''
@@ -58,3 +58,24 @@
     - [git submodule update --init --recursive, Installing submodules]
     - [vim +PlugInstall +qall, Installing Vim Plugins]
 
+- tap:
+    - caskroom/fonts
+
+- brew:
+    - ctags
+    - cmake
+    - neovim
+    - ripgrep
+    - rsync
+    - the_silver_searcher
+    - tmux
+    - vim
+    - zsh
+
+- cask:
+    - font-anonymouspro-nerd-font-mono
+    - font-anonymouspro-nerd-font
+    - font-sourcecodepro-nerd-font-mono
+    - font-sourcecodepro-nerd-font
+    - font-robotomono-nerd-font
+    - font-robotomono-nerd-font-mono

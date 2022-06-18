@@ -43,10 +43,15 @@ typeset -gU cdpath fpath mailpath path
 # )
 
 # Set the list of directories that Zsh searches for programs.
+local_path=()
+[ -d $HOME/bin ] && local_path+=( $HOME/bin )
+[ -d $HOME/.local ] && local_path+=( $HOME/.local/{bin,sbin} )
+[ -d $HOME/.linuxbrew ] && local_path+=( $HOME/.linuxbrew/{bin,sbin} )
+[ -d $HOME/.homebrew ] && local_path+=( $HOME/.homebrew/{bin,sbin} )
+local_path+=( /usr/local/{bin,sbin} )
+
 path=(
-  $HOME/bin
-  $HOME/.local/bin
-  /usr/local/{bin,sbin}
+  $local_path
   $path
 )
 

@@ -9,6 +9,7 @@ PLUGIN_DIR="$BASEDIR/plugins"
 DOTBOT_BIN="$DOTBOT_DIR/bin/dotbot"
 
 PLUGINS="
+    dotbot-brew
     dotbot-sync
 "
 
@@ -31,18 +32,3 @@ else
 fi
 run_dotbot "${@}"
 
-# Only run platform specific configs if there are no arguments
-if [ $# -eq 0 ]; then
-    echo
-    case $OSTYPE in
-    darwin*)
-        echo "Running mac specific configuration..."
-        run_dotbot -c deploy/mac.conf.yaml --plugin-dir "$PLUGIN_DIR/dotbot-brew" "${@}"
-        ;;
-    linux*)
-        echo "Do you want to run Linux deploy script? May prompt for root password! (y/n)"
-        read -n 1 REPLY
-        [ "$REPLY" = "y" -o -z "$REPLY" ] && $BASEDIR/deploy/install_linux
-        ;;
-    esac
-fi
