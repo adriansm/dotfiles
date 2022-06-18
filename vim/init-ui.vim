@@ -44,11 +44,11 @@ highlight LineNr ctermfg=darkgrey guifg=#050505
 "
 
 " toggle relative numbers for active buffers
-augroup numbertoggle
-  autocmd!
-  autocmd WinEnter,BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd WinLeave,BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
+"augroup numbertoggle
+  "autocmd!
+  "autocmd WinEnter,BufEnter,FocusGained,InsertLeave * set relativenumber
+  "autocmd WinLeave,BufLeave,FocusLost,InsertEnter   * set norelativenumber
+"augroup END
 
 " Set cursor line only on selected window
 autocmd WinEnter * setlocal cursorline

@@ -13,7 +13,7 @@
 Plug 'editorconfig/editorconfig-vim'    " Syntax using .editorconfig files
 
 Plug 'godlygeek/tabular'                " Tabular helper (required by vim-markdown)
-Plug 'scrooloose/syntastic'             " Checks syntax
+"Plug 'scrooloose/syntastic'             " Checks syntax
 
 Plug 'sheerun/vim-polyglot'             " Language Pack
 Plug 'nickhutchinson/vim-cmake-syntax', { 'for': 'cmake' }
@@ -99,7 +99,7 @@ Plug 'MattesGroeger/vim-bookmarks'  " set vim bookmarks
 
 if has('python')
   Plug 'SirVer/ultisnips'
-  if get(g:, 'lang_completion', '') == 'ycm'
+  if get(g:, 'lang_completion') == 'ycm'
     " Code Completion
     Plug 'Valloric/YouCompleteMe',    {
           \ 'do': './install.py --clang-completer --java-completer'
@@ -108,7 +108,7 @@ if has('python')
   endif
 endif
 
-if get(g:, 'lang_completion', '') == 'lps'
+if get(g:, 'lang_completion') == 'lps'
   Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -123,6 +123,10 @@ if has('python3')
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
 endif
+endif
+
+if get(g:, 'lang_completion') == 'coc'
+  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 endif
 
 
@@ -140,3 +144,6 @@ Plug 'tpope/vim-sensible'           " Defaults everyone can agree on
 "
 set rtp^=$VIMHOME/custom/adrian.vim
 
+if has('python3')
+Plug 'Shougo/denite.nvim'
+endif

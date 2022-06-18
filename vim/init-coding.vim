@@ -60,7 +60,7 @@ nnoremap <expr> <leader>tg ':!ctags -f '.projectroot#guess().'/tags -R '.project
 "
 " YouCompleteMe
 "
-if get(g:, 'lang_completion', '') == 'ycm'
+if get(g:, 'lang_completion') == 'ycm'
   nnoremap <silent>gs :YcmCompleter GoToDeclaration<CR>
   nnoremap <silent>gd :YcmCompleter GoToDefinition<CR>
   nnoremap <leader>gg :YcmCompleter GoTo<CR>
@@ -85,9 +85,43 @@ endif
 
 
 "
+" COC options
+"
+
+if get(g:, 'lang_completion', 'coc') == 'coc'
+  " Remap keys for gotos
+  nmap <silent> <space>d <Plug>(coc-definition)
+  nmap <silent> <space>y <Plug>(coc-type-definition)
+  nmap <silent> <space>i <Plug>(coc-implementation)
+  nmap <silent> <space>r <Plug>(coc-references)
+  nmap <silent> <space>h :call CocAction('doHover')<CR>
+  nmap <space>m <Plug>(coc-rename)
+  vmap <space>f <Plug>(coc-format-selected)
+
+  " use <tab> for trigger completion and navigate to the next complete item
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+
+  " use <c-space>for trigger completion
+  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+endif
+
+
+"
 " Language Server Completion
 "
-if get(g:, 'lang_completion', '') == 'lps'
+if get(g:, 'lang_completion') == 'lps'
   "let g:LanguageClient_serverCommands = {
   "    \ 'cpp': ['/usr/local/google/home/salidoa/workspace/tools/llvm-6.0.1.src/build/bin/clangd'],
   "    \ 'c': ['/usr/local/google/home/salidoa/workspace/tools/llvm-6.0.1.src/build/bin/clangd']

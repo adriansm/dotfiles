@@ -20,6 +20,7 @@ set number relativenumber   " show line numbers
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set visualbell          " use visual bell instead of beeping
+set hidden
 
 
 "
@@ -95,6 +96,7 @@ set pastetoggle=<F3>
 "
 set whichwrap=h,l,~,[,] " wrap around at edges
 set nobackup            " do not write backup files
+set nowritebackup
 set noswapfile          " do not write .swp files
 
 set history=50
