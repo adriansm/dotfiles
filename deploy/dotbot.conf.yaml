@@ -33,6 +33,7 @@
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.config/oni/config.tsx: oni/config.tsx
     ~/.config/oni/.editorconfig: oni/editorconfig
+    ~/.config/termite:
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore

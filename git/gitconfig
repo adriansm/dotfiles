@@ -83,7 +83,7 @@
 	co0 = checkout HEAD --
 	# fetch
 	f   = fetch
-	fm  = pull
+	fm  = pull --rebase
 	fo  = fetch origin
 	# merge
 	m   = merge
