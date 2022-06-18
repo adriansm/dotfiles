@@ -1,10 +1,15 @@
-[".zplug"]
+[".bash/git-aware-prompt"]
 type = "archive"
-url = "https://github.com/zplug/zplug/archive/refs/heads/master.zip"
+url = "https://github.com/jimeh/git-aware-prompt.git/archive/refs/heads/master.zip"
 exact = true
 stripComponents = 1
 [".tmux/plugins"]
 type = "archive"
 url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip"
+exact = true
+stripComponents = 1
+[".zplug"]
+type = "archive"
+url = "https://github.com/zplug/zplug/archive/refs/heads/master.zip"
 exact = true
 stripComponents = 1
