@@ -101,7 +101,7 @@ Plug 'MattesGroeger/vim-bookmarks'  " set vim bookmarks
 
 if has('python')
   Plug 'SirVer/ultisnips'
-  if get(g:, 'lang_completion') == 'ycm'
+  if get(g:, 'lang_completion', '') == 'ycm'
     " Code Completion
     Plug 'Valloric/YouCompleteMe',    {
           \ 'do': './install.py --clang-completer --java-completer'
@@ -110,7 +110,7 @@ if has('python')
   endif
 endif
 
-if get(g:, 'lang_completion') == 'lps'
+if get(g:, 'lang_completion', '') == 'lps'
   Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -127,7 +127,7 @@ if has('python3')
 endif
 endif
 
-if get(g:, 'lang_completion') == 'coc'
+if get(g:, 'lang_completion', '') == 'coc'
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 endif
 
