@@ -52,7 +52,7 @@ function! LoadPluginOptions()
     "   <leader>o - Browse list of files in current directory
     "   <leader>p - Browse list of files in project directory
     nmap ; :Denite buffer -split=floating<CR>
-    nmap <leader>o :Denite file/rec -split=floating<CR>
+    nmap <leader>o :Denite file/rec -split=floating<CR>i
     nmap <leader>p :DeniteProjectDir file/rec -split=floating<CR>
 
     if executable('ag')
@@ -69,20 +69,6 @@ function! LoadPluginOptions()
       call denite#custom#var('grep', 'separator', ['--'])
       call denite#custom#var('grep', 'final_opts', [])
     endif
-
-    " Change mappings.
-    call denite#custom#map(
-          \ 'insert',
-          \ '<C-j>',
-          \ '<denite:move_to_next_line>',
-          \ 'noremap'
-          \)
-    call denite#custom#map(
-          \ 'insert',
-          \ '<C-k>',
-          \ '<denite:move_to_previous_line>',
-          \ 'noremap'
-          \)
 
     " Custom options for Denite
     "   auto_resize             - Auto resize the Denite window height automatically.
@@ -105,6 +91,8 @@ function! LoadPluginOptions()
 
     autocmd FileType denite call s:denite_my_settings()
     function! s:denite_my_settings() abort
+      let w:persistent_cursorline = 1
+
       nnoremap <silent><buffer><expr> <CR>
             \ denite#do_map('do_action')
       nnoremap <silent><buffer><expr> d
@@ -134,6 +122,10 @@ function! LoadPluginOptions()
     autocmd FileType denite-filter call s:denite_filter_my_settings()
     function! s:denite_filter_my_settings() abort
       imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+      imap <silent><buffer> <C-j> <Plug>(denite_filter_quit)j
+      imap <silent><buffer> <C-k> <Plug>(denite_filter_quit)k
+      nmap <silent><buffer> <C-j> <Plug>(denite_filter_quit)j
+      nmap <silent><buffer> <C-k> <Plug>(denite_filter_quit)k
     endfunction
   endif  " exists(":Denite")
 endfunction

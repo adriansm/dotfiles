@@ -21,6 +21,7 @@ set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set visualbell          " use visual bell instead of beeping
 set hidden
+set cursorline          " Show cursor line
 
 " Better display for messages
 set cmdheight=2

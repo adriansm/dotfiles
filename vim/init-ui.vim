@@ -50,12 +50,6 @@ highlight LineNr ctermfg=darkgrey guifg=#050505
   "autocmd WinLeave,BufLeave,FocusLost,InsertEnter   * set norelativenumber
 "augroup END
 
-" Set cursor line only on selected window
-autocmd WinEnter * setlocal cursorline
-autocmd BufEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-setlocal cursorline
-
 " Call method on window enter
 augroup WindowManagement
   autocmd!
@@ -141,3 +135,14 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>[ <Plug>AirlineSelectPrevTab
 nmap <leader>] <Plug>AirlineSelectNextTab
+
+"
+" Terminal options
+"
+tnoremap <Esc> <C-\><C-n>
+tnoremap <silent> <C-h> <C-\><C-N>:TmuxNavigateLeft<cr>
+tnoremap <silent> <C-j> <C-\><C-N>:TmuxNavigateDown<cr>
+tnoremap <silent> <C-k> <C-\><C-N>:TmuxNavigateUp<cr>
+tnoremap <silent> <C-l> <C-\><C-N>:TmuxNavigateRight<cr>
+
+autocmd TermOpen * setlocal nonumber norelativenumber

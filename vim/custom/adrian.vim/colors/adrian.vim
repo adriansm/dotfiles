@@ -150,3 +150,22 @@ if has('nvim')
   hi TermCursorNC ctermfg=NONE ctermbg=NONE gui=NONE cterm=NONE
   hi Whitespace guifg=#3a3a3a ctermfg=237 ctermbg=NONE gui=NONE cterm=NONE
 endif
+
+" Terminal colors
+let g:terminal_color_0 = '#3f3f3f'
+let g:terminal_color_1 = '#705050'
+let g:terminal_color_2 = '#60b48a'
+let g:terminal_color_3 = '#dfaf8f'
+let g:terminal_color_4 = '#506070'
+let g:terminal_color_5 = '#dc8cc3'
+let g:terminal_color_6 = '#8cd0d3'
+let g:terminal_color_7 = '#dcdccc'
+let g:terminal_color_8 = '#709080'
+let g:terminal_color_9 = '#dca3a3'
+let g:terminal_color_10 = '#c3bf9f'
+let g:terminal_color_11 = '#f0dfaf'
+let g:terminal_color_12 = '#94bff3'
+let g:terminal_color_13 = '#ec93d3'
+let g:terminal_color_14 = '#93e0e3'
+let g:terminal_color_15 = '#ffffff'
+
