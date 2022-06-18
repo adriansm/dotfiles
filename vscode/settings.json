@@ -18,7 +18,9 @@
         "*.gss": "css",
         "BUILD": "bazel",
         "METADATA": "bazel",
-        "WORKSPACE": "bazel"
+        "WORKSPACE": "bazel",
+        "**/.i3/config": "i3",
+        "**/i3/config": "i3"
     },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
@@ -49,7 +51,6 @@
     "files.exclude": {
         "**/.ccls-cache": true
     },
-
     "vim.incsearch": true,
     "vim.hlsearch": true,
     "vim.useSystemClipboard": true,
@@ -64,5 +65,8 @@
     "indent-to-bracket.useDefaultIndentationAfterEmptyBracket": false,
     "vim.neovimPath": "/usr/bin/nvim",
     "vscode-neovim.neovimInitPath": "/home/salidoa/.config/nvim/init.vim",
-    "vscode-neovim.neovimPath": "/home/salidoa/.local/bin/nvim"
+    "vscode-neovim.neovimPath": "/home/salidoa/.local/bin/nvim",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "remote.SSH.path": "/home/salidoa/bin/gssh.py",
+    "python.pythonPath": "/usr/bin/python3"
 }
