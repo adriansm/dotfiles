@@ -65,9 +65,9 @@ local on_attach = function(client, bufnr)
   -- formatting
   -- if client.name == 'tsserver' or client.name == 'clangd' then
   -- end
-  client.resolved_capabilities.document_formatting = false
+  client.server_capabilities.document_formatting = false
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.document_formatting then
     vim.api.nvim_command([[
       augroup Format
         autocmd! * <buffer>
