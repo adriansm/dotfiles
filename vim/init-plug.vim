@@ -143,7 +143,7 @@ if !exists('g:vscode')
     endif
   endif
 
-  if get(g:, 'lang_completion', '') == 'lps'
+  if get(g:, 'lang_completion', '') == 'lsp'
     Plug 'autozimu/LanguageClient-neovim', {
           \ 'branch': 'next',
           \ 'do': 'bash install.sh',

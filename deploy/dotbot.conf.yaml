@@ -18,7 +18,6 @@
     '~/.config',
     '~/.config/Code/User',
     '~/.config/oni',
-    '~/.config/nvim',
     '~/.config/tig'
   ]
 
@@ -31,10 +30,7 @@
     ~/.ctags:
     ~/.curlrc:
     ~/.config/Code/User/settings.json: vscode/settings.json
-    ~/.config/nvim/autoload: vim/autoload
-    ~/.config/nvim/coc-settings.json: vim/coc-settings.json
-    ~/.config/nvim/init.vim: vim/init.vim
-    ~/.config/nvim/syntax: vim/syntax
+    ~/.config/nvim: vim
     ~/.config/oni/config.tsx: oni/config.tsx
     ~/.config/oni/.editorconfig: oni/editorconfig
     ~/.config/termite:

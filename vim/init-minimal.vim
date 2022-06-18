@@ -161,3 +161,13 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 nmap <C-W>\| :vsplit<CR>
 nmap <C-W>- :split<CR>
 
+"
+" VIM File Explorer
+"
+let g:explVertical     = 1
+let g:explWinSize      = 35
+let g:explSplitLeft    = 1
+let g:explSplitBelow   = 1
+let g:explHideFiles    = '^\.,.*\.class$,.*\.swp$,.*\.pyc$,.*\.swo$,\.DS_Store$'
+let g:explDetailedHelp = 0
+
