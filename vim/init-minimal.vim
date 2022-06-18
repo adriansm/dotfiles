@@ -116,6 +116,7 @@ end
 "
 " Plugin independent shortcuts
 "
+let mapleader = "<space>"
 
 " Remove the Windows ^M
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm

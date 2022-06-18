@@ -7,7 +7,7 @@ endif
 
 let g:colors_name = 'adrian'
 
-hi Normal guifg=#e5e5e5 ctermfg=253 guibg=#202020 gui=NONE cterm=NONE
+hi Normal guifg=#e4e4e4 ctermfg=254 guibg=#202020 gui=NONE cterm=NONE
 
 " Misc {{{1
 hi Boolean        guifg=#af97df ctermfg=98  ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
@@ -42,7 +42,7 @@ hi Scrollbar      guibg=NONE
 hi Special        guifg=#dfafaf ctermfg=181 ctermbg=NONE gui=NONE cterm=NONE
 hi SpecialChar    guifg=#55747c ctermfg=66  ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
 hi SpecialComment guifg=#55747c ctermfg=66  ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
-hi SpecialKey     guifg=#3a3a3a ctermfg=237 ctermbg=NONE gui=NONE cterm=NONE
+hi SpecialKey     guifg=#6c6c6c ctermfg=248 ctermbg=NONE gui=NONE cterm=NONE
 hi Statement      guifg=#afdf87 ctermfg=150 ctermbg=NONE gui=NONE cterm=NONE
 hi StorageClass   guifg=#95d5f1 ctermfg=117 ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
 hi String         guifg=#87afdf ctermfg=110 ctermbg=NONE gui=NONE cterm=NONE
@@ -54,7 +54,7 @@ hi Type           guifg=#87dfaf ctermfg=115 ctermbg=NONE gui=NONE cterm=NONE
 hi Typedef        guifg=#95d5f1 ctermfg=117 ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
 hi Underlined     guifg=#c98de6 ctermfg=192 ctermbg=NONE gui=underline guibg=NONE cterm=NONE
 hi VertSplit      guifg=#afd787 ctermfg=150 guibg=#444444 ctermbg=238 gui=NONE cterm=NONE
-hi WildMenu       guifg=#101010 ctermfg=0   guibg=#f6da7b ctermbg=222 gui=bold cterm=NONE
+hi WildMenu       guifg=#101010 ctermfg=0   guibg=#f6da8b ctermbg=222 gui=bold cterm=NONE
 
 " Cursor lines {{{1
 hi CursorColumn ctermfg=NONE guibg=#303030 ctermbg=236 gui=NONE cterm=NONE
@@ -78,7 +78,7 @@ hi ColorColumn ctermfg=NONE guibg=#333333 ctermbg=237 gui=NONE cterm=NONE
 
 " Diff & Signs {{{1
 hi DiffAdd    guifg=#87ff5f ctermfg=119 ctermbg=NONE gui=NONE cterm=NONE
-hi DiffChange guifg=#ffff5f ctermfg=227 ctermbg=NONE gui=NONE cterm=NONE
+hi DiffChange guifg=#fdd05f ctermfg=227 ctermbg=NONE gui=NONE cterm=NONE
 hi DiffDelete guifg=#df5f5f ctermfg=167 ctermbg=NONE gui=NONE cterm=NONE
 hi DiffText   guifg=#ff5f5f ctermfg=203 guibg=#5f0000 ctermbg=52 gui=bold cterm=bold
 hi SignColumn ctermfg=NONE guibg=#3a3a3a ctermbg=237 gui=NONE cterm=NONE

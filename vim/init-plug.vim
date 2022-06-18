@@ -61,6 +61,8 @@ Plug 'sheerun/vim-wombat-scheme'
 "Plug 'keith/parsec.vim'
 "Plug 'joshdick/onedark.vim'
 
+Plug 'lilydjwg/colorizer'
+
 
 "
 " File Browsing

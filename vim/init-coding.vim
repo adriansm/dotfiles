@@ -90,13 +90,13 @@ endif
 
 if get(g:, 'lang_completion', 'coc') == 'coc'
   " Remap keys for gotos
-  nmap <silent> <space>d <Plug>(coc-definition)
-  nmap <silent> <space>y <Plug>(coc-type-definition)
-  nmap <silent> <space>i <Plug>(coc-implementation)
-  nmap <silent> <space>r <Plug>(coc-references)
-  nmap <silent> <space>h :call CocAction('doHover')<CR>
-  nmap <space>m <Plug>(coc-rename)
-  vmap <space>f <Plug>(coc-format-selected)
+  nmap <silent> <leader>gd <Plug>(coc-definition)
+  nmap <silent> <leader>gt <Plug>(coc-type-definition)
+  nmap <silent> <leader>gi <Plug>(coc-implementation)
+  nmap <silent> <leader>gr <Plug>(coc-references)
+  nmap <silent> <leader>gh :call CocAction('doHover')<CR>
+  nmap <leader>m <Plug>(coc-rename)
+  vmap <leader>gf <Plug>(coc-format-selected)
 
   " use <tab> for trigger completion and navigate to the next complete item
   function! s:check_back_space() abort

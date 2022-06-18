@@ -10,7 +10,7 @@
 " External Tag bars
 "
 noremap <C-e> :NERDTreeToggle<CR>
-map <Leader>t :TagbarToggle<CR>
+map <Leader>tt :TagbarToggle<CR>
 
 
 function! LoadPluginOptions()
@@ -47,10 +47,11 @@ function! LoadPluginOptions()
   "
   if exists(":Denite")
     "   ;         - Browser currently open buffers
-    "   <leader>t - Browse list of files in current directory
+    "   <leader>o - Browse list of files in current directory
+    "   <leader>p - Browse list of files in project directory
     nmap ; :Denite buffer -split=floating<CR>
-    nmap <space>c :Denite file/rec -split=floating<CR>
-    nmap <space>p :DeniteProjectDir file/rec -split=floating<CR>
+    nmap <leader>o :Denite file/rec -split=floating<CR>
+    nmap <leader>p :DeniteProjectDir file/rec -split=floating<CR>
 
     if executable('ag')
       " use ag to list current directory files
