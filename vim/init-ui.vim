@@ -85,10 +85,14 @@ endfunction
 let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts = 1
 
+" truncate all path sections but the last one
+" e.g. a branch foo/bar/baz becomes f/b/baz
+let g:airline#extensions#branch#format = 2
+let g:airline#extensions#bookmark#enabled = 1
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#ycm#enabled = 1
 
 let g:airline_mode_map = {
       \ '__' : '-',

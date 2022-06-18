@@ -22,6 +22,17 @@ set showmatch           " Show matching brackets.
 set visualbell          " use visual bell instead of beeping
 set hidden
 
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
 
 "
 " Text Formatting

@@ -142,7 +142,7 @@ Plug 'tpope/vim-sensible'           " Defaults everyone can agree on
 Plug 'tpope/vim-eunuch'             " Unix shell commands
 
 if has('python3')
-Plug 'Shougo/denite.nvim'
+Plug 'Shougo/denite.nvim', {'tag': '*' }
 endif
 
 Plug 'ryanoasis/vim-devicons'
