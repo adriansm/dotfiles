@@ -14,6 +14,7 @@
 - clean: ['~', '~/nano.d', '~/.local/bin', '~/.config.nvim']
 
 - link:
+    ~/.dotfiles: ''
     ~/.ackrc:
     ~/.aliases:
     ~/.agignore:
