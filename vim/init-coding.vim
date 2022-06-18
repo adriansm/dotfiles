@@ -19,44 +19,6 @@ let g:cpp_class_decl_highlight = 1
 nnoremap <expr> <leader>tg ':!ctags -f '.projectroot#guess().'/tags -R '.projectroot#guess().' <cr><cr>'
 
 "
-" Syntastic
-"
-function! DetectCheckPatch(file)
-  let topdir = fnamemodify(finddir('.git', a:file . ';'), ':h')
-
-  if !filereadable(topdir . '/Kbuild')
-    return
-  endif
-
-  if executable(topdir . '/scripts/checkpatch.pl')
-    let g:syntastic_c_checkpatch_exec = fnamemodify(topdir . '/scripts/checkpatch.pl', ':p')
-    let b:syntastic_checkers = ["checkpatch"]
-    let b:syntastic_mode = "active"
-  endif
-endfunction
-
-augroup kernel
-  autocmd BufNewFile,BufReadPost *.[ch] :call DetectCheckPatch(expand('<afile>:p'))
-augroup END
-
-" rely on completer for checking
-let g:syntastic_c_checkers             = []
-let g:syntastic_c_check_header           = 1
-let g:syntastic_python_checkers             = []
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 1
-"let g:syntastic_check_on_open            = 1
-let g:syntastic_check_on_wq              = 0
-let g:syntastic_error_symbol             = 'x'
-let g:syntastic_warning_symbol           = '!'
-
-let g:syntastic_mode_map = {
-      \ "mode": "active",
-      \ "active_filetypes": ["ruby", "php"],
-      \ "passive_filetypes": ["java", "cpp"] }
-
-
-"
 " UltiSnips
 "
 let g:UltiSnipsExpandTrigger = "<c-j>"
@@ -79,7 +41,7 @@ endif
 
 " quick search with ctrl-shift-K binding
 "nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-nnoremap K :Grepper -open -cword -noprompt<cr>
+" nnoremap K :Grepper -open -cword -noprompt<cr>
 nnoremap <leader>ff :Grepper<cr>
 nnoremap <leader>fw :Grepper -open -cword -noprompt<cr>
 nnoremap <leader>fr :Grepper -open -dir repo,filecwd -cword -noprompt<cr>
@@ -128,11 +90,6 @@ map <Leader>k <Plug>(easymotion-k)
 
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
-
-"
-" Tcomment
-"
-let g:tcomment_mapleader2='<Leader>c'
 
 "
 " OmniCppComplete Autocompletion (deprecated)
