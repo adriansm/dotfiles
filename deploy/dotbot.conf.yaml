@@ -97,6 +97,7 @@
             ~/.config/compton.conf:
             ~/.config/dunst:
             ~/.config/i3:
+            ~/.config/i3blocks:
             ~/.config/i3status:
             ~/.local/share/fonts:
                 glob: true
@@ -109,6 +110,7 @@
         apt:
             - dex
             - i3
+            - i3blocks
             - scrot
             - viewnior
             - xbacklight
@@ -116,6 +118,15 @@
             - xsecurelock
             - xsettingsd
             - xss-lock
+- if:
+    and:
+        os: linux
+        shell: [ test -n "$(command -v dconf)" ]
+    actions:
+        link:
+            ~/.config/dconf:
+        shell:
+            - [cat ~/.config/dconf/user.d/* | dconf load /, Loading dconf configurations]
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
