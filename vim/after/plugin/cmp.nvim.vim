@@ -20,6 +20,9 @@ lua <<EOF
   local lspkind = require('lspkind')
 
   cmp.setup({
+    completion = {
+      autocomplete = false,  -- disable auto-completion
+    },
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
