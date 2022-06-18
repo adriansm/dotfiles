@@ -1,14 +1,5 @@
 local M = {}
 
-function M.set_keymap(mode, from, to)
-    local opts = {noremap = true, silent = false}
-    vim.api.nvim_set_keymap(mode, from, to, opts)
-end
-
-function M.nvim_set_keymap(mode, from, to, opts)
-    vim.api.nvim_set_keymap(mode, from, to, opts)
-end
-
 function M.set_options(options)
     for key, val in pairs(options) do
         if val == true then
@@ -21,8 +12,8 @@ function M.set_options(options)
     end
 end
 
-function M.prequire(...)
-  local status, lib = pcall(require, ...)
+function M.prequire(module)
+  local status, lib = pcall(require, module)
   if (status) then
     return lib
   else

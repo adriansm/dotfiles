@@ -1,6 +1,7 @@
 local M = {}
 
 local packer_bootstrap = false
+local prequire = require('utils.common').prequire
 
 local function packer_init()
   local fn = vim.fn
@@ -10,18 +11,19 @@ local function packer_init()
       'https://github.com/wbthomason/packer.nvim', install_path})
     vim.cmd [[packadd packer.nvim]]
   end
-  vim.cmd [[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]]
+
+  vim.cmd([[
+    augroup packer_user_config
+      autocmd!
+      autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    augroup end
+  ]])
 end
 
 packer_init()
 
-function load_config(plugin)
-  require('config.'..plugin)
-end
-
 function M.setup()
   local conf = {
-    compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua',
     display = {
       open_fn = function()
         return require('packer.util').float { border = 'rounded' }
@@ -75,14 +77,23 @@ function M.setup()
       end,
     }
 
-    use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
+    use {
+      'norcalli/nvim-colorizer.lua',
+      config = function()
+        require('colorizer').setup()
+      end
+    }
 
     --
     -- [[ Source Code Editor ]]
     --
 
-    -- Easily add comments
-    use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
+    use {                                       -- Easily add comments
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end
+    }
 
 
     --
@@ -99,10 +110,13 @@ function M.setup()
       requires = { 'inkarkat/vim-ingo-library' }
     }
 
-    use 'easymotion/vim-easymotion'         -- Easy motion with mappings
-    use 'wellle/targets.vim'                -- Quick shortcuts
-    use { 'windwp/nvim-autopairs',          -- Brackets autopair plugin
-      config = load_config('nvim-autopairs')
+    use { 'easymotion/vim-easymotion' }         -- Easy motion with mappings
+    use { 'wellle/targets.vim' }                -- Quick shortcuts
+    use {                                       -- Brackets autopair plugin
+      'windwp/nvim-autopairs',
+      config = function()
+        require('nvim-autopairs').setup()
+      end
     }
 
 
@@ -131,13 +145,15 @@ function M.setup()
     --
     -- [[ Theme ]]
     --
-    use { 'mhinz/vim-startify' }                       -- start screen
-    use { 'DanilaMihailov/beacon.nvim' }               -- cursor jump
-    use { 'Mofiqul/vscode.nvim', config = function()   -- color scheme
-      vim.g.vscode_style = 'dark'
-      vim.g.vscode_italic_comment = true
-      vim.cmd [[colorscheme vscode]]
-    end}
+    use { 'mhinz/vim-startify' }                -- start screen
+    use { 'DanilaMihailov/beacon.nvim' }        -- cursor jump
+    use { 'Mofiqul/vscode.nvim',                -- color scheme
+      config = function()
+        vim.g.vscode_style = 'dark'
+        vim.g.vscode_italic_comment = true
+        vim.cmd [[colorscheme vscode]]
+      end
+    }
 
     use {
       'kdheepak/tabline.nvim',
@@ -145,7 +161,9 @@ function M.setup()
         { 'nvim-lualine/lualine.nvim' },
         { 'kyazdani42/nvim-web-devicons' }
       },
-      config = load_config('tabline'),
+      config = function()
+        require('config.tabline').setup()
+      end
     }
 
     --
@@ -154,20 +172,26 @@ function M.setup()
     use {
       'neovim/nvim-lspconfig',                  -- Collection of configurations for the built-in LSP client
       requires = {'williamboman/nvim-lsp-installer'},
-      config = load_config('lspconfig'),
+      config = function()
+        require('config.lspconfig').setup()
+      end
     }
 
     -- A light-weight LSP plugin based on Neovim built-in LSP with highly a performant UI
     use {
       'tami5/lspsaga.nvim',
-      config = load_config('lspsaga'),
+      config = function()
+        require('config.lspsaga').setup()
+      end
     }
 
     -- Treesitter configurations and abstraction layer for Neovim
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
-      config = load_config('treesitter'),
+      config = function()
+        require('config.treesitter').setup()
+      end
     }
     use {
       'romgrk/nvim-treesitter-context',
@@ -185,7 +209,9 @@ function M.setup()
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
       },
-      config = load_config('cmp')
+      config = function()
+        require('config.cmp').setup()
+      end
     }
 
     -- For vsnip as snippet manager for LSP completion
@@ -196,17 +222,17 @@ function M.setup()
       requires = { 'L3MON4D3/LuaSnip' }
     }
 
+    use 'onsails/lspkind-nvim'
+
     use {
       'rafamadriz/friendly-snippets',     -- common snippets for faster development
       config = function ()
-        local luasnip = require('common').prequire('luasnip')
+        local luasnip = require('utils.common').prequire('luasnip')
         if luasnip then
-          require("luasnip.loaders.from_vscode").load()
+          require("luasnip.loaders.from_vscode").lazy_load()
         end
       end
     }
-
-    use 'onsails/lspkind-nvim'
 
     use { 'ray-x/lsp_signature.nvim',         -- function signature for some lsp
       config = function()
@@ -216,9 +242,20 @@ function M.setup()
 
     use {
       'j-hui/fidget.nvim',                -- nvim-lsp progress. Eye candy for the impatient
+      event = "BufReadPre",
       config = function()
         require('fidget').setup()
       end
+    }
+
+    -- Legendary
+    use {
+      "mrjones2014/legendary.nvim",
+      keys = { [[<C-p>]] },
+      config = function()
+        require("config.legendary").setup()
+      end,
+      requires = { "stevearc/dressing.nvim" },
     }
 
     --
@@ -232,11 +269,6 @@ function M.setup()
       end
     }
 
-    -- use {
-    --   'mrjones2014/legendary.nvim',
-    --   config = load_config("legendary")
-    -- }
-
     -- use 'scrooloose/nerdtree'
     -- use 'Xuyuanp/nerdtree-git-plugin'
     use {
@@ -244,7 +276,9 @@ function M.setup()
       requires = {
         'kyazdani42/nvim-web-devicons', -- optional, for file icon
       },
-      config = load_config('nvim-tree')
+      config = function()
+        require('config.nvim-tree').setup()
+      end
     }
 
     if packer_bootstrap then
@@ -253,8 +287,7 @@ function M.setup()
     end
   end
 
-  pcall(require, "impatient")
-  pcall(require, "packer_compiled")
+  prequire('impatient')
   require("packer").init(conf)
   require("packer").startup(plugins)
 end
