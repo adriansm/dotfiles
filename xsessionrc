@@ -14,3 +14,9 @@ xsetroot -solid "#30586c"
 ## Start urxvtd
 #urxvtd -q -f -o
 #export TERMINAL=urxvtc
+
+# ssh-agent fix
+if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
+  pkill ssh-agent
+  eval $(ssh-agent -s)
+fi

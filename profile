@@ -24,7 +24,7 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
 # ssh-agent fix
-if [[ -z "$SSH_CONNECTION" ]]; then
+if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
   pkill ssh-agent
   eval $(ssh-agent -s)
 fi
