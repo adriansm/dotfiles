@@ -28,6 +28,12 @@
 # NOTE: the Stack Overflow thread uses disable-msg, but as of pylint 0.23.0, disable= seems to work.
 disable=W0142,W0403,R0201,W0212,W0613,W0232,R0903,W0614,C0111,C0301,R0913,C0103,F0401,W0402,R0914
 
+[VARIABLES]
+
+# A regular expression matching the name of dummy variables (i.e. expectedly
+# not used).
+dummy-variables-rgx=_|unused_
+
 
 [REPORTS]
 # Set the output format. Available formats are text, parseable, colorized, msvs
@@ -45,3 +51,14 @@ files-output=no
 # Tells whether to display a full report or only the messages
 reports=no
 
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=FIXME,XXX,TODO
+
+
+[FORMAT]
+
+# We use two spaces for indents, instead of the usual four spaces or tab.
+indent-string='  '
