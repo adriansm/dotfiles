@@ -2,6 +2,7 @@
 *.pyc
 *.pyo
 *.o
+*.d
 
 # IDE specific
 dwsync.xml
@@ -40,3 +41,5 @@ svn-commit.*
 tags
 TAGS
 .vim-bookmarks
+.ccls-cache
+node_modules
