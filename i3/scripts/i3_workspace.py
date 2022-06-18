@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import logging
+import fcntl
 import re
 import subprocess
 
@@ -52,12 +53,22 @@ class Workspace():
     self.name_parts['num'] = int(data['num'])
     if data['icons']:
       self.name_parts['icons'] = data['icons'].strip().split()
-    self.name_parts['shortname'] = data.get('shortname')
+    name = data.get('shortname')
+    if name and name[-1:] == ' ':
+      self.name_parts['suggestedname'] = name.strip()
+    else:
+      self.name_parts['shortname'] = name
 
   def get_name(self):
     new_name = str(self.get_num())
     shortname = self.get_shortname()
     icons = self.get_icons()
+
+    if not shortname:
+      suggestedname = self.name_parts.get('suggestedname')
+      if suggestedname:
+        shortname = suggestedname + ' '
+
     if shortname or icons:
       new_name += ':'
 
@@ -77,14 +88,17 @@ class Workspace():
     raise Exception('Could not find workspace %d' % (self.get_num()))
 
   def update(self, new_values):
-    ws_name = self.refresh()
+    with open(__file__) as f:
+      fcntl.flock(f, fcntl.LOCK_EX)
+      ws_name = self.refresh()
 
-    for k, v in new_values.items():
-      self.name_parts[k] = v
-    new_name = self.get_name()
-    logging.info('Renaming workspace "%s" to "%s"', ws_name, new_name)
+      for k, v in new_values.items():
+        self.name_parts[k] = v
+      new_name = self.get_name()
+      logging.info('Renaming workspace "%s" to "%s"', ws_name, new_name)
 
-    output = self.i3.command('rename workspace "%s" to "%s"' % (ws_name, new_name))
+      output = self.i3.command('rename workspace "%s" to "%s"' % (ws_name, new_name))
+
     logging.info('Output: %s', output)
     return output
 
@@ -112,13 +126,9 @@ class Workspace():
   def set_suggestedname(self, **kwargs):
     name = kwargs.get('name')
     icons = kwargs.get('icons')
-    current_name = self.get_shortname()
     update = {}
-    if not current_name:
-        if name:
-            update['shortname'] = name + ' '
-    elif current_name[-1:] == ' ':
-      update['shortname'] = name + ' ' if name else None
+    if name:
+      update['suggestedname'] = name
     if icons is not None:
       update['icons'] = icons
 
