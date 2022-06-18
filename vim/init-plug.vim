@@ -62,6 +62,8 @@ Plug 'mhinz/vim-grepper',           { 'on': ['Grepper', '<plug>(GrepperOperator)
 Plug 'MattesGroeger/vim-bookmarks'  " set vim bookmarks
 Plug 'bogado/file-line'             " Go to line when opening with 'vim file:line'
 
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-mark'            " Mark/highlight words
 
 "
 " Tmux integration

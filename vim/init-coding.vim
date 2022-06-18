@@ -181,6 +181,11 @@ if has("patch-8.1.0360")
 endif
 
 
+let g:mwDefaultHighlightingPalette = 'extended'
+nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
+nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
+
+
 "
 " Vim Bookmarks Plugin
 "
