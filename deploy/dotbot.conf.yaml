@@ -16,8 +16,6 @@
     '~/.nano.d',
     '~/.local/bin',
     '~/.config/nvim',
-    '~/.local/share/fonts',
-    '~/Library/Fonts'
   ]
 
 - link:
@@ -59,23 +57,32 @@
     ~/.zshrc: zsh/zshrc
 
 
-- oslink:
-    ~/.local/share/fonts:
-        os: [linux]
-        glob: true
-        path: NerdFonts/*
-    ~/Library/Fonts:
-        os: darwin
-        glob: true
-        path: NerdFonts/*
-
 - sync:
     ~/.tmux.design.conf: tmux/design.conf
+
+- if:
+    os: darwin
+    actions:
+        clean: ['~/Library/Fonts']
+        link:
+            ~/Library/Fonts:
+                glob: true
+                path: NerdFonts/*
+
+- if:
+    os: linux
+    actions:
+        clean: ['~/.local/share/fonts']
+        link:
+            ~/.local/share/fonts:
+                glob: true
+                path: NerdFonts/*
+        shell:
+            - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [vim +PlugInstall +qall, Installing Vim Plugins]
-    - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
 
 - brew:
     - ctags
