@@ -7,3 +7,12 @@ set main-options = -n 300
 
 # Don't show staged and unstaged changes in the main view
 set show-changes = no
+
+bind main = >git commit --fixup=%(commit)
+bind main ! !git revert %(commit)
+bind main B !git rebase --autostash --autosquash -i %(commit)^
+bind main R >sh -c "GIT_SEQUENCE_EDITOR=\"sed -i -e '1 s/^pick /reword /'\" git rebase -i --autostash %(commit)^"
+bind main E <>sh -c "GIT_SEQUENCE_EDITOR=\"sed -i -e '1 s/^pick /edit /'\" git rebase -i --autostash %(commit)^"
+bind main D >sh -c "echo Dropping commit: %(commit) && git show -s --no-decorate %(commit) && GIT_SEQUENCE_EDITOR=\"sed -i -e '1 s/^pick /drop /'\" git rebase -i --autostash %(commit)^"
+bind main F +sh -c "git commit --fixup=%(commit) && GIT_SEQUENCE_EDITOR=true git rebase -i --autostash --autosquash %(commit)^"
+
