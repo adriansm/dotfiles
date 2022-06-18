@@ -140,6 +140,7 @@ Plug 'Valloric/ListToggle'          " Quickly get locationlist and quickfix wind
 Plug 'tpope/vim-dispatch'           " dispatch make async
 Plug 'tpope/vim-sensible'           " Defaults everyone can agree on
 Plug 'tpope/vim-eunuch'             " Unix shell commands
+Plug 'will133/vim-dirdiff'          " Dir diff
 
 if has('python3')
 Plug 'Shougo/denite.nvim', {'tag': '*' }

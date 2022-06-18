@@ -16,7 +16,7 @@ if [[ -f $HOME/.aliases.local ]]; then
     source ~/.aliases.local
 fi
 
-function run_realpath() {
+function rrr() {
     local exe=$1
     shift 1
     local args=()
@@ -31,10 +31,18 @@ function run_realpath() {
     command $exe "${args[@]}"
 }
 
-alias vi="run_realpath vi"
-alias vim="run_realpath vim"
-alias nvim="run_realpath nvim"
-alias gvim="run_realpath gvim"
+function dirdiff()
+{
+    # Shell-escape each path:
+    DIR1=$(printf '%q' "$1"); shift
+    DIR2=$(printf '%q' "$1"); shift
+    vim $@ +DirDiff $DIR1 $DIR2
+}
+
+alias vi="rrr vi"
+alias vim="rrr vim"
+alias nvim="rrr nvim"
+alias gvim="rrr gvim"
 
 function fixtmux() {
     eval $(tmux show-env -s)

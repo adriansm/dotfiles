@@ -351,44 +351,15 @@ let g:EditorConfig_max_line_indicator = "fill"
 " make editorconfig work nice with fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
+if has("patch-8.1.0360")
+    set diffopt+=internal,algorithm:patience
+endif
 
 "
 " Vim Diff
 "
-function! IgnoreDiff(pattern)
-    let opt = ""
-    if &diffopt =~ "icase"
-      let opt = opt . "-i "
-    endif
-    if &diffopt =~ "iwhite"
-      let opt = opt . "-b "
-    endif
-    let cmd = "!diff -a --binary " . opt .
-      \ " <(perl -pe 's/" . a:pattern .  "/\".\" x length($0)/gei' " .
-      \ v:fname_in .
-      \ ") <(perl -pe 's/" . a:pattern .  "/\".\" x length($0)/gei' " .
-      \ v:fname_new .
-      \ ") > " . v:fname_out
-    echo cmd
-    silent execute cmd
-    redraw!
-    return cmd
-endfunction
-command! IgnoreDiffDiffs set diffexpr=IgnoreDiff('^@@\ .*\|^index\ .*\|^commit\ .*') | diffupdate<CR>
 
 " Custom setup for vimdiff
-function! DiffSetup()
-  set nofoldenable foldcolumn=0 number
-  wincmd b
-  set nofoldenable foldcolumn=0 number
-  let &columns = &columns * 2
-  wincmd =
-  winpos 0 0
-endfun
-
-if &diff
-  autocmd VimEnter * call DiffSetup()
-endif
 
 
 "
