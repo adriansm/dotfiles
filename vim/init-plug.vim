@@ -89,11 +89,6 @@ Plug 'will133/vim-dirdiff'          " Dir diff
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-scripts/CursorLineCurrentWindow' " Cursor line only for current window
 
-"
-" Local plugins
-"
-set rtp^=$VIMHOME/custom/adrian.vim
-
 
 """" NOTE: remaining plugins shouldn't be required if not running nvim
 """" for example as a an extension directly

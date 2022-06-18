@@ -34,7 +34,6 @@ let g:rehash256=1
 let g:airline_theme='adrian'
 colorscheme adrian
 
-highlight LineNr ctermfg=darkgrey guifg=#050505
 
 " override backround for autocomplete popup on angr theme
 "hi Pmenu      guibg=#3a3a3a ctermbg=237
