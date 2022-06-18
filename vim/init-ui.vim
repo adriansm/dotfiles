@@ -50,20 +50,6 @@ highlight LineNr ctermfg=darkgrey guifg=#050505
   "autocmd WinLeave,BufLeave,FocusLost,InsertEnter   * set norelativenumber
 "augroup END
 
-" Call method on window enter
-augroup WindowManagement
-  autocmd!
-  autocmd WinEnter * call Handle_Win_Enter()
-augroup END
-
-" Change highlight group of preview window when open
-function! Handle_Win_Enter()
-  if &previewwindow
-    setlocal winhighlight=Normal:MarkdownError
-  endif
-endfunction
-
-
 "
 " Status bar replacement (Airline/Tmux line)
 "
