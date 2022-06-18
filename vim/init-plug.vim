@@ -73,6 +73,8 @@ Plug 'christoomey/vim-tmux-navigator'
 " Others
 "
 
+" Yank text to terminal via osc52
+Plug 'ojroques/vim-oscyank',      { 'branch': 'main'}
 Plug 'Valloric/ListToggle'          " Quickly get locationlist and quickfix window
 Plug 'tpope/vim-dispatch'           " dispatch make async
 Plug 'tpope/vim-sensible'           " Defaults everyone can agree on

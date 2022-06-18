@@ -102,14 +102,8 @@ set smartcase           " do not ignore if search pattern has CAPS
 "
 set clipboard=unnamed,unnamedplus
 
-" copy the current text selection to the system clipboard
-if has('gui_running') || has('nvim') && exists('$DISPLAY')
-  noremap <Leader>y "+y
-else
-  " copy to attached terminal using the yank(1) script:
-  " https://github.com/sunaku/home/blob/master/bin/yank
-  noremap <silent> <Leader>y y:call system('yank > /dev/tty', @0)<Return>
-endif
+vnoremap <leader>y :OSCYank<CR>
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
 
 "Paste toggle - when pasting something in, don't indent.
 set pastetoggle=<F3>
