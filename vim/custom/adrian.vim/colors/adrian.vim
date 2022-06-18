@@ -12,7 +12,7 @@ hi Normal guifg=#e5e5e5 ctermfg=253 guibg=#202020 gui=NONE cterm=NONE
 " Misc {{{1
 hi Boolean        guifg=#af97df ctermfg=98  ctermbg=NONE gui=NONE guibg=bg cterm=NONE
 hi Character      guifg=#9d7ff2 ctermfg=141 ctermbg=NONE gui=NONE guibg=bg cterm=NONE
-hi Comment        guifg=#585858 ctermfg=240 ctermbg=NONE gui=NONE cterm=NONE
+hi Comment        guifg=#767676 ctermfg=243 ctermbg=NONE gui=NONE cterm=NONE
 hi Conditional    guifg=#F6DA7B ctermfg=222 ctermbg=NONE gui=NONE guibg=bg cterm=NONE
 hi Constant       guifg=#87dfdf ctermfg=116 ctermbg=NONE gui=NONE cterm=NONE
 hi Cursor         guifg=#eeeeee ctermfg=15  ctermbg=247  gui=NONE guibg=#8DA1A1
