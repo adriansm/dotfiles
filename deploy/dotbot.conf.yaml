@@ -30,6 +30,10 @@
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.config/oni/config.tsx: oni/config.tsx
     ~/.config/oni/.editorconfig: oni/editorconfig
+    ~/.config/compton.conf:
+    ~/.config/dunst:
+    ~/.config/i3:
+    ~/.config/i3status:
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
@@ -48,8 +52,10 @@
     ~/.ssh/rc: ssh/rc
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
+    ~/.urxvt:
     ~/.vim:
     ~/.vimrc: vim/init.vim
+    ~/.wallpaper.png:
     ~/.wgetrc:
     ~/.zsh:
     ~/.zshenv: zsh/zshenv
