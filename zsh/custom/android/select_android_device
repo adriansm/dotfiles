@@ -130,8 +130,8 @@ function list_android_devices_helper()
   done
   shift $((OPTIND-1))
 
-  if command adb start-server; then
-    local adb_devices=$(command $ADB_BIN devices -l | sed -n "2,100p")
+  if $ADB_BIN start-server; then
+    local adb_devices=$($ADB_BIN devices -l | sed -n "2,100p")
     for dev in ${(f)adb_devices}; do
       local aserial=${dev[(w)1]}
       local details=$(echo ${dev#* } | xargs)
@@ -139,7 +139,7 @@ function list_android_devices_helper()
     done
   fi
 
-  local fb_devices=$(command $FASTBOOT_BIN devices -l)
+  local fb_devices=$($FASTBOOT_BIN devices -l)
   for dev in ${(f)fb_devices}; do
     local aserial=${dev%% *}
     local details=$(echo ${dev#* } | xargs)
@@ -172,7 +172,7 @@ function select_android_device_fzf()
 {
   local devices=("${(@f)$(list_android_devices)}")
   if [ -z "$devices" ]; then
-    echo "No devices connected!"
+    >&2 echo "No devices connected!"
     return 1
   fi
 
@@ -280,6 +280,6 @@ case $pref in
   list)
     select_android_device_list $@ ;;
   *)
-    echo "Shouldn't be here ($pref)"
+    >&2 echo "Shouldn't be here ($pref)"
 esac
 

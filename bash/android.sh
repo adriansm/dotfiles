@@ -247,7 +247,7 @@ function sad()
   select_android_device $@
 }
 
-function adb()
+function madb()
 {
   local args=" $* "
 
