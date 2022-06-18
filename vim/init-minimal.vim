@@ -52,6 +52,8 @@ augroup filetype
   autocmd BufNewFile,BufRead *.aidl,*.hal           set filetype=java
   autocmd BufNewFile,BufRead CMakeLists.txt,*.cmake set filetype=cmake
   autocmd BufNewFile,BufRead *.cmm                  set filetype=practice
+  autocmd! BufRead,BufNewFile *.proto               set filetype=proto
+  autocmd! BufRead,BufNewFile *.asciipb             set filetype=protobuf
 augroup END
 
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set spell textwidth=70
@@ -62,7 +64,6 @@ autocmd FileType perl,css   set smartindent
 autocmd FileType html       set formatoptions+=tl
 autocmd FileType html,css   set noexpandtab tabstop=4
 autocmd FileType practice   set noexpandtab tabstop=8 shiftwidth=8
-
 
 "
 " Search & Replace

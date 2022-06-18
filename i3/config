@@ -257,6 +257,7 @@ for_window [class="^Viewnior$"] floating enable
 for_window [class="^Gnome-calculator$"] floating enable
 for_window [class="^Google-chrome$|chrome-personal"] border none
 for_window [class="^Mate|^Blueman|^Goobuntu"] floating enable
+for_window [instance="XDialogPeer"] floating enable
 
 # Android bug tool
 for_window [class="Google-chrome" instance="^crx_loihechlnnjagmecjghjnghfmobgalmg$"] floating enable
