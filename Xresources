@@ -48,6 +48,22 @@ URxvt*boldFont:			xft:SauceCodePro Nerd Font Mono:bold:size=11
 URxvt*italicFont:		xft:SauceCodePro Nerd Font Mono:italic:size=11
 URxvt*boldItalicFont:	xft:SauceCodePro Nerd Font Mono:bold italic:size=11
 
+xterm*faceName: SauceCodePro Nerd Font Mono
+xterm*faceSize: 11
+xterm*renderFont: true
+
+XTerm*background: black
+XTerm*foreground: grey
+XTerm*pointerColor: red
+XTerm*pointerColorBackground: black
+XTerm*cursorColor: navy
+XTerm*internalBorder: 3
+XTerm*loginShell: true
+XTerm*scrollBar: false
+XTerm*scrollKey: true
+XTerm*saveLines: 1000
+XTerm*multiClickTime: 250
+
 ! ------------------------------------------------------------------------------
 ! Xft Font Configuration
 ! ------------------------------------------------------------------------------

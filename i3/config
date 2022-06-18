@@ -187,6 +187,9 @@ mode "$mode_system" {
 }
 bindsym $super+Pause mode "$mode_system"
 bindsym $super+Shift+s mode "$mode_system"
+bindsym --release XF86PowerDown mode "$mode_power"
+bindsym --release XF86PowerOff mode "$mode_power"
+bindsym --release XF86Suspend mode "$mode_power"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -245,9 +248,10 @@ popup_during_fullscreen smart
 
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 1
-for_window [class="Viewnior"] floating enable
-for_window [class="Gnome-calculator"] floating enable
-for_window [class="^Google-chrome|chrome-personal"] border none
+for_window [class="^Viewnior$"] floating enable
+for_window [class="^Gnome-calculator$"] floating enable
+for_window [class="^Google-chrome$|chrome-personal"] border none
+for_window [class="^Mate|^Blueman|^Goobuntu"] floating enable
 
 # Android bug tool
 for_window [class="Google-chrome" instance="^crx_loihechlnnjagmecjghjnghfmobgalmg$"] floating enable
