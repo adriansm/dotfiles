@@ -24,6 +24,7 @@ termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 termcapinfo xterm*|Eterm|mlterm|rxvt|screen-256color 'ti@:te@:hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007'
 
+escape ^Bb
 bind ^k
 bind ^\
 bind \\ quit
