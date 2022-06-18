@@ -41,8 +41,8 @@ function dirdiff()
 
 test "$(command -v vi)" && alias vi="rrr vi"
 test "$(command -v vim)" && alias vim="rrr vim"
-test "$(command -v nvim)" && alias vim="rrr nvim"
-test "$(command -v gvim)" && alias vim="rrr gvim"
+test "$(command -v nvim)" && alias nvim="rrr nvim"
+test "$(command -v gvim)" && alias gvim="rrr gvim"
 
 function fixtmux() {
     eval $(tmux show-env -s)
