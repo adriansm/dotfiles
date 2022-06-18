@@ -24,7 +24,7 @@ function install_linux()
         sudo apt-get install -y $APT_PKGS
     )
     # TODO: use dotbot plugin for pip?
-    pipenv install -r requirements.txt
+    pipenv install --system -r requirements.txt
 }
 
 function run_dotbot()
