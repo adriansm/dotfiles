@@ -62,11 +62,11 @@ WINDOW_INFO = {
 }
 
 WINDOW_PREFERRED_LOCATION = {
-  'google-chrome': ['DP1-1'],
-  'jetbrains-pycharm-ce': ['DP1-2', 'DP1-1'],
-  'code': ['DP1-2', 'DP1-1'],
-  'termite': ['DP1-2', 'DP1-1'],
-  'gnome-terminal': ['DP1-2', 'DP1-1'],
+    'google-chrome': ['DP1-1'],
+    'jetbrains-pycharm-ce': ['DP1-2', 'DP1-1', 'DP2-1'],
+    'code': ['DP1-2', 'DP1-1', 'DP2-1'],
+    'termite': ['DP1-2', 'DP1-1', 'HDMI1'],
+    'gnome-terminal': ['DP1-2', 'DP1-1', 'HDMI1'],
 }
 
 TERMINALS = [
@@ -214,11 +214,7 @@ def organize_outputs(i3, outputs):
 
 
 def main():
-  global output_count
-
   i3conn = i3ipc.Connection()
-
-  output_count = len(get_active_outputs(i3conn))
 
   # exit gracefully when ctrl+c is pressed
   for sig in [signal.SIGINT, signal.SIGTERM]:
@@ -234,19 +230,6 @@ def main():
         on_fullscreen(i3)
 
     i3conn.on('window', window_event_handler)
-
-    def output_handler(i3: i3ipc.Connection, e):
-      global output_count
-
-      print('Outputs changed')
-      outputs = get_active_outputs(i3)
-      new_active_outputs = len(outputs)
-      if new_active_outputs > output_count:
-        organize_outputs(i3, outputs)
-
-      output_count = new_active_outputs
-
-    i3conn.on('output', output_handler)
 
     init_windows(i3conn)
 
