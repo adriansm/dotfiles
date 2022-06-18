@@ -132,9 +132,10 @@ prompt_pure_preprompt_render() {
 	local left_len
 
 	let left_len=$COLUMNS
+	let vcs_len=\(\(${COLUMNS}/20\)+1\)*6
 
 	# give some space for vcs info
-	[[ -z $prompt_pure_vcs_info[branch] ]] || let left_len-=22
+	[[ -z $prompt_pure_vcs_info[branch] ]] || let left_len-=${vcs_len}+6
 
 	# if username needs to be displayed give it some room
 	[[ -z $prompt_pure_username ]] || let left_len-=16
@@ -152,7 +153,7 @@ prompt_pure_preprompt_render() {
 	# Add git branch and dirty status info.
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
-		preprompt_right+=("%F{$git_color}"'[${prompt_pure_vcs_info[system]}:${prompt_pure_vcs_info[branch]}]%F{red}${prompt_pure_git_dirty}%f')
+		preprompt_right+=("%F{$git_color}"'[${prompt_pure_vcs_info[system]}:%${vcs_len}<...<${prompt_pure_vcs_info[branch]}%]%F{red}${prompt_pure_git_dirty}%F{$git_color}]%f')
 	fi
 	# Git pull/push arrows.
 	if [[ -n $prompt_pure_git_arrows ]]; then
