@@ -55,7 +55,6 @@
     ~/.urxvt:
     ~/.vim:
     ~/.vimrc: vim/init.vim
-    ~/.wallpaper.png:
     ~/.wgetrc:
     ~/.xsessionrc:
     ~/.xsettingsd:
@@ -78,6 +77,7 @@
             ~/Library/Fonts/MyFonts: fonts
         brew:
             - rsync
+            - the_silver_searcher
             - ctags
 
 - if:
@@ -90,10 +90,22 @@
                 path: fonts/*
         shell:
             - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
+        apt:
+            - build-essential
+            - dex
+            - exuberant-ctags
+            - i3
+            - neovim
+            - ruby
+            - silversearcher-ag
+            - tmux
+            - vim
+            - xbacklight
+            - xsecurelock
+            - xss-lock
+            - zsh
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     - [vim +PlugInstall +qall, Installing Vim Plugins]
 
-- brew:
-    - the_silver_searcher

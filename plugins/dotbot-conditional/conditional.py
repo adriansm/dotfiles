@@ -3,10 +3,11 @@ import subprocess
 from dotbot import Plugin
 
 class Dispatcher(object):
-    def __init__(self, context):
+    def __init__(self, context, logger):
         self._context = context
         self._plugins = [plugin(self._context)
                          for plugin in Plugin.__subclasses__()]
+        self._log = logger
 
     def _dispatch_task(self, task):
         success = True
@@ -18,8 +19,7 @@ class Dispatcher(object):
                         success &= plugin.handle(action, task[action])
                         handled = True
                     except Exception as err:
-                        self._log.error(
-                            'An error was encountered while executing action %s' %
+                        self._log.error( 'An error was encountered while executing action %s' %
                             action)
                         self._log.debug(err)
             if not handled:
@@ -88,7 +88,7 @@ class Conditional(Plugin):
     def _process_actions(self, actions):
         # lazy load dispatcher
         if self._dispatcher is None:
-            self._dispatcher = Dispatcher(self._context)
+            self._dispatcher = Dispatcher(self._context, self._log)
 
         return self._dispatcher.dispatch(actions)
 
