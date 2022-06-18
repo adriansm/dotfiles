@@ -1,3 +1,7 @@
+[user]
+	email = adriansm@gmail.com
+	name = Adrian Salido
+
 [core]
 	pager = diff-so-fancy | less --tabs=8 -RFX
 	whitespace = fix,trailing-space,space-before-tabs,cr-at-eol
@@ -87,7 +91,7 @@
 	r   = rebase
 	ra  = rebase --abort
 	rc  = rebase --continue
-	ri  = rebase --interactive
+	ri  = rebase --interactive --autostash --autosquash
 	rs  = rebase --skip
 
 	# commit
@@ -148,15 +152,12 @@
 	smtpserver = smtp.gmail.com
 	smtpserverport = 587
 
-[include]
-	path = ~/.gitconfig.local
-
 [diff-so-fancy]
 	markEmptyLines = false
 	stripLeadingSymbols = false
 
 [advice]
 	detachedHead = false
-[user]
-	email = adriansm@gmail.com
-	name = Adrian Salido
+
+[include]
+	path = ~/.gitconfig.local
