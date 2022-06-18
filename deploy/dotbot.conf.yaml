@@ -17,7 +17,8 @@
     '~/.local/bin',
     '~/.config',
     '~/.config/oni',
-    '~/.config/nvim'
+    '~/.config/nvim',
+    '~/.config/tig'
   ]
 
 - link:
@@ -35,6 +36,7 @@
     ~/.config/oni/config.tsx: oni/config.tsx
     ~/.config/oni/.editorconfig: oni/editorconfig
     ~/.config/termite:
+    ~/.config/tig/config: tigrc
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
@@ -51,7 +53,6 @@
     ~/.ripgreprc:
     ~/.screenrc:
     ~/.ssh/rc: ssh/rc
-    ~/.tigrc:
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim:
@@ -62,7 +63,6 @@
     ~/.zshprofile: zsh/zshenv
     ~/.zprofile: zsh/zprofile
     ~/.zshrc: zsh/zshrc
-
 
 - sync:
     ~/.tmux.design.conf: tmux/design.conf
@@ -89,6 +89,7 @@
             - rsync
             - ruby
             - silversearcher-ag
+            - tig
             - tmux
             - vim
             - zsh
