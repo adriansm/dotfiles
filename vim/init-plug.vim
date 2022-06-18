@@ -138,7 +138,7 @@ Plug 'tpope/vim-vinegar'            " Play nice with netrw
 "
 
 if has('python')
-  Plug 'SirVer/ultisnips'
+  " Plug 'SirVer/ultisnips'
   if get(g:, 'lang_completion', '') == 'ycm'
     " Code Completion
     Plug 'Valloric/YouCompleteMe',    {
@@ -173,16 +173,29 @@ endif
 if get(g:, 'lang_completion', '') == 'nvim'
   " A collection of configurations for Neovim’s built-in LSP
   Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/nvim-lsp-installer'
 
   " A light-weight LSP plugin based on Neovim built-in LSP with highly a performant UI
-  Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
+  Plug 'tami5/lspsaga.nvim'
 
   " Treesitter configurations and abstraction layer for Neovim
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-  Plug 'nvim-lua/completion-nvim'
+  " Plug 'nvim-lua/completion-nvim'
+
   Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+
+  " For vsnip users.
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+
+  Plug 'onsails/lspkind-nvim'
 endif
+
 "
 " Ide-like features
 "
