@@ -12,5 +12,5 @@ xsetroot -solid "#333333"
 
 ## Uncomment if you use urxvt terminal emulator.
 ## Start urxvtd
-urxvtd -q -f -o
-export TERMINAL=urxvtc
+#urxvtd -q -f -o
+#export TERMINAL=urxvtc

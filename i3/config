@@ -3,7 +3,7 @@ set $super Mod4
 set $alt Mod1
 
 # set font
-font pango: Noto Sans 9
+font pango: Font Awesome 9
 
 # Use Mouse+$super to drag floating windows to their wanted position
 floating_modifier $super
@@ -16,8 +16,8 @@ bindsym $super+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=10'"
-bindsym $super+d exec rofi -lines 8 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 2 -font 'Noto Sans 10'
-bindsym $super+g exec rofi -lines 8 -padding 18 -width 60 -location 0 -show window -sidebar-mode -columns 2 -font 'Noto Sans 10'
+bindsym $super+d exec rofi -show drun
+bindsym $super+g exec rofi -show window
 
 # common apps keybinds
 bindsym Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' -e 'viewnior $f'
@@ -113,16 +113,16 @@ set $personal_chrome google-chrome --user-data-dir=~/.config/chrome-personal --c
 bindsym $super+Shift+n exec $personal_chrome
 bindsym $super+n exec google-chrome
 
-set $ws1 "1:web"
-set $ws2 "2:coding"
-set $ws3 "3:testing"
-set $ws4 "4:scripts"
+set $ws1 "1:   Web"
+set $ws2 "2:   Coding"
+set $ws3 "3:  Testing"
+set $ws4 "4:  Scripts"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9:remote"
-set $ws0 "10:personal"
+set $ws9 "9:  Remote"
+set $ws0 "10: Personal"
 
 bindsym $super+1 workspace $ws1
 bindsym $super+2 workspace $ws2
@@ -201,6 +201,7 @@ bar {
         urgent_workspace	#2f343f	#ebcb8b	#2f343f
     }
     status_command i3status
+    position       top
 }
 
 # control focused window hwen follows the mouse movements

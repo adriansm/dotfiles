@@ -8,20 +8,15 @@
 " Design Changes
 """"""""""""""""""""""""""""""
 
-if $TERM =~ "256color"
-  set t_Co=256                         " Enable 256 colors
-  set t_AB=^[[48;5;%dm
-  set t_AF=^[[38;5;%dm
-endif
-if (($COLORTERM == 'truecolor') || ($COLOR_TERM == '24bit') || ($TERM == 'screen-256color'))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+if (($COLORTERM == 'truecolor') || ($COLORTERM == '24bit') || ($TERM =~ '256color' && has('nvim')))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-    if (has("termguicolors"))
-        " set Vim-specific sequences for RGB colors
-        let t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-        let t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-        set termguicolors
-    endif
+  if (has("termguicolors"))
+    " set Vim-specific sequences for RGB colors
+    let t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+    let t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+  endif
 endif
 
 "" Format the statusline

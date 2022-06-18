@@ -109,6 +109,7 @@
             - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
         apt:
             - dex
+            - fonts-font-awesome
             - i3
             - i3blocks
             - scrot
