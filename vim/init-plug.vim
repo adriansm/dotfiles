@@ -92,90 +92,92 @@ set rtp^=$VIMHOME/custom/adrian.vim
 """" NOTE: remaining plugins shouldn't be required if not running nvim
 """" for example as a an extension directly
 if !exists('g:vscode')
-  "
-  " Status bar plugins
-  "
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'edkolev/tmuxline.vim'
+  finish
+endif
+
+"
+" Status bar plugins
+"
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
 
 
-  "
-  " Themes
-  "
-  Plug 'sheerun/vim-wombat-scheme'
-  "Plug 'jacoborus/tender.vim'
-  "Plug 'keith/parsec.vim'
-  "Plug 'joshdick/onedark.vim'
+"
+" Themes
+"
+Plug 'sheerun/vim-wombat-scheme'
+"Plug 'jacoborus/tender.vim'
+"Plug 'keith/parsec.vim'
+"Plug 'joshdick/onedark.vim'
 
-  Plug 'lilydjwg/colorizer'
-
-
-  "
-  " File Browsing
-  "
-  "Plug 'ctrlpvim/ctrlp.vim'           " Fast file switching
-  Plug 'junegunn/fzf',                {
-        \ 'dir': '~/.fzf',
-        \ 'do': './install --key-bindings --completion'
-        \ }
-  Plug 'junegunn/fzf.vim'
-
-  Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
-  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-
-  Plug 'majutsushi/tagbar',           { 'on': 'TagbarToggle' }
-  Plug 'tpope/vim-vinegar'            " Play nice with netrw
+Plug 'lilydjwg/colorizer'
 
 
-  "
-  " Language Completion
-  "
+"
+" File Browsing
+"
+"Plug 'ctrlpvim/ctrlp.vim'           " Fast file switching
+Plug 'junegunn/fzf',                {
+      \ 'dir': '~/.fzf',
+      \ 'do': './install --key-bindings --completion'
+      \ }
+Plug 'junegunn/fzf.vim'
 
-  if has('python')
-    Plug 'SirVer/ultisnips'
-    if get(g:, 'lang_completion', '') == 'ycm'
-      " Code Completion
-      Plug 'Valloric/YouCompleteMe',    {
-            \ 'do': './install.py --clang-completer --java-completer'
-            \ }
-      "Plug 'rdnetto/YCM-Generator',      { 'branch': 'stable'}
-    endif
-  endif
+Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
-  if get(g:, 'lang_completion', '') == 'lsp'
-    Plug 'autozimu/LanguageClient-neovim', {
-          \ 'branch': 'next',
-          \ 'do': 'bash install.sh',
+Plug 'majutsushi/tagbar',           { 'on': 'TagbarToggle' }
+Plug 'tpope/vim-vinegar'            " Play nice with netrw
+
+
+"
+" Language Completion
+"
+
+if has('python')
+  Plug 'SirVer/ultisnips'
+  if get(g:, 'lang_completion', '') == 'ycm'
+    " Code Completion
+    Plug 'Valloric/YouCompleteMe',    {
+          \ 'do': './install.py --clang-completer --java-completer'
           \ }
-
-    if has('python3')
-      if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-      else
-        Plug 'Shougo/deoplete.nvim'
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
-      endif
-    endif
+    "Plug 'rdnetto/YCM-Generator',      { 'branch': 'stable'}
   endif
+endif
 
-  if get(g:, 'lang_completion', '') == 'coc'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'jackguo380/vim-lsp-cxx-highlight'
-  endif
-
-  "
-  " Ide-like features
-  "
+if get(g:, 'lang_completion', '') == 'lsp'
+  Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
 
   if has('python3')
     if has('nvim')
-      Plug 'Shougo/denite.nvim', {'tag': '*', 'do': ':UpdateRemotePlugins' }
+      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     else
-      Plug 'Shougo/denite.nvim'
+      Plug 'Shougo/deoplete.nvim'
       Plug 'roxma/nvim-yarp'
       Plug 'roxma/vim-hug-neovim-rpc'
     endif
+  endif
+endif
+
+if get(g:, 'lang_completion', '') == 'coc'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'jackguo380/vim-lsp-cxx-highlight'
+endif
+
+"
+" Ide-like features
+"
+
+if has('python3')
+  if has('nvim')
+    Plug 'Shougo/denite.nvim', {'tag': '*', 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/denite.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
   endif
 endif
