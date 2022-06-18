@@ -1,4 +1,5 @@
 local set_options = require('common').set_options
+local cmd = vim.api.nvim_command
 
 vim.opt.listchars.tab = "\\u2192"
 vim.opt.listchars.trail = "\\u2022"
@@ -60,3 +61,4 @@ set_options({
   termguicolors = true,
   mouse = 'a',
 })
+

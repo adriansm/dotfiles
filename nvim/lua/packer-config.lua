@@ -17,7 +17,7 @@ return require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim', opt = true }
 
   --
-  -- Common Plugins
+  -- [[ Common Plugins ]]
   --
   -- TODO: check some of these plugins
 --  use 'tpope/vim-dispatch'                    -- dispatch make async
@@ -30,16 +30,7 @@ return require('packer').startup(function(use)
     requires = 'moll/vim-bbye' }
 
   --
-  -- Color Theme
-  --
-  use {'Mofiqul/vscode.nvim', config = function()
-    vim.g.vscode_style = 'dark'
-    vim.g.vscode_italic_comment = true
-    vim.cmd [[colorscheme vscode]]
-  end}
-
-  --
-  -- Syntax Plugins
+  -- [[ Syntax Plugins ]]
   --
 
   use 'editorconfig/editorconfig-vim'     -- Syntax using .editorconfig files
@@ -51,7 +42,7 @@ return require('packer').startup(function(use)
 
 
   --
-  -- Source Code Editor
+  -- [[ Source Code Editor ]]
   --
 
   -- Easily add comments
@@ -62,7 +53,7 @@ return require('packer').startup(function(use)
 
 
   --
-  -- Source Code/Text Browsing
+  -- [[ Source Code/Text Browsing ]]
   --
   use 'tpope/vim-unimpaired'              -- Quick navigation using []
   use 'MattesGroeger/vim-bookmarks'       -- set vim bookmarks
@@ -76,10 +67,13 @@ return require('packer').startup(function(use)
 
   use 'easymotion/vim-easymotion'         -- Easy motion with mappings
   use 'wellle/targets.vim'                -- Quick shortcuts
+  use { 'windwp/nvim-autopairs',          -- Brackets autopair plugin
+    config = load_config('nvim-autopairs')
+  }
 
 
   --
-  -- Source Control Integration
+  -- [[ Source Control Integration ]]
   --
   use 'tpope/vim-fugitive'                -- The git plugin
   use 'airblade/vim-gitgutter'            -- show signs of lines add/deleted
@@ -89,27 +83,39 @@ return require('packer').startup(function(use)
 
 
   --
-  -- Terminal Integration Plugins
+  -- [[ Terminal Integration Plugins ]]
   --
   use 'bogado/file-line'                  -- Go to line when opening with 'vim file:line'
   use 'christoomey/vim-tmux-navigator'    -- Tmux integration
-  use 'ojroques/vim-oscyank'              -- Yank text to termina via osc52
+  use { 'ojroques/vim-oscyank',           -- Yank text to termina via osc52
+    config = function()
+      vim.cmd [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]]
+    end
+  }
 
 
   --
-  -- Status bar plugin
+  -- [[ Theme ]]
   --
+  use { 'mhinz/vim-startify' }                       -- start screen
+  use { 'DanilaMihailov/beacon.nvim' }               -- cursor jump
+  use { 'Mofiqul/vscode.nvim', config = function()   -- color scheme
+    vim.g.vscode_style = 'dark'
+    vim.g.vscode_italic_comment = true
+    vim.cmd [[colorscheme vscode]]
+  end}
+
   use {
     'kdheepak/tabline.nvim',
     requires = {
       { 'nvim-lualine/lualine.nvim' },
-      { 'kyazdani42/nvim-web-devicons', opt = true }
+      { 'kyazdani42/nvim-web-devicons' }
     },
     config = load_config('tabline'),
   }
 
   --
-  -- Language Completion (lsp)
+  -- [[ Language Completion (lsp) ]]
   --
   use {
     'neovim/nvim-lspconfig',
@@ -122,7 +128,6 @@ return require('packer').startup(function(use)
     'tami5/lspsaga.nvim',
     config = load_config('lspsaga'),
   }
-
 
   -- Treesitter configurations and abstraction layer for Neovim
   use {
@@ -150,19 +155,23 @@ return require('packer').startup(function(use)
 
 
   --
-  -- IDE
+  -- [[ IDE ]]
   --
   use {
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} },
-    config = function()
-      require('telescope').setup()
-    end
+    config = function() require('telescope').setup() end
   }
 
-  use 'scrooloose/nerdtree'
-  use 'Xuyuanp/nerdtree-git-plugin'
-
+  -- use 'scrooloose/nerdtree'
+  -- use 'Xuyuanp/nerdtree-git-plugin'
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    },
+    config = load_config('nvim-tree')
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

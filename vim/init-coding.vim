@@ -25,38 +25,6 @@ let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
-
-"
-" Search/Grep
-"
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ -f\ --nogroup\ --nocolor
-
-  " Replace ack searcher
-  let g:ackprg = 'ag --smart-case -f --vimgrep'
-  cnoreabbrev ag Ack
-endif
-
-" quick search with ctrl-shift-K binding
-"nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-" nnoremap K :Grepper -open -cword -noprompt<cr>
-nnoremap <leader>ff :Grepper<cr>
-nnoremap <leader>fw :Grepper -open -cword -noprompt<cr>
-nnoremap <leader>fr :Grepper -open -dir repo,filecwd -cword -noprompt<cr>
-nnoremap <leader>fs :Grepper -open -side -dir repo,filecwd -cword -noprompt<cr>
-
-let g:grepper               = {
-      \ 'tools':          ['rg', 'ag', 'git'],
-      \ 'jump':           0,
-      \ 'simple_prompt':  1,
-      \ 'quickfix':       1,
-      \ 'git':            { 'grepprg': 'git grep --no-color -nI' },
-      \ 'rg':             { 'grepprg': 'rg -L --vimgrep' },
-      \ 'ag':             { 'grepprg': 'ag -f --vimgrep' }
-      \ }
-
 "
 " Vim Easy Motion
 "
