@@ -139,10 +139,13 @@ nmap <leader>] <Plug>AirlineSelectNextTab
 "
 " Terminal options
 "
-tnoremap <Esc> <C-\><C-n>
-tnoremap <silent> <C-h> <C-\><C-N>:TmuxNavigateLeft<cr>
-tnoremap <silent> <C-j> <C-\><C-N>:TmuxNavigateDown<cr>
-tnoremap <silent> <C-k> <C-\><C-N>:TmuxNavigateUp<cr>
-tnoremap <silent> <C-l> <C-\><C-N>:TmuxNavigateRight<cr>
 
-autocmd TermOpen * setlocal nonumber norelativenumber
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <silent> <C-h> <C-\><C-N>:TmuxNavigateLeft<cr>
+  tnoremap <silent> <C-j> <C-\><C-N>:TmuxNavigateDown<cr>
+  tnoremap <silent> <C-k> <C-\><C-N>:TmuxNavigateUp<cr>
+  tnoremap <silent> <C-l> <C-\><C-N>:TmuxNavigateRight<cr>
+
+  autocmd TermOpen * setlocal nonumber norelativenumber
+endif

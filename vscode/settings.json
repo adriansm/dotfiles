@@ -31,10 +31,12 @@
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
     "window.titleBarStyle": "custom",
     "workbench.colorTheme": "Darcula",
-    "C_Cpp.updateChannel": "Insiders",
     "editor.renderWhitespace": "none",
+
+    "C_Cpp.updateChannel": "Insiders",
     "C_Cpp.clang_format_fallbackStyle": "Google",
     "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
+
     "projectManager.vscode.maxDepthRecursion": 2,
     "projectManager.vscode.baseFolders": [
         "$home/Android/kernels",
@@ -48,4 +50,16 @@
     "files.exclude": {
         "**/.ccls-cache": true
     },
+
+    "vim.incsearch": true,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.leader": "<space>",
+    "vim.smartcase": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["<leader>", "c", "c"],
+            "after": ["g", "c", "c"]
+        }
+    ],
 }

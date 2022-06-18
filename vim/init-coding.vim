@@ -90,11 +90,11 @@ endif
 
 if get(g:, 'lang_completion', '') == 'coc'
   " Remap keys for gotos
-  nmap <silent> <leader>gd <Plug>(coc-definition)
-  nmap <silent> <leader>gt <Plug>(coc-type-definition)
-  nmap <silent> <leader>gi <Plug>(coc-implementation)
+  nmap <silent> <silent>gd <Plug>(coc-definition)
+  nmap <silent> <silent>gt <Plug>(coc-type-definition)
+  nmap <silent> <silent>gi <Plug>(coc-implementation)
   nmap <silent> <leader>gr <Plug>(coc-references)
-  nmap <silent> <leader>gh :call CocAction('doHover')<CR>
+  nmap <silent> <silent>gh :call CocAction('doHover')<CR>
   nmap <leader>m <Plug>(coc-rename)
   vmap <leader>gf <Plug>(coc-format-selected)
 

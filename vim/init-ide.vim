@@ -17,7 +17,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 function! LoadPluginOptions()
   "
-  " CtrlP options
+  " CtrlP options (deprecated)
   "
   if exists(":CtrlPBuffer")
     let g:ctrlp_custom_ignore = {
