@@ -34,6 +34,9 @@
     ~/.local/bin:
         glob: true
         path: bin/*
+    ~/.local/share/fonts:
+        glob: true
+        path: NerdFonts/*
     ~/.nanorc: nano/nanorc
     ~/.nano.d/syntax-highlighting: nano/syntax-highlighting
     ~/.pythonrc: python/pythonrc
@@ -58,9 +61,6 @@
     - [git submodule update --init --recursive, Installing submodules]
     - [vim +PlugInstall +qall, Installing Vim Plugins]
 
-- tap:
-    - caskroom/fonts
-
 - brew:
     - ctags
     - cmake
@@ -71,11 +71,3 @@
     - tmux
     - vim
     - zsh
-
-- cask:
-    - font-anonymouspro-nerd-font-mono
-    - font-anonymouspro-nerd-font
-    - font-sourcecodepro-nerd-font-mono
-    - font-sourcecodepro-nerd-font
-    - font-robotomono-nerd-font
-    - font-robotomono-nerd-font-mono
