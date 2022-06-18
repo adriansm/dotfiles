@@ -7,7 +7,7 @@ inoremap <C-v> <C-R>+
 
 " Undo and Redo
 noremap <C-z> u
-inoremap <C-z> <C-0><C-R>
+inoremap <C-z> <C-O><C-R>
 noremap <C-Y> <C-R>
 inoremap <C-Y> <C-O><C-R>
 
