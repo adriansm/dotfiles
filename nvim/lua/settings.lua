@@ -3,11 +3,27 @@ local set_options = require('utils.common').set_options
 local cmd = vim.api.nvim_command
 
 function M.setup()
-  vim.opt.listchars.tab = "\\u2192"
-  vim.opt.listchars.trail = "\\u2022"
-  vim.opt.listchars.extends = "\\u27E9"
-  vim.opt.listchars.precedes = "\\u27E8"
-  cmd[[let &showbreak="\u21aa "]]
+  -- vim.opt.listchars.tab = "\\u2192"
+  -- vim.opt.listchars.trail = "\\u2022"
+  -- vim.opt.listchars.extends = "\\u27E9"
+  -- vim.opt.listchars.precedes = "\\u27E8"
+  -- List chars
+  cmd[[
+    let &listchars="tab:\u2192 ,trail:\u2022,extends:\u27E9,precedes:\u27E8"
+    let &showbreak="\u21aa "
+  ]]
+
+  -- Highlight trailing whitespace
+  cmd[[
+    match ExtraWhitespace /\s\+$/
+    augroup TrailingWhitespace
+      autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+      autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+      autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+      autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+      autocmd BufWinLeave * call clearmatches()
+    augroup END
+  ]]
 
   -- jump to the last position when reopening a file
   cmd[[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
@@ -29,6 +45,7 @@ function M.setup()
     wrap = false,            -- Do not wrap words (view)
     whichwrap = 'h,l,~,[,]',
 
+    list = true,
     shiftwidth = 2,
     shiftround = true,
     tabstop = 2,

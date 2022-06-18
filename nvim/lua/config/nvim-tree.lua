@@ -8,7 +8,7 @@ function M.setup()
     return
   end
 
-  nvim_tree.setup()
+  nvim_tree.setup{}
 
   -- some configs may need to happen before setup
 

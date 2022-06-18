@@ -164,6 +164,16 @@ function M.setup()
     --
     use 'bogado/file-line'                      -- Go to line when opening with 'vim file:line'
     use 'christoomey/vim-tmux-navigator'        -- Tmux integration
+    use {                                       -- Split resizing/navigation
+      'mrjones2014/smart-splits.nvim',
+      config = function()
+        local splits = require('smart-splits')
+        vim.keymap.set('n', '<A-h>', splits.resize_left)
+        vim.keymap.set('n', '<A-j>', splits.resize_down)
+        vim.keymap.set('n', '<A-k>', splits.resize_up)
+        vim.keymap.set('n', '<A-l>', splits.resize_right)
+      end
+    }
     use { 'ojroques/vim-oscyank',               -- Yank text to terminal via osc52
       config = function()
         vim.cmd [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]]
