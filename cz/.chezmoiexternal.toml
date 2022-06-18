@@ -3,7 +3,7 @@ type = "archive"
 url = "https://github.com/jimeh/git-aware-prompt/archive/refs/heads/master.zip"
 exact = true
 stripComponents = 1
-[".tmux/plugins"]
+[".config/tmux/plugins/tpm"]
 type = "archive"
 url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip"
 exact = true
@@ -11,5 +11,4 @@ stripComponents = 1
 [".zplug"]
 type = "archive"
 url = "https://github.com/zplug/zplug/archive/refs/heads/master.zip"
-exact = true
 stripComponents = 1
