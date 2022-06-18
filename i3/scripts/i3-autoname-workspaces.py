@@ -45,10 +45,6 @@ from i3_workspace import Workspace
 # xprop (https://linux.die.net/man/1/xprop). Run `xprop | grep WM_CLASS`
 # then click on the application you want to inspect.
 WINDOW_INFO = {
-    'termite': fa.icons.get('terminal'),
-    'urxvt': fa.icons.get('terminal'),
-    'gnome-terminal': fa.icons.get('terminal'),
-    'x-terminal-emulator': fa.icons.get('terminal'),
     'chromium': (fa.icons.get('chrome'), 'Web'),
     'google-chrome': (fa.icons.get('chrome'), 'Web'),
     'spotify': fa.icons.get('music'), # could also use 'spotify' from font awesome
@@ -59,40 +55,51 @@ WINDOW_INFO = {
     'evince': fa.icons.get('file-pdf-o'),
     'thunar': fa.icons.get('files-o'),
     'gpick': fa.icons.get('eyedropper'),
-    'atom': fa.icons.get('code'),
+    'atom': (fa.icons.get('code'), 'Atom'),
     'steam': fa.icons.get('steam'),
     'zenity': fa.icons.get('window-maximize'),
     'chrome-personal': (fa.icons.get('chrome'), 'Personal'),
+    'jetbrains-pycharm-ce': (fa.icons.get('code'), 'Pycharm')
 }
+
+TERMINALS = [
+  'termite',
+  'urxvt',
+  'gnome-terminal',
+  'xterminal-emulator',
+]
+
+TERMINAL_ICON = fa.icons.get('terminal')
 
 # This icon is used for any application not in the list above
 DEFAULT_ICON = ''
 
 
-# Returns an array of the values for the given property from xprop.  This
-# requires xorg-xprop to be installed.
-def xprop(win_id, prop):
-  try:
-    prop = proc.check_output(
-      ['xprop', '-id', str(win_id), prop], stderr=proc.DEVNULL)
-    prop = prop.decode('utf-8')
-    return re.findall('"([^"]+)"', prop)
-  except proc.CalledProcessError:
-    print("Unable to get property for window '%d'" % win_id)
-    return None
+def name_for_terminal(window):
+  return None
+
+def info_for_window_class(cls):
+  icon, name = None, None
+  if cls:
+    wclass = cls.lower()
+    if wclass in TERMINALS:
+      icon, name = TERMINAL_ICON, name_for_terminal()
+    else:
+      info = WINDOW_INFO.get(wclass, None)
+      if info and isinstance(info, tuple):
+        icon, name = info
+      else:
+        icon = info
+
+  return icon, name
 
 def info_for_window(window):
-  classes = xprop(window.window, 'WM_CLASS')
-  if classes:
-    for cls in classes:
-      # case-insensitive matching
-      info = WINDOW_INFO.get(cls.lower(), None)
-      if info:
-        if isinstance(info, tuple):
-          return info
-
-        return info, None
-    print('No icon available for window with classes: %s' % str(classes))
+  classes = [window.window_class, window.window_instance]
+  for cls in classes:
+    icon, name = info_for_window_class(cls)
+    if icon or name:
+      return icon, name
+  print('No icon available for window with classes: %s' % str(classes))
   return DEFAULT_ICON, None
 
 # renames all workspaces based on the windows present
