@@ -30,10 +30,6 @@
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.config/oni/config.tsx: oni/config.tsx
     ~/.config/oni/.editorconfig: oni/editorconfig
-    ~/.config/compton.conf:
-    ~/.config/dunst:
-    ~/.config/i3:
-    ~/.config/i3status:
     ~/.gitattributes: git/gitattributes
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
@@ -56,9 +52,6 @@
     ~/.vim:
     ~/.vimrc: vim/init.vim
     ~/.wgetrc:
-    ~/.xsessionrc:
-    ~/.xsettingsd:
-    ~/.Xresources:
     ~/.zsh:
     ~/.zshenv: zsh/zshenv
     ~/.zshprofile: zsh/zshenv
@@ -101,9 +94,16 @@
     actions:
         clean: ['~/.local/share/fonts']
         link:
+            ~/.config/compton.conf:
+            ~/.config/dunst:
+            ~/.config/i3:
+            ~/.config/i3status:
             ~/.local/share/fonts:
                 glob: true
                 path: fonts/*
+            ~/.xsessionrc:
+            ~/.xsettingsd:
+            ~/.Xresources:
         shell:
             - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
         apt:
