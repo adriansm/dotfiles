@@ -24,12 +24,12 @@
 #   bindsym $mod+1 workspace number 1
 
 import signal
+import subprocess
 import sys
 
 import fontawesome as fa
-import i3ipc
-
 from i3_workspace import Workspace
+import i3ipc
 
 
 # Add icons here for common programs you use.  The keys are the X window class
@@ -131,6 +131,36 @@ def undo_window_renaming(i3):
     sys.exit(0)
 
 
+def find_fullscreen(con):
+  # XXX remove me when this method is available on the con in a release
+  return [c for c in con.descendents() if c.type == 'con' and c.fullscreen_mode]
+
+
+def set_dpms(state):
+  if state:
+    print('setting dpms on')
+    subprocess.call(['xset', 's', 'on'])
+    subprocess.call(['xset', '+dpms'])
+  else:
+    print('setting dpms off')
+    subprocess.call(['xset', 's', 'off'])
+    subprocess.call(['xset', '-dpms'])
+
+
+def on_fullscreen(i3):
+  set_dpms(not find_fullscreen(i3.get_tree()))
+
+
+def on_window_close(i3):
+  if not find_fullscreen(i3.get_tree()):
+    set_dpms(True)
+  rename_workspaces(i3)
+
+
+def on_window_change(i3):
+  rename_workspaces(i3)
+
+
 if __name__ == '__main__':
   i3conn = i3ipc.Connection()
 
@@ -140,8 +170,13 @@ if __name__ == '__main__':
 
     # call rename_workspaces() for relevant window events
     def window_event_handler(i3, e):
-      if e.change in ['new', 'close', 'move']:
-        rename_workspaces(i3)
+      if e.change in ['new', 'move']:
+        on_window_change(i3)
+      elif e.change == 'close':
+        on_window_close(i3)
+      elif e.change == 'fullscreen_mode':
+        on_fullscreen(i3)
+
     i3conn.on('window', window_event_handler)
 
     rename_workspaces(i3conn)
