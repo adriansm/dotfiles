@@ -78,7 +78,7 @@
 	co  = checkout
 	# fetch
 	f   = fetch
-	fm  = pull --rebase
+	fm  = pull --rebase --autostash
 	# merge
 	m   = merge
 	# push

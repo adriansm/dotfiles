@@ -28,7 +28,7 @@ function run_realpath() {
         fi
     done
 
-    command $exe -p "${args[@]}"
+    command $exe "${args[@]}"
 }
 
 alias vi="run_realpath vi"
