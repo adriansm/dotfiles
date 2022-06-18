@@ -6,6 +6,10 @@ end
 
 vim.cmd [[packadd packer.nvim]]
 
+function load_config(plugin)
+  require('plugins.'..plugin)
+end
+
 --
 -- Plug-ins Start from here
 --
@@ -21,6 +25,9 @@ return require('packer').startup(function(use)
   use 'tpope/vim-eunuch'                      -- Unix shell commands
   use 'will133/vim-dirdiff'                   -- Dir diff
   use 'vim-scripts/CursorLineCurrentWindow'   -- Cursor line only for current window
+
+  use {'aymericbeaumet/vim-symlink',          -- Handling of symlinks
+    requires = 'moll/vim-bbye' }
 
   --
   -- Color Theme
@@ -98,69 +105,46 @@ return require('packer').startup(function(use)
       { 'nvim-lualine/lualine.nvim' },
       { 'kyazdani42/nvim-web-devicons', opt = true }
     },
-    config = function()
-      require('tabline').setup {
-        -- Defaults configuration options
-        enable = true,
-        options = {
-          -- If lualine is installed tabline will use separators configured in lualine by default.
-          -- These options can be used to override those settings.
-          section_separators = {'', ''},
-          component_separators = {'', ''},
-          max_bufferline_percent = 80, -- set to nil by default, and it uses vim.o.columns * 2/3
-          show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
-          show_devicons = true, -- this shows devicons in buffer section
-          show_bufnr = false, -- this appends [bufnr] to buffer section,
-          show_filename_only = false, -- shows base filename only instead of relative path in filename
-          modified_icon = "+ ", -- change the default modified icon
-          modified_italic = true, -- set to true by default; this determines whether the filename turns italic if modified
-        }
-      }
-
-      require('lualine').setup {
-        extensions = {
-          'nerdtree'
-        },
-        options = {
-          component_separators = { left = '', right = '' },
-          section_separators = { left = '', right = '' },
-          theme = 'vscode'
-        },
-        tabline = {
-          lualine_c = { require('tabline').tabline_buffers },
-          lualine_x = { require('tabline').tabline_tabs }
-        }
-      }
-      vim.cmd[[
-        set guioptions-=e                       " Use showtabline in gui vim
-        set sessionoptions+=tabpages,globals    " store tabpages and globals in session
-      ]]
-    end
+    config = load_config('tabline'),
   }
 
   --
   -- Language Completion (lsp)
   --
-  use { 
-    'neovim/nvim-lspconfig', 
-    'williamboman/nvim-lsp-installer',
+  use {
+    'neovim/nvim-lspconfig',
+    requires = {'williamboman/nvim-lsp-installer'},
+    config = load_config('lspconfig'),
   }
 
   -- A light-weight LSP plugin based on Neovim built-in LSP with highly a performant UI
-  use 'tami5/lspsaga.nvim'
+  use {
+    'tami5/lspsaga.nvim',
+    config = load_config('lspsaga'),
+  }
+
 
   -- Treesitter configurations and abstraction layer for Neovim
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = load_config('treesitter'),
+  }
 
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/nvim-cmp'
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-vsnip',
+    },
+    config = load_config('cmp')
+  }
 
   -- For vsnip users.
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/vim-vsnip'
+  use { 'hrsh7th/cmp-vsnip', requires = { use 'hrsh7th/vim-vsnip', opt = true }}
 
   use 'onsails/lspkind-nvim'
 

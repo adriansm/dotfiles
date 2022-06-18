@@ -1,12 +1,12 @@
-if !exists('g:lspconfig') | finish | endif
+local status_ok, nvim_lsp = pcall(require, "lspconfig")
+if not status_ok then
+  return
+end
 
-lua << EOF
--- vim.lsp.set_log_level("debug")
-EOF
-
-lua << EOF
-local nvim_lsp = require('lspconfig')
-local protocol = require'vim.lsp.protocol'
+local status_ok, protocol = pcall(require, "vim.lsp.protocol")
+if not status_ok then
+  return
+end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -126,5 +126,3 @@ lsp_installer.on_server_ready(function(server)
     -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
     server:setup(opts)
 end)
-
-EOF
