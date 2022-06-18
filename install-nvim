@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [[ "$OSTYPE" != "linux"* ]]; then
+  echo "This script is only supported on Linux"
+  exit 1
+fi
+
 NVIM_NIGHTLY=${NVIM_NIGHTLY:-1}
 if [ -n "$NVIM_NIGHTLY" -a $NVIM_NIGHTLY -eq 1 ]; then
   echo "Downloading nightly version of neovim"

@@ -73,8 +73,8 @@
             ~/Library/Fonts/MyFonts: fonts
         brew:
             - rsync
-            - the_silver_searcher
-            - ctags
+            - ripgrep
+            - neovim
 
 # Simple packages that don't have X/wm dependency but only if not minimal install
 - if:
@@ -85,21 +85,19 @@
         apt:
             - build-essential
             - clang-format
-            - exuberant-ctags
-            - neovim
             - rsync
             - ruby
-            - silversearcher-ag
+            - ripgrep
             - tig
             - tmux
             - vim
             - zsh
 
-# Packages needed when X is available and full install
+# Packages needed when X is available and i3 install
 - if:
     and:
         os: linux
-        shell: [ test -n "$(command -v X)" -a "$INSTALL_TYPE" = "full" ]
+        shell: [ test -n "$(command -v X)" -a "$INSTALL_TYPE" = "i3" ]
     actions:
         clean: ['~/.local/share/fonts']
         link:
@@ -137,11 +135,11 @@
             - xsecurelock
             - xss-lock
 
-# Gnome settings if dconf is installed and full install
+# Gnome settings if dconf is installed and i3 install
 - if:
     and:
         os: linux
-        shell: [ test -n "$(command -v dconf)" -a "$INSTALL_TYPE" = "full"]
+        shell: [ test -n "$(command -v dconf)" -a "$INSTALL_TYPE" = "i3"]
     actions:
         link:
             ~/.config/dconf:
