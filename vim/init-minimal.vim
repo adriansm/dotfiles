@@ -1,6 +1,6 @@
 "
 " Minimal Vim Settings
-" 
+"
 " Basic set of settings for Vim that should work in all conditions
 " without the need of any external plugins.
 "
@@ -38,6 +38,8 @@ if has('nvim')
 elseif has("signcolumn")
   set signcolumn=yes
 endif
+
+" set sessionoptions+=tabpages,globals
 
 "
 " Text Formatting
