@@ -28,3 +28,5 @@ if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[
   pkill ssh-agent
   eval $(ssh-agent -s)
 fi
+
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
