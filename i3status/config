@@ -19,7 +19,7 @@ order += "volume master"
 order += "tztime local"
 
 load {
-        format = "<span background='#f59335'>  %5min Load </span>"
+        format = "<span background='#f59335'>  %1min Load </span>"
 }
 
 cpu_temperature 0 {

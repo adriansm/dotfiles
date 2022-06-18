@@ -126,7 +126,6 @@ rofi.color-normal: #2e3440, #d8dee9, #2e3440, #2e3440, #bf616a
 rofi.color-active: #2e3440, #b48ead, #2e3440, #2e3440, #93e5cc
 rofi.color-urgent: #2e3440, #ebcb8b, #2e3440, #2e3440, #ebcb8b
 rofi.modi: run,drun,window
-rofi.switchers: window,run,Workspace:i3_switch_workspaces.sh
 
 ! ------------------------------------------------------------------------------
 ! Dmenu configs

@@ -1,0 +1,173 @@
+#!/bin/bash
+
+# On SIGUSR1, we simply keep going, as this signal should only restart
+# the sleep timer (which is handled by saver_blank).
+trap '' USR1
+
+baseimg="$(mktemp --suffix=.png)"
+stagingimg="$(mktemp --suffix=.png)"
+img="$(mktemp --suffix=.png)"
+winid="$(printf 0x%x "${XSCREENSAVER_WINDOW}")"
+size="$(xwininfo -id "$winid" | grep -o -- '-geometry.*$' | grep -o '[1-9][0-9]*x[1-9][0-9]*')"
+width="${size%x*}"
+height="${size#*x}"
+centerpanesize="$((width/2))x$((height/2))"
+bgcolor="#333333"
+fgcolor="#cccccc"
+
+# cleanup trap. Only active until the exec at the end where it will be
+# "disabled" as a side-effect of exec.
+trap "rm -f $baseimg $stagingimg $img" EXIT
+
+[ -r /etc/lsb-release ] && . /etc/lsb-release
+
+# create base image with gradient background and glinux logo
+convert -size "$size" canvas:#424242 png:$baseimg
+
+# adds timestamp on base image
+add_timestamp()
+{
+  case "$((RANDOM%4))" in
+    0) position="southeast" ;;
+    1) position="northeast" ;;
+    2) position="southwest" ;;
+    3) position="northwest" ;;
+  esac
+
+  # overlay the date
+  convert "$stagingimg" \
+    -fill $fgcolor \
+    -font "${XSECURELOCK_DATE_FONT}" \
+    -pointsize 48 \
+    -gravity "$position" \
+    -annotate +90+48 "$(date "${XSECURELOCK_DATE_FORMAT}")" \
+    "$stagingimg"
+
+  # overlay the time
+  convert "$stagingimg" \
+    -fill $fgcolor \
+    -font "${XSECURELOCK_TIME_FONT}" \
+    -pointsize 172 \
+    -gravity "$position" \
+    -annotate +80+76 "$(date "${XSECURELOCK_TIME_FORMAT}")" \
+    "$stagingimg"
+
+  # Editing img in place would cause mpv to crash. An atomic mv is safe however.
+  mv -f "$stagingimg" "$img"
+}
+
+# adds gLinux string on base image
+add_glinux()
+{
+  case "$((RANDOM%9))" in
+    0) gravity="south" ;;
+    1) gravity="southwest" ;;
+    2) gravity="west" ;;
+    3) gravity="northwest" ;;
+    4) gravity="north" ;;
+    5) gravity="northeast" ;;
+    6) gravity="east" ;;
+    7) gravity="southeast" ;;
+    8) gravity="center" ;;
+  esac
+
+  convert "$baseimg" \
+    \( \
+      -size "$centerpanesize" \
+      xc:none \
+      -fill $fgcolor \
+      -font "${XSECURELOCK_GLINUX_FONT}" \
+      -pointsize 128 \
+      -gravity "$gravity" \
+      -annotate 0 "gLinux" \
+    \) \
+    -gravity center \
+    -composite \
+    "$stagingimg"
+}
+
+# adds penguin on base image
+add_penguin()
+{
+  case "$((RANDOM%4))" in
+    0)
+      degrees="0"
+      position="south"
+      geometry="+0-100"
+      ;;
+    1)
+      degrees="90"
+      position="west"
+      geometry="-100+0"
+      ;;
+    2)
+      degrees="180"
+      position="north"
+      geometry="+0-100"
+      ;;
+    3)
+      degrees="270"
+      position="east"
+      geometry="-100+0"
+      ;;
+  esac
+
+  # overlay the penguin
+  convert "$stagingimg" \
+    \( "${XSECURELOCK_LOGO_IMAGE}" +distort ScaleRotateTranslate "$degrees" \) \
+    -gravity "$position" \
+    -geometry "$geometry" \
+    -composite \
+    "$stagingimg"
+}
+
+draw() {
+    # prepare elements independent of time in advance
+    if [ -n "$GOOGLE_RELEASE" ]; then
+        add_glinux
+    fi
+    add_penguin
+}
+
+draw
+add_timestamp
+
+# This function runs the following command in a SIGTERM-protected subshell.
+# This is used to avoid error spam from sleep receiving SIGTERM.
+protect() {
+  (
+    trap '' TERM
+    exec "$@"
+  )
+}
+
+{
+  # Another trap, because the first one is ineffective once the main bash
+  # process exec's saver_blank at the end.
+  trap "rm -f $baseimg $stagingimg $img" EXIT
+
+  # recreate the image every minute to have the current time
+  while true; do
+    pre_draw
+    # wait until the next full minute before adding new timestamp.
+    # modulo is not required, but a safety against unexpected output from date.
+    # "% 61" instead of "% 60" to account for leap seconds.
+    protect sleep "$((60 - $(date +%-S) % 61))" || protect sleep 60
+    add_timestamp
+  done
+} &
+
+# display the latest image
+while true; do
+  mpv --no-terminal \
+    --image-display-duration=2 \
+    --loop-playlist=inf \
+    --no-stop-screensaver \
+    --wid="${XSCREENSAVER_WINDOW}" \
+    --no-audio \
+    -- \
+    "$img"
+  protect sleep 1
+done &
+
+exec ./saver_blank
