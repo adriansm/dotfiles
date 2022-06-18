@@ -83,6 +83,22 @@
 - if:
     os: linux
     actions:
+        apt:
+            - build-essential
+            - exuberant-ctags
+            - neovim
+            - ruby
+            - silversearcher-ag
+            - tmux
+            - vim
+            - zsh
+
+# Packages needed when X is available
+- if:
+    and:
+        os: linux
+        shell: [ test -n "$(command -v X)" ]
+    actions:
         clean: ['~/.local/share/fonts']
         link:
             ~/.local/share/fonts:
@@ -91,19 +107,14 @@
         shell:
             - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
         apt:
-            - build-essential
             - dex
-            - exuberant-ctags
             - i3
-            - neovim
-            - ruby
-            - silversearcher-ag
-            - tmux
-            - vim
+            - scrot
+            - viewnior
             - xbacklight
+            - xinput
             - xsecurelock
             - xss-lock
-            - zsh
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
