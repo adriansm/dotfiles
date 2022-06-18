@@ -16,6 +16,7 @@ endif
 set history=50
 set wildmode=list:longest,full
 "set wildmenu            " enhanced command completion
+set clipboard=unnamed,unnamedplus
 
 " ** Text Formatting **
 set nowrap              " Do not wrap words (view)

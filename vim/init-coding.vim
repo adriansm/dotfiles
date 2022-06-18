@@ -190,7 +190,7 @@ nnoremap <leader>fs :Grepper -open -side -dir repo,filecwd -cword -noprompt<cr>
 
 let g:grepper               = {
       \ 'tools':          ['rg', 'ag', 'git'],
-      \ 'jump':           1,
+      \ 'jump':           0,
       \ 'simple_prompt':  1,
       \ 'quickfix':       1,
       \ 'git':            { 'grepprg': 'git grep --no-color -nI' },

@@ -4,8 +4,6 @@
 " Settings that help vim behave more like an IDE
 "
 
-set clipboard=unnamed,unnamedplus
-
 noremap <C-e> :NERDTreeToggle<CR>
 map <Leader>t :TagbarToggle<CR>
 
