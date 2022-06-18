@@ -1,6 +1,6 @@
-[".bash/git-aware-prompt"]
+[".config/bash/git-aware-prompt"]
 type = "archive"
-url = "https://github.com/jimeh/git-aware-prompt.git/archive/refs/heads/master.zip"
+url = "https://github.com/jimeh/git-aware-prompt/archive/refs/heads/master.zip"
 exact = true
 stripComponents = 1
 [".tmux/plugins"]

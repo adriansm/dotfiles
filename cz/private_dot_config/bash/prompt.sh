@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROMPT_COMMAND=
-export GITAWAREPROMPT=~/.bash/git-aware-prompt
+export GITAWAREPROMPT=~/.config/bash/git-aware-prompt
 
 export _TITLE_PREFIX=""
 
