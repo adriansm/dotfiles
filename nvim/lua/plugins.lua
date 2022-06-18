@@ -312,6 +312,13 @@ function M.setup()
       end
     }
 
+    use {                                       -- Display possible key bindings
+      "folke/which-key.nvim",
+      config = function()
+        require("which-key").setup {}
+      end
+    }
+
     -- Legendary
     use {
       "mrjones2014/legendary.nvim",

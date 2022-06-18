@@ -39,12 +39,14 @@ function M.setup()
           ["<C-k>"] = actions.move_selection_previous,
           ["<C-n>"] = actions.cycle_history_next,
           ["<C-p>"] = actions.cycle_history_prev,
-          ["<M-p"] = action_layout.toggle_preview,
+          ["<M-p>"] = action_layout.toggle_preview,
+          ["<M-d>"] = actions.delete_buffer,
         },
         n = {
           ["x"] = actions.toggle_selection,
           ["q"] = actions.close,
-          ["<M-p"] = action_layout.toggle_preview,
+          ["<M-p>"] = action_layout.toggle_preview,
+          ["<M-d>"] = actions.delete_buffer,
         }
       },
     },
