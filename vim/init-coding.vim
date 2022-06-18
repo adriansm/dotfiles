@@ -266,6 +266,7 @@ augroup END
 " rely on completer for checking
 let g:syntastic_c_checkers             = []
 let g:syntastic_c_check_header           = 1
+let g:syntastic_python_checkers             = []
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list            = 1
 "let g:syntastic_check_on_open            = 1
@@ -351,6 +352,11 @@ map <Leader>k <Plug>(easymotion-k)
 
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
+
+"
+" Tcomment
+"
+let g:tcomment_mapleader2='<Leader>c'
 
 "
 " OmniCppComplete Autocompletion (deprecated)

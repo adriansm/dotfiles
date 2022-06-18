@@ -11,6 +11,7 @@
     "python.linting.pylintArgs": [
         "--indent-string=\"  \""
     ],
+    "python.pythonPath": "python3",
     "languageserver": {
         "ccls": {
             "command": "ccls",

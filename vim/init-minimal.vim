@@ -41,7 +41,9 @@ endif
 " Text Formatting
 "
 set nowrap              " Do not wrap words (view)
-set list listchars=tab:→\ ,
+set list
+set listchars=tab:→\ ,trail:•,extends:⟩,precedes:⟨
+set showbreak=↪\
 
 set shiftwidth=4
 set tabstop=4
