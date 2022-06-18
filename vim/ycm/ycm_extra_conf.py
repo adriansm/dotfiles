@@ -178,7 +178,7 @@ def ProcessFlags(compiler_flags, working_directory):
         make_next_absolute = True
         break
 
-      if flag.startswith(path_flag):
+      if flag.startswith(path_flag) and not flag.startswith('/'):
         path = flag[len(path_flag):]
         new_flag = path_flag + os.path.join(working_directory, path.strip())
         break
@@ -520,6 +520,7 @@ def GetAndroidClang(ycmd_path):
 
 
 def YcmCorePreload():
+  logging.info("Pre loading ycm_core")
   path_to_ycm_core = FindInPath('ycm_core.so')
   try:
     path_to_ycm_client_support = FindInPath('ycm_client_support.so')
@@ -533,6 +534,7 @@ def YcmCorePreload():
 
   # if no clang found then revert to regular ycm clang
   if not clang:
+    logging.info("Unable to find any custom ycm clang")
     return
 
   global _ycm_temp_dir
@@ -555,6 +557,23 @@ def YcmCorePreload():
   logging.info("Set path for ycm_temp dir: " + _ycm_temp_dir)
 
 
-def VimClose():
+def Shutdown():
   if _ycm_temp_dir is not None:
     shutil.rmtree( _ycm_temp_dir )
+    _ycm_temp_dir = None
+
+
+def VimClose():
+  Shutdown()
+
+
+def Settings(**kwargs):
+  language = kwargs['language']
+  if language == 'cfamily':
+    filename = kwargs['filename']
+    logging.info("Received request for flags: %s", filename)
+
+    # Settings for the C-family completer.
+    return FlagsForFile(filename)
+  return {}
+
