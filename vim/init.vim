@@ -1,4 +1,4 @@
-if has('win32') || has ('win64')
+if has("win32") || has ("win64")
     let $VIMHOME = $VIM."/vimfiles"
 else
     let $VIMHOME = $HOME."/.vim"
@@ -15,7 +15,7 @@ call plug#end()
 source $VIMHOME/init-minimal.vim
 source $VIMHOME/init-coding.vim " All required to get coding including syntax and code completion
 
-if exists('g:vscode')
+if exists('g:vscode') || exists("g:gui_oni")
     let g:lang_completion = 'vscode'
 else
     source $VIMHOME/init-ui.vim     " All UI components such as color scheme
