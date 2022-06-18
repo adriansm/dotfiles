@@ -67,6 +67,9 @@
         clean: ['~/Library/Fonts']
         sync:
             ~/Library/Fonts/NerdFonts: NerdFonts
+        brew:
+            - rsync
+            - ctags
 
 - if:
     os: linux
@@ -84,9 +87,4 @@
     - [vim +PlugInstall +qall, Installing Vim Plugins]
 
 - brew:
-    - ctags
-    - cmake
-    - neovim
-    - rsync
     - the_silver_searcher
-    - tmux

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 CONFIG="deploy/dotbot.conf.yaml"
-APT_BINS="git gcc python ruby zsh vim"
-APT_PKGS="git-core build-essential python ruby zsh vim"
+APT_BINS="git gcc python ruby zsh vim tmux nvim python pip ctags"
+APT_PKGS="git-core build-essential python ruby zsh vim tmux neovim python python-pip exuberant-ctags"
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -28,6 +28,7 @@ function install_linux()
     echo "Installing required packages"
     sudo apt-get update -y
     sudo apt-get install -y $APT_PKGS
+    pip install --user neovim pynvim
 }
 
 function run_dotbot()
@@ -37,6 +38,11 @@ function run_dotbot()
 
 if [[ "$OSTYPE" == "linux"* ]]; then
     install_linux
+fi
+
+# linux brew installation is a mess, just initialize here
+if [[ ! -d "$HOME/.linuxbrew" ]]; then
+    git clone https://github.com/Homebrew/brew $HOME/.linuxbrew
 fi
 
 cd "${BASEDIR}"
