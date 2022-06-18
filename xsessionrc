@@ -10,9 +10,6 @@ export GTK_IM_MODULE=xim
 # Desktop background color.
 xsetroot -solid "#333333"
 
-# TODO: may be needed only on laptops
-xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
-
 ## Uncomment if you use urxvt terminal emulator.
 ## Start urxvtd
 urxvtd -q -f -o
