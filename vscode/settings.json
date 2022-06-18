@@ -56,12 +56,13 @@
     "vim.leader": "<space>",
     "vim.smartcase": true,
     "vim.normalModeKeyBindings": [
-        {
-            "before": ["<leader>", "c", "c"],
-            "after": ["g", "c", "c"]
-        }
     ],
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "editor.wrappingIndent": "indent",
+    "indent-to-bracket.useDefaultIndentationAfterEmptyBracket": false,
+    "vim.neovimPath": "/usr/bin/nvim",
+    "vscode-neovim.neovimInitPath": "/home/salidoa/.config/nvim/init.vim",
+    "vscode-neovim.neovimPath": "/home/salidoa/.local/bin/nvim"
 }

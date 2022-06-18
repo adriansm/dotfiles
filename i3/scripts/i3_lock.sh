@@ -13,7 +13,14 @@ if [ $ALLOW_XSECURELOCK != 0 -a -f $XSECURELOCK_BIN ]; then
     export XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="pactl set-sink-volume @DEFAULT_SINK@ -5%"
     export XSECURELOCK_KEY_XF86AudioMute_COMMAND="pactl set-sink-mute @DEFAULT_SINK@ toggle"
 
+    # Pause media before locking
+    playerctl pause
+
     . $XSECURELOCK_BIN $@
+
+    if [ -n "$XSECURE_RUN_AFTER" -a -x "$XSECURELOCK_RUN_AFTER" ]; then
+        $XSECURELOCK_RUN_AFTER
+    fi
 else
     i3lock --color=4c7899 --ignore-empty-password --show-failed-attempts $@
 fi

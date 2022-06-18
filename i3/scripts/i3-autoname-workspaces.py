@@ -61,6 +61,14 @@ WINDOW_INFO = {
     'zenity': fa.icons.get('window-maximize'),
 }
 
+WINDOW_PREFERRED_LOCATION = {
+  'google-chrome': ['DP1-1'],
+  'jetbrains-pycharm-ce': ['DP1-2', 'DP1-1'],
+  'code': ['DP1-2', 'DP1-1'],
+  'termite': ['DP1-2', 'DP1-1'],
+  'gnome-terminal': ['DP1-2', 'DP1-1'],
+}
+
 TERMINALS = [
     'termite',
     'urxvt',
@@ -74,7 +82,7 @@ TERMINAL_ICON = fa.icons.get('terminal')
 DEFAULT_ICON = ''
 
 
-def name_for_terminal(unused_window):
+def name_for_terminal(_unused_window):
   # TODO(adriansm): implement something reading WM_NAME
   return None
 
@@ -133,7 +141,7 @@ def undo_window_renaming(i3):
 
 def find_fullscreen(con):
   # XXX remove me when this method is available on the con in a release
-  return [c for c in con.descendents() if c.type == 'con' and c.fullscreen_mode]
+  return [c for c in con.descendants() if c.type == 'con' and c.fullscreen_mode]
 
 
 def set_dpms(state):
@@ -164,14 +172,53 @@ def on_window_change(i3):
 
 
 def init_windows(i3):
-  rename_workspaces(i3conn)
+  rename_workspaces(i3)
   if find_fullscreen(i3.get_tree()):
     print('Detected changed full screen window')
     set_dpms(False)
 
 
-if __name__ == '__main__':
+def get_active_outputs(i3) -> list:
+  return [o for o in i3.get_outputs() if o.active]
+
+
+def move_workspace_to_output(i3, workspace, output):
+  print(f'Moving workspace {workspace.name} to {output}')
+  cmd = f'[workspace={workspace.num}] move workspace to output {output}'
+  i3.command(cmd)
+
+def organize_outputs(i3, outputs):
+  primary_output = next((o.name for o in outputs if o.primary), None)
+  if not primary_output:
+    return
+  print('Found primary output: ' + primary_output)
+
+  output_names = [o.name for o in outputs if not o.primary]
+  primary_workspaces = [ws.num for ws in i3.get_workspaces() if ws.output == primary_output]
+
+  print('Finding outputs for workspaces: ' ', '.join([str(i) for i in primary_workspaces]))
+
+  for workspace in i3.get_tree().workspaces():
+    # Skip workspaces not in the primary output
+    if workspace.num not in primary_workspaces:
+      continue
+
+    for w in workspace.leaves():
+      window_class = w.window_class.lower()
+      print("Trying to find output for %s" % window_class)
+      preferred_outputs = WINDOW_PREFERRED_LOCATION.get(window_class, [])
+      for o in preferred_outputs:
+        if o in output_names:
+          move_workspace_to_output(i3, workspace, o)
+          break
+
+
+def main():
+  global output_count
+
   i3conn = i3ipc.Connection()
+
+  output_count = len(get_active_outputs(i3conn))
 
   # exit gracefully when ctrl+c is pressed
   for sig in [signal.SIGINT, signal.SIGTERM]:
@@ -188,6 +235,23 @@ if __name__ == '__main__':
 
     i3conn.on('window', window_event_handler)
 
+    def output_handler(i3: i3ipc.Connection, e):
+      global output_count
+
+      print('Outputs changed')
+      outputs = get_active_outputs(i3)
+      new_active_outputs = len(outputs)
+      if new_active_outputs > output_count:
+        organize_outputs(i3, outputs)
+
+      output_count = new_active_outputs
+
+    i3conn.on('output', output_handler)
+
     init_windows(i3conn)
 
     i3conn.main()
+
+
+if __name__ == '__main__':
+  main()

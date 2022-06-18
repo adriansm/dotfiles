@@ -32,10 +32,11 @@ def prompt_workspace_name(name=None):
   return None
 
 
-class Workspace():
+class Workspace:
 
   def __init__(self, i3_workspace, **kwargs):
     self.i3: I3Connection = kwargs.get('i3', I3Connection())
+    self.num = i3_workspace.num
     self.name_parts = {}
     self.parse_name(i3_workspace.name)
 
@@ -54,7 +55,9 @@ class Workspace():
         r'(?P<num>\d+):?(?P<icons>([ ][^A-Za-z])*) ?(?P<shortname>\w+[ ]?$)?',
         name).groupdict()
 
-    self.name_parts['num'] = int(data['num'])
+    # self.name_parts['num'] = int(data['num'])
+    if int(data['num']) != self.num:
+      logging.warning("Workspace num doesn't match actual: %d", self.num)
     if data['icons']:
       self.name_parts['icons'] = data['icons'].strip().split()
     name = data.get('shortname')
@@ -64,7 +67,7 @@ class Workspace():
       self.name_parts['shortname'] = name
 
   def get_name(self):
-    new_name = str(self.get_num())
+    new_name = str(self.num)
     shortname = self.get_shortname()
     icons = self.get_icons()
 
@@ -86,10 +89,10 @@ class Workspace():
 
   def refresh(self):
     for w in self.i3.get_workspaces():
-      if w.num == self.get_num():
+      if w.num == self.num:
         self.parse_name(w.name)
         return w.name
-    raise Exception('Could not find workspace %d' % (self.get_num()))
+    raise Exception('Could not find workspace %d' % self.num)
 
   def update(self, new_values):
     with open(__file__) as f:
@@ -109,9 +112,6 @@ class Workspace():
   def get_icons(self):
     return self.name_parts.get('icons')
 
-  def get_num(self):
-    return self.name_parts.get('num')
-
   def get_shortname(self):
     return self.name_parts.get('shortname')
 
@@ -121,7 +121,7 @@ class Workspace():
     }
     self.update(update)
 
-  def set_shortname(self, shortname, **unused_kwargs):
+  def set_shortname(self, shortname, **_unused_kwargs):
     update = {
         'shortname': shortname
     }
