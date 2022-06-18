@@ -39,6 +39,8 @@ set cinoptions+=(0
 set formatoptions-=t
 set foldmethod=marker
 
+set encoding=UTF-8
+
 
 "
 " File Types and formatting
