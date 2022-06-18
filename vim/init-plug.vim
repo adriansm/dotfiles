@@ -13,7 +13,7 @@
 Plug 'editorconfig/editorconfig-vim'    " Syntax using .editorconfig files
 
 Plug 'godlygeek/tabular'                " Tabular helper (required by vim-markdown)
-"Plug 'scrooloose/syntastic'             " Checks syntax
+Plug 'scrooloose/syntastic'             " Checks syntax
 
 Plug 'sheerun/vim-polyglot'             " Language Pack
 Plug 'nickhutchinson/vim-cmake-syntax', { 'for': 'cmake' }

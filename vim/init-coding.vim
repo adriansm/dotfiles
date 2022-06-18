@@ -218,27 +218,27 @@ endif
 
 
 if get(g:, "enable_clang_format", 1)
-"
-" Clang Formatter
-"
-let g:clang_format#style_options = {
-            \ "AccessModifierOffset" : -4,
-            \ "AllowShortIfStatementsOnASingleLine" : "true",
-            \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "Standard" : "C++11"}
+  "
+  " Clang Formatter
+  "
+  let g:clang_format#style_options = {
+              \ "AccessModifierOffset" : -4,
+              \ "AllowShortIfStatementsOnASingleLine" : "true",
+              \ "AlwaysBreakTemplateDeclarations" : "true",
+              \ "Standard" : "C++11"}
 
-let g:clang_format#detect_style_file = 1
-let g:clang_format#auto_formatexpr = 1
+  let g:clang_format#detect_style_file = 1
+  let g:clang_format#auto_formatexpr = 1
 
-" map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+  " map to <Leader>cf in C++ code
+  autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+  autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
-" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
+  " if you install vim-operator-user
+  autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
 
-" Toggle auto formatting:
-nmap <Leader>C :ClangFormatAutoToggle<CR>
+  " Toggle auto formatting:
+  nmap <Leader>C :ClangFormatAutoToggle<CR>
 endif
 
 
@@ -253,15 +253,18 @@ function! DetectCheckPatch(file)
   endif
 
   if executable(topdir . '/scripts/checkpatch.pl')
-    let g:syntastic_cpp_checkpatch_exec = fnamemodify(topdir . '/scripts/checkpatch.pl', ':p')
-    let b:syntastic_cpp_checkers = ["checkpatch"]
+    let g:syntastic_c_checkpatch_exec = fnamemodify(topdir . '/scripts/checkpatch.pl', ':p')
+    let b:syntastic_checkers = ["checkpatch"]
+    let b:syntastic_mode = "active"
   endif
 endfunction
 
 augroup kernel
-  autocmd BufNewFile,BufReadPost *.c,*.h :call DetectCheckPatch(expand('<afile>:p'))
+  autocmd BufNewFile,BufReadPost *.[ch] :call DetectCheckPatch(expand('<afile>:p'))
 augroup END
 
+" rely on completer for checking
+let g:syntastic_c_checkers             = []
 let g:syntastic_c_check_header           = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list            = 1
@@ -273,7 +276,7 @@ let g:syntastic_warning_symbol           = '!'
 let g:syntastic_mode_map = {
       \ "mode": "active",
       \ "active_filetypes": ["ruby", "php"],
-      \ "passive_filetypes": ["java", "c"] }
+      \ "passive_filetypes": ["java", "cpp"] }
 
 
 "
