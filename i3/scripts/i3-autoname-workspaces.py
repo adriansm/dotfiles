@@ -25,12 +25,13 @@
 
 
 import i3ipc
+import re
 import subprocess as proc
 import signal
 import sys
 import fontawesome as fa
 
-from util import *
+from i3_workspace import Workspace
 
 
 # Add icons here for common programs you use.  The keys are the X window class
@@ -90,31 +91,19 @@ def icon_for_window(window):
     return DEFAULT_ICON
 
 # renames all workspaces based on the windows present
-# also renumbers them in ascending order, with one gap left between monitors
-# for example: workspace numbering on two monitors: [1, 2, 3], [5, 6]
 def rename_workspaces(i3):
-    ws_infos = i3.get_workspaces()
-    prev_output = ""
-    n = 1
-    for ws_index, workspace in enumerate(i3.get_tree().workspaces()):
-        ws_info = ws_infos[ws_index]
-
-        name_parts = parse_workspace_name(workspace.name)
+    for workspace in i3.get_tree().workspaces():
+        ws: Workspace = Workspace(workspace, i3=i3)
         icons = {icon_for_window(w) for w in workspace.leaves()}
-        name_parts['icons'] = ' '.join(icons)
+        ws.set_icons(' '.join(icons))
 
-        new_name = construct_workspace_name(name_parts)
-        print('Rename %s to %s' % (workspace.name, new_name))
-        i3.command('rename workspace "%s" to "%s"' % (workspace.name, new_name))
 
 # rename workspaces to just numbers and shortnames.
 # called on exit to indicate that this script is no longer running.
 def undo_window_renaming(i3):
     for workspace in i3.get_tree().workspaces():
-        name_parts = parse_workspace_name(workspace.name)
-        name_parts['icons'] = None
-        new_name = construct_workspace_name(name_parts)
-        i3.command('rename workspace "%s" to "%s"' % (workspace.name, new_name))
+        ws: Workspace = Workspace(workspace, i3=i3)
+        ws.set_icons(None)
     i3.main_quit()
     sys.exit(0)
 
