@@ -13,18 +13,6 @@ function M.setup()
     let &showbreak="\u21aa "
   ]]
 
-  -- Highlight trailing whitespace
-  cmd[[
-    match ExtraWhitespace /\s\+$/
-    augroup TrailingWhitespace
-      autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-      autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-      autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-      autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-      autocmd BufWinLeave * call clearmatches()
-    augroup END
-  ]]
-
   -- jump to the last position when reopening a file
   cmd[[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 

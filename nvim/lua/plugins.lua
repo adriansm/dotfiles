@@ -52,6 +52,15 @@ function M.setup()
     }
     use { 'nvim-lua/popup.nvim' }               -- An implementation of the Popup API from vim in Neovim
 
+    use {                                       -- Highlight trailing white space
+      'ntpeters/vim-better-whitespace',
+      config = function()
+        vim.g.better_whitespace_ctermcolor = "red"
+        vim.g.better_whitespace_guicolor = "red"
+        vim.g.strip_whitespace_on_save = 1
+        vim.g.strip_only_modified_lines = 1
+      end
+    }
 
     --
     -- [[ Syntax Plugins ]]
