@@ -1,6 +1,3 @@
-[submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
@@ -10,9 +7,3 @@
 [submodule "zsh/zplug"]
 	path = zsh/zplug
 	url = https://github.com/zplug/zplug
-[submodule "plugins/dotbot-sync"]
-	path = plugins/dotbot-sync
-	url = https://github.com/j1r1k/dotbot-sync.git
-[submodule "plugins/dotbot-brew"]
-	path = plugins/dotbot-brew
-	url = https://github.com/d12frosted/dotbot-brew.git
