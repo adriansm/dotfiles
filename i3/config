@@ -159,7 +159,7 @@ bindsym $super+Shift+6 move container to workspace number 6
 bindsym $super+Shift+7 move container to workspace number 7
 bindsym $super+Shift+8 move container to workspace number 8
 bindsym $super+Shift+9 move container to workspace number 9
-bindsym $super+Shift+0 move container to workspace number 0
+bindsym $super+Shift+0 move container to workspace number 10
 
 #bindsym $super+m exec "~/.local/bin/detect_monitors.sh"
 bindsym $super+m exec "~/.config/i3/scripts/i3_workspace.py rename"

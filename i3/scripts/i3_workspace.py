@@ -114,8 +114,11 @@ class Workspace():
     icons = kwargs.get('icons')
     current_name = self.get_shortname()
     update = {}
-    if name and (current_name is None or current_name[-1:] == ' '):
-      update['shortname'] = name + ' '
+    if not current_name:
+        if name:
+            update['shortname'] = name + ' '
+    elif current_name[-1:] == ' ':
+      update['shortname'] = name + ' ' if name else None
     if icons is not None:
       update['icons'] = icons
 

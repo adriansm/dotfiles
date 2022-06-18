@@ -105,11 +105,11 @@ def rename_workspaces(i3):
       icon, name = info_for_window(w)
       if icon:
         icons.add(icon)
-        if name:
-          names.add(name)
+      if name:
+        names.add(name)
 
-        name = names.pop() if len(names) == 1 else None
-        ws.set_suggestedname(name=name, icons=icons)
+    name = names.pop() if len(names) == 1 else None
+    ws.set_suggestedname(name=name, icons=icons)
 
 
 # rename workspaces to just numbers and shortnames.
