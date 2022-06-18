@@ -17,13 +17,14 @@ PLUGINS="
 
 function install_linux()
 {
-    APT_PKGS="git-core python python-pip"
+    APT_PKGS="git-core python3 python3-pip python python-pip"
     dpkg-query -l $APT_PKGS 1>/dev/null 2>&1 && return
     echo "Installing required packages"
     sudo apt-get update -y
     sudo apt-get install -y $APT_PKGS
     # TODO: create dotbot plugin for pip
     pip install --user neovim pynvim
+    pip3 install --user neovim pynvim
 }
 
 function run_dotbot()
