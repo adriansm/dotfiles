@@ -42,8 +42,10 @@ endif
 "
 set nowrap              " Do not wrap words (view)
 set list
-set listchars=tab:→\ ,trail:•,extends:⟩,precedes:⟨
-set showbreak=↪\
+" set listchars=tab:→\ ,trail:•,extends:⟩,precedes:⟨
+let &listchars="tab:\u2192 ,trail:\u2022,extends:\u27E9,precedes:\u27E8"
+" set showbreak=↪\
+let &showbreak="\u21aa "
 
 set shiftwidth=4
 set tabstop=4
