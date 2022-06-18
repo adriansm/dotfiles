@@ -65,7 +65,7 @@ WINDOW_INFO = {
 TERMINALS = [
   'termite',
   'urxvt',
-  'gnome-terminal',
+  'Gnome-terminal',
   'xterminal-emulator',
 ]
 
@@ -82,23 +82,23 @@ def info_for_window_class(cls):
   icon, name = None, None
   if cls:
     wclass = cls.lower()
-    if wclass in TERMINALS:
-      icon, name = TERMINAL_ICON, name_for_terminal()
+    info = WINDOW_INFO.get(wclass, None)
+    if info and isinstance(info, tuple):
+      icon, name = info
     else:
-      info = WINDOW_INFO.get(wclass, None)
-      if info and isinstance(info, tuple):
-        icon, name = info
-      else:
-        icon = info
+      icon = info
 
   return icon, name
 
 def info_for_window(window):
   classes = [window.window_class, window.window_instance]
   for cls in classes:
-    icon, name = info_for_window_class(cls)
-    if icon or name:
-      return icon, name
+    if window.window_class in TERMINALS:
+      return TERMINAL_ICON, name_for_terminal(window)
+    else:
+      icon, name = info_for_window_class(cls)
+      if icon or name:
+        return icon, name
   print('No icon available for window with classes: %s' % str(classes))
   return DEFAULT_ICON, None
 
