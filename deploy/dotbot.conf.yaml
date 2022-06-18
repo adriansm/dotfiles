@@ -30,7 +30,7 @@
     ~/.ctags:
     ~/.curlrc:
     ~/.config/Code/User/settings.json: vscode/settings.json
-    ~/.config/nvim: vim
+    ~/.config/nvim: nvim
     ~/.config/oni/config.tsx: oni/config.tsx
     ~/.config/oni/.editorconfig: oni/editorconfig
     ~/.config/termite:
