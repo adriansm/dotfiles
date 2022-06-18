@@ -162,7 +162,7 @@ function M.setup()
     --
     -- [[ Terminal Integration Plugins ]]
     --
-    use 'bogado/file-line'                      -- Go to line when opening with 'vim file:line'
+    use 'wsdjeg/vim-fetch'                      -- Go to line when opening with 'vim file:line'
     use 'christoomey/vim-tmux-navigator'        -- Tmux integration
     use {                                       -- Split resizing/navigation
       'mrjones2014/smart-splits.nvim',
