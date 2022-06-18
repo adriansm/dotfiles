@@ -24,7 +24,7 @@ function install_linux()
     sudo apt-get install -y $APT_PKGS
     # TODO: create dotbot plugin for pip
     pip install --user neovim pynvim
-    pip3 install --user neovim pynvim
+    pip3 install --user neovim pynvim i3ipc
 }
 
 function run_dotbot()

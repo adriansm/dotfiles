@@ -266,7 +266,7 @@ client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background		#2f343f
 
 # auto start programs
-exec_always --no-startup-id "ps -C python3 -o args= | grep i3-autoname-workspaces.py || (~/.config/i3/scripts/i3-autoname-workspaces.py &)"
+exec_always --no-startup-id "kill $(ps -C python3 -o pid=,args= | grep i3-autoname-workspaces.py | cut -d' ' -f1); (~/.config/i3/scripts/i3-autoname-workspaces.py &)"
 
 # Lock screen after 5 mins of idle
 exec_always --no-startup-id xset s 300 30

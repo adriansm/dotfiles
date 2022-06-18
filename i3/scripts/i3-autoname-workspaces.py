@@ -23,13 +23,13 @@
 # To:
 #   bindsym $mod+1 workspace number 1
 
-
-import i3ipc
 import re
 import subprocess as proc
 import signal
 import sys
+
 import fontawesome as fa
+import i3ipc
 
 from i3_workspace import Workspace
 
@@ -48,6 +48,7 @@ WINDOW_INFO = {
     'termite': fa.icons.get('terminal'),
     'urxvt': fa.icons.get('terminal'),
     'gnome-terminal': fa.icons.get('terminal'),
+    'x-terminal-emulator': fa.icons.get('terminal'),
     'chromium': (fa.icons.get('chrome'), 'Web'),
     'google-chrome': (fa.icons.get('chrome'), 'Web'),
     'spotify': fa.icons.get('music'), # could also use 'spotify' from font awesome
@@ -70,42 +71,42 @@ DEFAULT_ICON = ''
 
 # Returns an array of the values for the given property from xprop.  This
 # requires xorg-xprop to be installed.
-def xprop(win_id, property):
-    try:
-        prop = proc.check_output(['xprop', '-id', str(win_id), property], stderr=proc.DEVNULL)
-        prop = prop.decode('utf-8')
-        return re.findall('"([^"]+)"', prop)
-    except proc.CalledProcessError as e:
-        print("Unable to get property for window '%d'" % win_id)
-        return None
+def xprop(win_id, prop):
+  try:
+    prop = proc.check_output(
+      ['xprop', '-id', str(win_id), prop], stderr=proc.DEVNULL)
+    prop = prop.decode('utf-8')
+    return re.findall('"([^"]+)"', prop)
+  except proc.CalledProcessError:
+    print("Unable to get property for window '%d'" % win_id)
+    return None
 
 def info_for_window(window):
-    classes = xprop(window.window, 'WM_CLASS')
-    if classes:
-        for cls in classes:
-            # case-insensitive matching
-            info = WINDOW_INFO.get(cls.lower(), None)
-            if info:
-                if isinstance(info, tuple):
-                    return info
-                else:
-                    return info, None
-                # return info if isinstance(info, tuple) else info, None
-        print('No icon available for window with classes: %s' % str(classes))
-    return DEFAULT_ICON, None
+  classes = xprop(window.window, 'WM_CLASS')
+  if classes:
+    for cls in classes:
+      # case-insensitive matching
+      info = WINDOW_INFO.get(cls.lower(), None)
+      if info:
+        if isinstance(info, tuple):
+          return info
+
+        return info, None
+    print('No icon available for window with classes: %s' % str(classes))
+  return DEFAULT_ICON, None
 
 # renames all workspaces based on the windows present
 def rename_workspaces(i3):
-    for workspace in i3.get_tree().workspaces():
-        ws: Workspace = Workspace(workspace, i3=i3)
-        icons = set()
-        names = set()
-        for w in workspace.leaves():
-            icon, name = info_for_window(w)
-            if icon:
-                icons.add(icon)
-            if name:
-                names.add(name)
+  for workspace in i3.get_tree().workspaces():
+    ws: Workspace = Workspace(workspace, i3=i3)
+    icons = set()
+    names = set()
+    for w in workspace.leaves():
+      icon, name = info_for_window(w)
+      if icon:
+        icons.add(icon)
+        if name:
+          names.add(name)
 
         name = names.pop() if len(names) == 1 else None
         ws.set_suggestedname(name=name, icons=icons)
@@ -114,24 +115,24 @@ def rename_workspaces(i3):
 # rename workspaces to just numbers and shortnames.
 # called on exit to indicate that this script is no longer running.
 def undo_window_renaming(i3):
-    for workspace in i3.get_tree().workspaces():
-        ws: Workspace = Workspace(workspace, i3=i3)
-        ws.set_icons(None)
+  for workspace in i3.get_tree().workspaces():
+    ws: Workspace = Workspace(workspace, i3=i3)
+    ws.set_icons(None)
     i3.main_quit()
     sys.exit(0)
 
 
 if __name__ == '__main__':
-    i3 = i3ipc.Connection()
+  i3 = i3ipc.Connection()
 
-    # exit gracefully when ctrl+c is pressed
-    for sig in [signal.SIGINT, signal.SIGTERM]:
-        signal.signal(sig, lambda signal, frame: undo_window_renaming(i3))
+  # exit gracefully when ctrl+c is pressed
+  for sig in [signal.SIGINT, signal.SIGTERM]:
+    signal.signal(sig, lambda signal, frame: undo_window_renaming(i3))
 
     # call rename_workspaces() for relevant window events
     def window_event_handler(i3, e):
-        if e.change in ['new', 'close', 'move']:
-            rename_workspaces(i3)
+      if e.change in ['new', 'close', 'move']:
+        rename_workspaces(i3)
     i3.on('window', window_event_handler)
 
     rename_workspaces(i3)
