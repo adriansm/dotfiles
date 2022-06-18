@@ -7,7 +7,6 @@ alias tmxn='tmux new-session -s'
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
-alias ls='ls --color'
 
 mcd() { mkdir -p "$1" && cd "$1"; }
 
@@ -39,10 +38,14 @@ function dirdiff()
     vim $@ +DirDiff $DIR1 $DIR2
 }
 
-test "$(command -v vi)" && alias vi="rrr vi"
-test "$(command -v vim)" && alias vim="rrr vim"
-test "$(command -v nvim)" && alias nvim="rrr nvim"
-test "$(command -v gvim)" && alias gvim="rrr gvim"
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+else
+    alias ls='ls --color'
+    test "$(command -v vi)" && alias vi="rrr vi"
+    test "$(command -v vim)" && alias vim="rrr vim"
+    test "$(command -v nvim)" && alias nvim="rrr nvim"
+    test "$(command -v gvim)" && alias gvim="rrr gvim"
+fi
 
 function fixtmux() {
     eval $(tmux show-env -s)
