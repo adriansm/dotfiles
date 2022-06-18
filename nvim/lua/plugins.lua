@@ -32,7 +32,8 @@ function M.setup()
   }
 
   local function plugins(use)
-    use { "lewis6991/impatient.nvim" }
+    use { 'lewis6991/impatient.nvim' }
+    use { 'dstein64/vim-startuptime' }
 
     use { 'wbthomason/packer.nvim' }
 
@@ -40,7 +41,6 @@ function M.setup()
     -- [[ Common Plugins ]]
     --
     -- TODO: check some of these plugins
-  --  use 'tpope/vim-dispatch'                    -- dispatch make async
     use 'tpope/vim-sensible'                    -- Defaults everyone can agree on
     use 'tpope/vim-eunuch'                      -- Unix shell commands
     use 'will133/vim-dirdiff'                   -- Dir diff
@@ -48,7 +48,7 @@ function M.setup()
 
     use {
       'aymericbeaumet/vim-symlink',             -- Handling of symlinks
-      requires = 'moll/vim-bbye'
+      requires = { 'moll/vim-bbye' }
     }
     use { 'nvim-lua/popup.nvim' }               -- An implementation of the Popup API from vim in Neovim
 
@@ -84,6 +84,7 @@ function M.setup()
       end
     }
 
+
     --
     -- [[ Source Code Editor ]]
     --
@@ -94,24 +95,6 @@ function M.setup()
         require('Comment').setup()
       end
     }
-
-
-    --
-    -- [[ Source Code/Text Browsing ]]
-    --
-    use { 'tpope/vim-unimpaired' }              -- Quick navigation using []
-    use { 'MattesGroeger/vim-bookmarks' }       -- set vim bookmarks
-
-    -- TODO: check these plugins
-    use { 'mhinz/vim-grepper' }                 -- search tool
-
-    use {                                       -- Mark/highlight words to analyze faster
-      'inkarkat/vim-mark',
-      requires = { 'inkarkat/vim-ingo-library' }
-    }
-
-    use { 'easymotion/vim-easymotion' }         -- Easy motion with mappings
-    use { 'wellle/targets.vim' }                -- Quick shortcuts
     use {                                       -- Brackets autopair plugin
       'windwp/nvim-autopairs',
       config = function()
@@ -121,21 +104,59 @@ function M.setup()
 
 
     --
+    -- [[ Source Code/Text Browsing ]]
+    --
+    use { 'tpope/vim-unimpaired' }              -- Quick navigation using []
+    use { 'MattesGroeger/vim-bookmarks' }       -- set vim bookmarks
+    use {                                       -- search tool
+      'mhinz/vim-grepper',
+      cmd = {'Grepper', '<plug>(GrepperOperator)'},
+    }
+
+    use {                                       -- Mark/highlight words to analyze faster
+      'inkarkat/vim-mark',
+      requires = { 'inkarkat/vim-ingo-library' }
+    }
+
+    use {                                       -- Easy motion with mappings
+      'easymotion/vim-easymotion',
+      config = function()
+        vim.g.EasyMotion_smartcase = 1
+      end
+    }
+    use { 'wellle/targets.vim' }                -- Quick shortcuts
+
+
+    --
     -- [[ Source Control Integration ]]
     --
-    use { 'tpope/vim-fugitive', event = "BufRead" }      -- The git plugin
-    use { 'airblade/vim-gitgutter', event = "BufRead" }  -- show signs of lines add/deleted
+    use {                                       -- The git plugin
+      'tpope/vim-fugitive',
+      event = "BufRead"
+    }
+    -- use {                                       -- show signs of lines add/deleted
+    --   'airblade/vim-gitgutter',
+    --   event = "BufRead"
+    -- }
+
+    use {
+      "lewis6991/gitsigns.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        require("config.gitsigns").setup()
+      end,
+    }
 
     -- TODO: check these plugins
-    use 'dbakker/vim-projectroot'           -- Easily jump to root of project
+    use 'dbakker/vim-projectroot'               -- Easily jump to root of project
 
 
     --
     -- [[ Terminal Integration Plugins ]]
     --
-    use 'bogado/file-line'                  -- Go to line when opening with 'vim file:line'
-    use 'christoomey/vim-tmux-navigator'    -- Tmux integration
-    use { 'ojroques/vim-oscyank',           -- Yank text to termina via osc52
+    use 'bogado/file-line'                      -- Go to line when opening with 'vim file:line'
+    use 'christoomey/vim-tmux-navigator'        -- Tmux integration
+    use { 'ojroques/vim-oscyank',               -- Yank text to terminal via osc52
       config = function()
         vim.cmd [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]]
       end
@@ -165,6 +186,7 @@ function M.setup()
         require('config.tabline').setup()
       end
     }
+
 
     --
     -- [[ Language Completion (lsp) ]]
@@ -222,10 +244,9 @@ function M.setup()
       requires = { 'L3MON4D3/LuaSnip' }
     }
 
-    use 'onsails/lspkind-nvim'
-
+    use { 'onsails/lspkind-nvim' }
     use {
-      'rafamadriz/friendly-snippets',     -- common snippets for faster development
+      'rafamadriz/friendly-snippets',           -- common snippets for faster development
       config = function ()
         local luasnip = require('utils.common').prequire('luasnip')
         if luasnip then
@@ -234,28 +255,18 @@ function M.setup()
       end
     }
 
-    use { 'ray-x/lsp_signature.nvim',         -- function signature for some lsp
+    use { 'ray-x/lsp_signature.nvim',           -- function signature for some lsp
       config = function()
         require('lsp_signature').setup()
       end
     }
 
     use {
-      'j-hui/fidget.nvim',                -- nvim-lsp progress. Eye candy for the impatient
+      'j-hui/fidget.nvim',                      -- nvim-lsp progress. Eye candy for the impatient
       event = "BufReadPre",
       config = function()
         require('fidget').setup()
       end
-    }
-
-    -- Legendary
-    use {
-      "mrjones2014/legendary.nvim",
-      keys = { [[<C-p>]] },
-      config = function()
-        require("config.legendary").setup()
-      end,
-      requires = { "stevearc/dressing.nvim" },
     }
 
     --
@@ -269,16 +280,24 @@ function M.setup()
       end
     }
 
-    -- use 'scrooloose/nerdtree'
-    -- use 'Xuyuanp/nerdtree-git-plugin'
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        'kyazdani42/nvim-web-devicons',         -- optional, for file icon
       },
       config = function()
         require('config.nvim-tree').setup()
       end
+    }
+
+    -- Legendary
+    use {
+      "mrjones2014/legendary.nvim",
+      keys = { [[<C-p>]] },
+      config = function()
+        require("config.legendary").setup()
+      end,
+      requires = { "stevearc/dressing.nvim" },
     }
 
     if packer_bootstrap then

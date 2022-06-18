@@ -8,10 +8,15 @@ local M = {}
 local keymap = require('utils.keymap')
 
 local keymappings = {
+  all_modes = {
+    -- EasyMotion line motions
+    ['<Leader>j'] = '<Plug>(easymotion-j)',
+    ['<Leader>k'] = '<Plug>(easymotion-k)',
+  },
   normal_mode = {
     -- Easily split windows
-    ["<C-W>|"] = "<cmd>vsplit<CR>",
-    ["<C-W>-"] = "<cmd>split<CR>",
+    ['<C-W>|'] = '<cmd>vsplit<CR>',
+    ['<C-W>-'] = '<cmd>split<CR>',
 
     -- File Explorer
     [';e'] = '<cmd>NvimTreeToggle<CR>',
@@ -36,6 +41,8 @@ local keymappings = {
     ['<leader>b'] = '<cmd>Telescope buffers<cr>',
     ['<leader>p'] = '<cmd>Telescope git_files<cr>',
     ['<leader>o'] = '<cmd>Telescope git_files use_git_root=false<cr>',
+
+    ['s'] = '<Plug>(easymotion-overwin-f)',
   },
   term_mode = {
     ['<Esc>'] = '<C-\\><C-n>',

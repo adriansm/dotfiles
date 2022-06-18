@@ -18,6 +18,7 @@ local mode_adapters = {
   visual_mode = "v",
   visual_block_mode = "x",
   command_mode = "c",
+  all_modes = ""
 }
 
 function M.set_keymap(mode, key, val)

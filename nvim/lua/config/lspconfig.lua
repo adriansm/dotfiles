@@ -15,7 +15,7 @@ local on_attach = function(client, bufnr)
   -- require'completion'.on_attach(client, bufnr)
 
   --Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   if vim.g.loaded_lspsaga then
