@@ -257,6 +257,7 @@ for_window [class="^Viewnior$"] floating enable
 for_window [class="^Gnome-calculator$"] floating enable
 for_window [class="^Google-chrome$|chrome-personal"] border none
 for_window [class="^Mate|^Blueman|^Goobuntu"] floating enable
+for_window [class="prodcertstatus"] floating enable
 for_window [instance="XDialogPeer"] floating enable
 
 # Android bug tool
@@ -278,7 +279,7 @@ exec_always --no-startup-id xset s 300 30
 exec_always --no-startup-id xset dpms 315 360 500
 bindsym $alt+Control+l exec --no-startup-id xset dpms force off
 # Lock screen upon suspend
-exec_always --no-startup-id "pgrep -x xss-lock || (xss-lock -l -- ~/.config/i3/scripts/i3_lock.sh &)"
+exec_always --no-startup-id "killall xss-lock; (xss-lock -l -- ~/.config/i3/scripts/i3_lock.sh &)"
 
 exec_always --no-startup-id "pgrep -x gnome-keyring-d || ~/.config/i3/scripts/gnome-keyring.sh"
 exec_always --no-startup-id "pgrep -x polkit-mate-aut || ( /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)"

@@ -167,3 +167,5 @@
 [diff-so-fancy]
 	markEmptyLines = false
 	stripLeadingSymbols = false
+[advice]
+	detachedHead = false
