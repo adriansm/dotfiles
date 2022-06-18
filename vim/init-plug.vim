@@ -79,6 +79,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " Others
 "
 
+Plug 'moll/vim-bbye' " optional dependency
+Plug 'aymericbeaumet/vim-symlink'   " deal with symlinks
+
 " Yank text to terminal via osc52
 Plug 'ojroques/vim-oscyank',      { 'branch': 'main'}
 Plug 'Valloric/ListToggle'          " Quickly get locationlist and quickfix window
