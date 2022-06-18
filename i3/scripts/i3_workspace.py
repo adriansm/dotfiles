@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 import click
+import fcntl
 import logging
 import re
 import subprocess
 from i3ipc import Connection as I3Connection
 
+logging.basicConfig(level=logging.INFO)
 
 def prompt_workspace_name(name=None):
   prompt_title = "Rename Workspace%s:" % (" '{}'".format(name) if name else '' )
@@ -31,55 +33,63 @@ def prompt_workspace_name(name=None):
 class Workspace(object):
   def __init__(self, i3_workspace, **kwargs):
     self.i3: I3Connection = kwargs.get('i3', I3Connection())
-    self.i3_workspace = i3_workspace
     self.name_parts = {}
     self.parse_name(i3_workspace.name)
 
   @staticmethod
   def get_current_workspace(**kwargs):
     i3 = kwargs.get('i3', I3Connection())
+
     for w in i3.get_workspaces():
       if w.focused:
         return Workspace(w, i3=i3)
+
     return None
 
   def parse_name(self, name):
-    data = re.match('(?P<num>\d+):?(?P<icons> [^\w])* ?(?P<shortname>\w+)?', name).groupdict()
+    data = re.match('(?P<num>\d+):?(?P<icons>([ ][^A-Za-z])*) ?(?P<shortname>\w+[ ]?$)?', name).groupdict()
 
+    self.name_parts['num'] = int(data['num'])
     if data['icons']:
-      data['icons'] = data['icons'].strip()
-    self.name_parts = data
+      self.name_parts['icons'] = data['icons'].strip().split()
+    self.name_parts['shortname'] = data.get('shortname')
 
   def get_name(self):
     new_name = str(self.get_num())
     shortname = self.get_shortname()
-    icon = self.get_icons()
-    if shortname or icon:
+    icons = self.get_icons()
+    if shortname or icons:
       new_name += ':'
 
-      if icon:
-        new_name += ' ' + icon
+      if icons:
+        new_name += ' ' + ' '.join(icons)
 
       if shortname:
         new_name += ' ' +  shortname
 
     return new_name
 
-  def _rename(self):
-    new_name = self.get_name()
-    logging.info('Renaming workspace "%s" to "%s"' % (self.i3_workspace.name, new_name))
+  def refresh(self):
+    for w in self.i3.get_workspaces():
+      if w.num == self.get_num():
+        self.parse_name(w.name)
+        return w.name
+    raise Exception('Could not find workspace %d' % (self.get_num()))
 
-    return self.i3.command('rename workspace to "%s"' % new_name)
+  def update(self, new_values):
+    ws_name = self.refresh()
+
+    for k, v in new_values.items():
+      self.name_parts[k] = v
+    new_name = self.get_name()
+    logging.info('Renaming workspace "%s" to "%s"' % (ws_name, new_name))
+
+    output = self.i3.command('rename workspace "%s" to "%s"' % (ws_name, new_name))
+    logging.info('Output: %s' % output)
+    return output
 
   def get_icons(self):
     return self.name_parts.get('icons')
-
-  def set_icons(self, icon):
-    if isinstance(icon, str):
-      icon = icon.strip()
-    # TODO: more validation?
-    self.name_parts['icons'] = icon
-    return self._rename()
 
   def get_num(self):
     return self.name_parts.get('num')
@@ -87,9 +97,30 @@ class Workspace(object):
   def get_shortname(self):
     return self.name_parts.get('shortname')
 
-  def set_shortname(self, shortname):
-    self.name_parts['shortname'] = shortname
-    return self._rename()
+  def set_icons(self, icons, **kwargs):
+    update = {
+      'icons': icons
+    }
+    self.update(update)
+
+  def set_shortname(self, shortname, **kwargs):
+    update = {
+      'shortname': shortname
+    }
+    self.update(update)
+
+  def set_suggestedname(self, **kwargs):
+    name = kwargs.get('name')
+    icons = kwargs.get('icons')
+    current_name = self.get_shortname()
+    update = {}
+    if name and (current_name is None or current_name[-1:] == ' '):
+      update['shortname'] = name + ' '
+    if icons:
+      update['icons'] = icons
+
+    if update:
+      self.update(update)
 
 
 # TODO: allow specifying workspace
@@ -107,10 +138,12 @@ def rename(ctx, name):
 
   logging.info("Renaming workspace: %s" % ws.get_shortname())
 
-  if not name:
+  if name is None:
     name = prompt_workspace_name(ws.get_shortname())
+    # HACK: workspace may change with prompt, so getting it again
+    ws = Workspace.get_current_workspace()
   logging.info("New workspace name: %s" % name)
-  if name:
+  if name is not None:
     ws.set_shortname(name)
 
 

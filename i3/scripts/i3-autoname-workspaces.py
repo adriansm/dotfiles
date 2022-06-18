@@ -44,12 +44,12 @@ from i3_workspace import Workspace
 # If you're not sure what the WM_CLASS is for your application, you can use
 # xprop (https://linux.die.net/man/1/xprop). Run `xprop | grep WM_CLASS`
 # then click on the application you want to inspect.
-WINDOW_ICONS = {
+WINDOW_INFO = {
     'termite': fa.icons.get('terminal'),
     'urxvt': fa.icons.get('terminal'),
     'gnome-terminal': fa.icons.get('terminal'),
-    'chromium': fa.icons.get('chrome'),
-    'google-chrome': fa.icons.get('chrome'),
+    'chromium': (fa.icons.get('chrome'), 'Web'),
+    'google-chrome': (fa.icons.get('chrome'), 'Web'),
     'spotify': fa.icons.get('music'), # could also use 'spotify' from font awesome
     'firefox': fa.icons.get('firefox'),
     'libreoffice': fa.icons.get('file-text-o'),
@@ -61,7 +61,7 @@ WINDOW_ICONS = {
     'atom': fa.icons.get('code'),
     'steam': fa.icons.get('steam'),
     'zenity': fa.icons.get('window-maximize'),
-    'chrome-personal': fa.icons.get('chrome'),
+    'chrome-personal': (fa.icons.get('chrome'), 'Personal'),
 }
 
 # This icon is used for any application not in the list above
@@ -79,23 +79,36 @@ def xprop(win_id, property):
         print("Unable to get property for window '%d'" % win_id)
         return None
 
-def icon_for_window(window):
+def info_for_window(window):
     classes = xprop(window.window, 'WM_CLASS')
     if classes:
         for cls in classes:
             # case-insensitive matching
-            icon = WINDOW_ICONS.get(cls.lower(), None)
-            if icon:
-                return icon
+            info = WINDOW_INFO.get(cls.lower(), None)
+            if info:
+                if isinstance(info, tuple):
+                    return info
+                else:
+                    return info, None
+                # return info if isinstance(info, tuple) else info, None
         print('No icon available for window with classes: %s' % str(classes))
-    return DEFAULT_ICON
+    return DEFAULT_ICON, None
 
 # renames all workspaces based on the windows present
 def rename_workspaces(i3):
     for workspace in i3.get_tree().workspaces():
         ws: Workspace = Workspace(workspace, i3=i3)
-        icons = {icon_for_window(w) for w in workspace.leaves()}
-        ws.set_icons(' '.join(icons))
+        icons = set()
+        names = set()
+        for w in workspace.leaves():
+            icon, name = info_for_window(w)
+            if icon:
+                icons.add(icon)
+            if name:
+                names.add(name)
+
+        name = names.pop() if len(names) == 1 else None
+        ws.set_suggestedname(name=name, icons=icons)
 
 
 # rename workspaces to just numbers and shortnames.
