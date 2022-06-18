@@ -266,13 +266,13 @@ client.background		#2f343f
 # auto start programs
 
 # Lock screen after 5 mins of idle
-#exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 5 -locker ~/.config/i3/i3_lock.sh
 exec_always --no-startup-id xset s 300 30
 exec_always --no-startup-id xset dpms 315 360 500
 bindsym $alt+Control+l exec --no-startup-id xset dpms force off
 # Lock screen upon suspend
-exec_always --no-startup-id "pgrep -x xss-lock || (xss-lock -l -- ~/.config/i3/i3_lock.sh &)"
+exec_always --no-startup-id "pgrep -x xss-lock || (xss-lock -l -- ~/.config/i3/scripts/i3_lock.sh &)"
 
+exec_always --no-startup-id "pgrep -x gnome-keyring-d || ~/.config/i3/scripts/gnome-keyring.sh"
 exec_always --no-startup-id "pgrep -x polkit-mate-aut || ( /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)"
 exec_always --no-startup-id "pgrep -x mate-settings-d || (mate-settings-daemon &)"
 exec_always --no-startup-id "pgrep -x mate-power-mana || (mate-power-manager &)"
