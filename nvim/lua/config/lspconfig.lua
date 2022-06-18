@@ -117,15 +117,23 @@ function M.setup()
     -- Set up completion using nvim_cmp with LSP source if available
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
   end
+  local opts = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
 
+  -- null-ls
+  require('config.null-ls').setup(opts)
+
+  -- Installer
   local lspinstaller = prequire('nvim-lsp-installer')
   if lspinstaller then
     lspinstaller.setup{}
     for _, server in ipairs(lspinstaller.get_installed_servers()) do
-      lspconfig[server.name].setup{
-        on_attach = on_attach,
-        capabilities = capabilities,
-      }
+      lspconfig[server.name].setup(opts)
     end
   end
 end

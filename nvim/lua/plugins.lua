@@ -220,7 +220,11 @@ function M.setup()
     --
     use {
       'neovim/nvim-lspconfig',                  -- Collection of configurations for the built-in LSP client
-      requires = {'williamboman/nvim-lsp-installer'},
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'williamboman/nvim-lsp-installer',
+        'jose-elias-alvarez/null-ls.nvim',
+      },
       config = function()
         require('config.lspconfig').setup()
       end
@@ -229,7 +233,10 @@ function M.setup()
     use {
       'kosayoda/nvim-lightbulb',
       config = function()
-        vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+        require('nvim-lightbulb').setup({
+          ignore = {'null-ls'},
+          autocmd = { enabled = true },
+        })
       end
     }
 
@@ -312,6 +319,17 @@ function M.setup()
       },
       config = function()
         require('config.telescope').setup()
+      end
+    }
+
+    use {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("trouble").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+        }
       end
     }
 
