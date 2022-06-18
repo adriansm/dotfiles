@@ -1,4 +1,5 @@
 import sys
+import subprocess
 from dotbot import Plugin
 
 class Dispatcher(object):
@@ -34,7 +35,7 @@ class Dispatcher(object):
         elif isinstance(tasks, dict):
             success &= self._dispatch_task(tasks)
         else:
-            raise ValueError("Invalid actions")
+            raise ValueError('Invalid actions')
         return success
 
 
@@ -51,6 +52,7 @@ class Conditional(Plugin):
         self._sub_directives = {
             'bool': self._is_bool,
             'os': self._is_os,
+            'shell': self._is_shell,
         }
         self._dispatcher = None
 
@@ -61,33 +63,27 @@ class Conditional(Plugin):
         return data
 
     def _is_os(self, data):
-        if isinstance(data, list):
-            return self._os in data
-        else:
-            return data == self._os
+        return self._os in data if isinstance(data, list) else data == self._os
 
-    def _process_and(self, data):
-        for key, value in data.items():
-            if not self._process_conditional(key, value):
-                return False
-        return True
-
-    def _process_or(self, data):
-        for key, value in data.items():
-            if self._process_conditional(key, value):
-                return True
-        return False
+    def _is_shell(self, data):
+        return 0 == subprocess.call(data, shell=True, cwd=self._context.base_directory())
 
     def _process_conditional(self, key, data):
-        if key == 'or':
-            return self._process_or(data)
-        elif key == 'and':
-            return self._process_and(data)
+        if key in ['or', 'and']:
+            comp = any if key == 'or' else all
+            if isinstance(data, list):
+                return comp(self._process_conditional(key, i) for i in data)
+            elif isinstance(data, dict):
+                return comp(self._process_conditional(k, v) for k, v in data.items())
+            elif isinstance(data, bool):
+                return data
+            else:
+                raise ValueError('Invalid conditional found %s' % str(data))
         elif key in self._sub_directives:
             func = self._sub_directives[key]
             return func(data)
         else:
-            raise ValueError("Invalid conditional %s" % key)
+            raise ValueError('Invalid conditional %s' % key)
 
     def _process_actions(self, actions):
         # lazy load dispatcher
@@ -108,19 +104,19 @@ class Conditional(Plugin):
             elif conditional is None:
                 conditional = self._process_conditional(key, value)
             else:
-                raise ValueError("Only a single conditional can be processed. Consider consider using and/or directives")
+                raise ValueError('Only a single conditional can be processed. Consider consider using and/or directives')
 
         if actions is None:
-            self._log.error("No actions found")
+            self._log.error('No actions found')
             return False
         elif conditional is None:
-            self._log.error("No conditional found")
+            self._log.error('No conditional found')
             return False
 
         if conditional:
             return self._process_actions(actions)
 
-        self._log.debug("Skipping actions because of conditional")
+        self._log.debug('Skipping actions because of conditional')
         return True
 
 
