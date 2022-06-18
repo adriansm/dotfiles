@@ -23,8 +23,6 @@
 # To:
 #   bindsym $mod+1 workspace number 1
 
-import re
-import subprocess as proc
 import signal
 import sys
 
@@ -63,10 +61,10 @@ WINDOW_INFO = {
 }
 
 TERMINALS = [
-  'termite',
-  'urxvt',
-  'Gnome-terminal',
-  'xterminal-emulator',
+    'termite',
+    'urxvt',
+    'gnome-terminal',
+    'x-terminal-emulator',
 ]
 
 TERMINAL_ICON = fa.icons.get('terminal')
@@ -81,8 +79,7 @@ def name_for_terminal(window):
 def info_for_window_class(cls):
   icon, name = None, None
   if cls:
-    wclass = cls.lower()
-    info = WINDOW_INFO.get(wclass, None)
+    info = WINDOW_INFO.get(cls.lower(), None)
     if info and isinstance(info, tuple):
       icon, name = info
     else:
@@ -91,14 +88,14 @@ def info_for_window_class(cls):
   return icon, name
 
 def info_for_window(window):
+  if window.window_class.lower() in TERMINALS:
+    return TERMINAL_ICON, name_for_terminal(window)
+
   classes = [window.window_class, window.window_instance]
   for cls in classes:
-    if window.window_class in TERMINALS:
-      return TERMINAL_ICON, name_for_terminal(window)
-    else:
-      icon, name = info_for_window_class(cls)
-      if icon or name:
-        return icon, name
+    icon, name = info_for_window_class(cls)
+    if icon or name:
+      return icon, name
   print('No icon available for window with classes: %s' % str(classes))
   return DEFAULT_ICON, None
 
