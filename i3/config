@@ -132,9 +132,7 @@ bindsym $super+$alt+$vi_down workspace next_on_output
 bindsym $super+Tab workspace back_and_forth
 
 # worksace shortcuts
-set $personal_chrome google-chrome --user-data-dir=.config/chrome-personal --class=chrome-personal --proxy-server="socks5://127.0.0.1:9090" --proxy-bypass-list='<-loopback>'
-
-bindsym $super+Shift+n exec $personal_chrome
+bindsym $super+Shift+n exec personal-google-chrome
 bindsym $super+n exec google-chrome
 
 #set $ws1 "1:   Web"
@@ -288,14 +286,14 @@ client.background		#2f343f
 
 exec_always --no-startup-id "setxkbmap -layout us -option compose:ralt"
 # auto start programs
-exec_always --no-startup-id "kill $(ps -C python3 -o pid=,args= | grep i3-autoname-workspaces.py | cut -d' ' -f1); (~/.config/i3/scripts/i3-autoname-workspaces.py &)"
+exec_always --no-startup-id "killall i3_workspace_mgr.sh; (~/.config/i3/scripts/i3_workspace_mgr.sh &)"
 
 # Lock screen after 5 mins of idle
 exec_always --no-startup-id xset s 300 30
 exec_always --no-startup-id xset dpms 315 360 500
 bindsym $alt+Control+l exec --no-startup-id xset dpms force off
 # Lock screen upon suspend
-exec_always --no-startup-id "killall xss-lock; (xss-lock -l -- ~/.config/i3/scripts/i3_lock.sh &)"
+exec_always --no-startup-id "killall xss-lock; (xss-lock -n ~/.config/i3/scripts/i3_dimmer.sh -l -- ~/.config/i3/scripts/i3_lock.sh &)"
 
 exec_always --no-startup-id "pgrep -x gnome-keyring-d || ~/.config/i3/scripts/gnome-keyring.sh"
 exec_always --no-startup-id "pgrep -x polkit-mate-aut || ( /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)"

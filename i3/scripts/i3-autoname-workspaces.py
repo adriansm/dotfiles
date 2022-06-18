@@ -73,6 +73,7 @@ TERMINALS = [
     'termite',
     'urxvt',
     'gnome-terminal',
+    'gnome-terminal-server',
     'x-terminal-emulator',
 ]
 

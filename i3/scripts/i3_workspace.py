@@ -8,7 +8,7 @@ import subprocess
 import click
 from i3ipc import Connection as I3Connection
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 
 def prompt_workspace_name(name=None):
@@ -39,6 +39,7 @@ class Workspace:
     self.num = i3_workspace.num
     self.name_parts = {}
     self.parse_name(i3_workspace.name)
+    logging.debug("ws #%d current name: %s", self.num, self.name_parts)
 
   @staticmethod
   def get_current_workspace(**kwargs):
@@ -103,10 +104,11 @@ class Workspace:
         self.name_parts[k] = v
       new_name = self.get_name()
       logging.info('Renaming workspace "%s" to "%s"', ws_name, new_name)
+      logging.debug('ws #%d new name: %s', self.num, self.name_parts)
 
       output = self.i3.command('rename workspace "%s" to "%s"' % (ws_name, new_name))
 
-    logging.debug('Output: %s', str(output))
+    # logging.debug('Output: %s', str(output))
     return output
 
   def get_icons(self):
@@ -119,23 +121,29 @@ class Workspace:
     update = {
         'icons': icons
     }
+    logging.debug("ws #%d set_icons: %s", self.num, icons)
     self.update(update)
 
   def set_shortname(self, shortname, **_unused_kwargs):
     update = {
         'shortname': shortname
     }
+    logging.debug("ws #%d set_shortname: %s", self.num, shortname)
     self.update(update)
 
   def set_suggestedname(self, **kwargs):
-    update = {
-        'suggestedname': kwargs.get('name'),
-    }
+    update = {}
+
+    suggestedname = kwargs.get('name', None)
+    if suggestedname is not None:
+      update['suggestedname'] = suggestedname
+
     icons = kwargs.get('icons', None)
     if icons is not None:
       update['icons'] = icons
 
     if update:
+      logging.debug("ws #%d set_suggestedname %s", self.num, update)
       self.update(update)
 
 

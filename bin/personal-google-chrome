@@ -1,0 +1,8 @@
+#!/bin/sh
+
+data_dir=$HOME/.config/chrome-personal
+
+proxy="--proxy-server='socks5://127.0.0.1:9090'"
+#proxy="$proxy --proxy-bypass-list='<-loopback>'"
+
+google-chrome --user-data-dir=$data_dir --class=chrome-personal $proxy
