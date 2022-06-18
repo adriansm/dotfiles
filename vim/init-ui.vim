@@ -31,8 +31,17 @@ endif
 set background=dark
 let g:solarized_termcolors=256
 let g:rehash256=1
-let g:airline_theme='adrian'
-colorscheme adrian
+
+if has('nvim')
+  " For dark theme
+  let g:vscode_style = "dark"
+  " Enable italic comment
+  let g:vscode_italic_comment = 1
+  colorscheme vscode
+else
+  let g:airline_theme='adrian'
+  colorscheme adrian
+endif
 
 
 " override backround for autocomplete popup on angr theme

@@ -3,7 +3,7 @@ if !has('nvim') | finish | endif
 lua << EOF
 require('lualine').setup {
       options = {
-            theme = 'wombat'
+            theme = 'vscode'
       },
       tabline = {
             lualine_a = {
