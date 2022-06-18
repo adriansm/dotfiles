@@ -29,7 +29,7 @@ bindsym $super+g exec rofi -show window
 bindsym Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' -e 'viewnior $f'
 bindsym --release Control+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --select -e 'viewnior $f'
 bindsym $super+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --focused -e 'viewnior $f'
-bindsym $super+Shift+f exec thunar;workspace 3;focus
+bindsym $super+Shift+f exec thunar
 
 #change volume
 #bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 i3status
@@ -278,6 +278,7 @@ client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background		#2f343f
 
+exec_always --no-startup-id "setxkbmap -layout us -option compose:ralt"
 # auto start programs
 exec_always --no-startup-id "kill $(ps -C python3 -o pid=,args= | grep i3-autoname-workspaces.py | cut -d' ' -f1); (~/.config/i3/scripts/i3-autoname-workspaces.py &)"
 
