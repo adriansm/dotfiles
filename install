@@ -4,6 +4,13 @@ CONFIG="deploy/dotbot.conf.yaml"
 APT_BINS="git gcc python ruby zsh vim tmux nvim python pip ctags"
 APT_PKGS="git-core build-essential python ruby zsh vim tmux neovim python python-pip exuberant-ctags"
 
+if [ -n "$(command -v X)" ]; then
+    # i3 packages
+    I3_PKGS="dex xautolock xbacklight i3"
+    APT_PKGS+=" $I3_PKGS"
+    APT_BINS+=" $I3_PKGS"
+fi
+
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 DOTBOT_DIR="$BASEDIR/dotbot"

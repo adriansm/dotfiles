@@ -57,6 +57,9 @@
     ~/.vimrc: vim/init.vim
     ~/.wallpaper.png:
     ~/.wgetrc:
+    ~/.xsessionrc:
+    ~/.xsettingsd:
+    ~/.Xresources:
     ~/.zsh:
     ~/.zshenv: zsh/zshenv
     ~/.zshprofile: zsh/zshenv
@@ -72,7 +75,7 @@
     actions:
         clean: ['~/Library/Fonts']
         sync:
-            ~/Library/Fonts/NerdFonts: NerdFonts
+            ~/Library/Fonts/MyFonts: fonts
         brew:
             - rsync
             - ctags
@@ -84,7 +87,7 @@
         link:
             ~/.local/share/fonts:
                 glob: true
-                path: NerdFonts/*
+                path: fonts/*
         shell:
             - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
 

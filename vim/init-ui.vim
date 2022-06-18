@@ -8,7 +8,7 @@
 " Design Changes
 """"""""""""""""""""""""""""""
 
-if (($COLORTERM != 'gnome-terminal') && ($TERM != 'screen'))
+if (($COLORTERM != 'gnome-terminal') && ($TERM != 'screen') && ($TERM != 'rxvt-256color'))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
     if (has("termguicolors"))
