@@ -9,6 +9,7 @@ local keymap = require('utils.keymap')
 
 local keymappings = {
   visual_mode = {
+    -- Hop
     [',j'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
     [',k'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
     [',l'] = "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
@@ -30,28 +31,31 @@ local keymappings = {
     ['<leader>fg'] = '<cmd>Telescope live_grep<cr>',
     ['<leader>fw'] = '<cmd>Telescope grep_string<cr>',
 
+    -- File search
     [';;'] = '<cmd>Telescope buffers<cr>',
     [';b'] = '<cmd>Telescope buffers<cr>',
-    [';c'] = '<cmd>Telescope commands<cr>',
     [';f'] = '<cmd>Telescope find_files<cr>',
     [';p'] = '<cmd>lua require("config.telescope").project_files({use_git_root=true})<cr>',
     [';o'] = '<cmd>lua require("config.telescope").project_files({use_git_root=false})<cr>',
-    [';t'] = '<cmd>Telescope help_tags<cr>',
+
+    -- Grep Search
     [';g'] = '<cmd>Telescope live_grep<cr>',
     [';w'] = '<cmd>Telescope grep_string<cr>',
+
+    [';c'] = '<cmd>Telescope commands<cr>',
+    [';t'] = '<cmd>Telescope help_tags<cr>',
+
+    -- LSP key bindings
     [';r'] = '<cmd>Telescope lsp_references<cr>',
     [';s'] = '<cmd>Telescope lsp_document_symbols<cr>',
-    [';a'] = '<cmd>Telescope lsp_range_code_actions<cr>',
     [';i'] = '<cmd>Telescope lsp_implementations<cr>',
     [';d'] = '<cmd>Telescope lsp_definitions<cr>',
-    [';e'] = '<cmd>Telescope diagnostics<cr>',
+    [';x'] = '<cmd>Telescope diagnostics<cr>',
 
-    ['<leader>b'] = '<cmd>Telescope buffers<cr>',
-    ['<leader>p'] = '<cmd>Telescope git_files<cr>',
-    ['<leader>o'] = '<cmd>Telescope git_files use_git_root=false<cr>',
-
+    [';a'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',
     ['<leader>ca'] = '<cmd>CodeActionMenu<cr>',
 
+    -- Hop
     [';j'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
     [';k'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
     [';l'] = "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
@@ -60,6 +64,7 @@ local keymappings = {
   },
   term_mode = {
     ['<Esc>'] = '<C-\\><C-n>',
+
     -- Integrate with tmux navigator
     ['<C-h>'] = '<C-\\><C-N><cmd>TmuxNavigateLeft<cr>',
     ['<C-j>'] = '<C-\\><C-N><cmd>TmuxNavigateDown<cr>',

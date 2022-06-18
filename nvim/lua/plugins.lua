@@ -254,7 +254,7 @@ function M.setup()
       end
     }
     use {
-      'romgrk/nvim-treesitter-context',
+      'nvim-treesitter/nvim-treesitter-context',
       requires = {'nvim-treesitter/nvim-treesitter'},
       config = function()
         require('treesitter-context').setup()
@@ -316,6 +316,7 @@ function M.setup()
       requires = {
         { 'nvim-lua/plenary.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        -- { 'nvim-telescope/telescope-ui-select.nvim' },
       },
       config = function()
         require('config.telescope').setup()
