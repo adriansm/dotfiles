@@ -17,14 +17,14 @@ PLUGINS="
 
 function install_linux()
 {
-    APT_PKGS="git-core python3 python3-pip rsync"
+    APT_PKGS="git-core python3 pipenv rsync"
     dpkg-query -l $APT_PKGS 1>/dev/null 2>&1 || (
         echo "Installing required packages";
         sudo apt-get update -y;
         sudo apt-get install -y $APT_PKGS
     )
     # TODO: use dotbot plugin for pip?
-    python3 -m pip install --user -r requirements.txt
+    pipenv install -r requirements.txt
 }
 
 function run_dotbot()
