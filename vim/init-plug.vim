@@ -141,12 +141,13 @@ Plug 'tpope/vim-dispatch'           " dispatch make async
 Plug 'tpope/vim-sensible'           " Defaults everyone can agree on
 Plug 'tpope/vim-eunuch'             " Unix shell commands
 
+if has('python3')
+Plug 'Shougo/denite.nvim'
+endif
+
+Plug 'ryanoasis/vim-devicons'
 
 "
 " Local plugins
 "
 set rtp^=$VIMHOME/custom/adrian.vim
-
-if has('python3')
-Plug 'Shougo/denite.nvim'
-endif
