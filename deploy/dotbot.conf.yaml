@@ -64,10 +64,8 @@
     os: darwin
     actions:
         clean: ['~/Library/Fonts']
-        link:
-            ~/Library/Fonts:
-                glob: true
-                path: NerdFonts/*
+        sync:
+            ~/Library/Fonts/NerdFonts: NerdFonts
 
 - if:
     os: linux
