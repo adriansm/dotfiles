@@ -118,6 +118,7 @@
             - fonts-font-awesome
             - i3
             - mate-media
+            - mate-control-center
             - mate-power-manager
             - mate-settings-daemon
             - rofi
