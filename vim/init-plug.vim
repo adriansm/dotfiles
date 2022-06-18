@@ -23,7 +23,7 @@ Plug 'plasticboy/vim-markdown',         { 'for': 'markdown' }
 
 Plug 'scrooloose/nerdcommenter'         " Easily adds comments
 " Plug 'tpope/vim-commentary'             " Easily add comments
-Plug 'tpope/vim-unimpaired'             " Quick navigation using
+Plug 'tpope/vim-unimpaired'             " Quick navigation using []
 Plug 'wellle/targets.vim'               " Quick shortcuts
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'

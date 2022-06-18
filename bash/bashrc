@@ -13,6 +13,8 @@ source $MY_BASH_PATH/common.sh
 # update bash prompt
 source $MY_BASH_PATH/prompt.sh
 
+source $MY_BASH_PATH/android.sh
+
 case $OSTYPE in
     linux-*)
         # Any linux specific settings go here
@@ -30,4 +32,3 @@ esac
 # google specific settings
 [ -f $HOME/.at_google ] && source $MY_BASH_PATH/google.sh
 
-source $MY_BASH_PATH/android.sh
