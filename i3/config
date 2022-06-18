@@ -132,7 +132,7 @@ bindsym $super+$alt+$vi_down workspace next_on_output
 bindsym $super+Tab workspace back_and_forth
 
 # worksace shortcuts
-set $personal_chrome google-chrome --user-data-dir=.config/chrome-personal --class=chrome-personal
+set $personal_chrome google-chrome --user-data-dir=.config/chrome-personal --class=chrome-personal --proxy-server="socks5://127.0.0.1:9090" --proxy-bypass-list='<-loopback>'
 
 bindsym $super+Shift+n exec $personal_chrome
 bindsym $super+n exec google-chrome
