@@ -23,13 +23,37 @@ logging.basicConfig(level=logging.INFO)
 
 i3 = i3ipc.Connection()
 
-def get_current_workspace():
-  return [w for w in i3.get_workspaces() if w.focused][0]
+class Workspace(object):
+  def __init__(self, i3_workspace):
+    self.i3_workspace = i3_workspace
+    self.name_parts = parse_workspace_name(i3_workspace.name)
+
+  @staticmethod
+  def get_current_workspace():
+    for w in i3.get_workspaces():
+      if w.focused:
+        return Workspace(w)
+    return None
+
+  def _rename(self):
+    new_name = construct_workspace_name(self.name_parts)
+    return i3.command('rename workspace to "%s"' % new_name)
+
+  def change_icon(self, icon):
+    self.name_parts['icon'] = icon
+    return self._rename()
+
+  def change_shortname(self, shortname):
+    self.name_parts['shortname'] = shortname
+    return self._rename()
+
+  def get_shortname(self):
+    return self.name_parts.get('shortname')
 
 def prompt_workspace_name(name=None):
+  prompt_title = "Rename Workspace%s:" % (" '{}'".format(name) if name else '' )
   try:
     # use zenity to show a text box asking the user for a new workspace name
-    prompt_title = "Rename Workspace%s:" % (" '{}'".format(name) if name else '' )
     response = proc.check_output(['zenity', '--entry', "--text=%s" % prompt_title])
     new_shortname = response.decode('utf-8').strip()
     logging.info("New name from user: '%s'" % new_shortname)
@@ -43,19 +67,13 @@ def prompt_workspace_name(name=None):
     return new_shortname
   except proc.CalledProcessError as e:
     logging.info("Cancelled by user, exiting...")
-    return None
+  return None
 
-workspace = get_current_workspace()
-logging.info("Renaming workspace: %s" % workspace.name)
-name_parts = parse_workspace_name(workspace.name)
-shortname = name_parts.get('shortname')
-logging.info("Current workspace shortname: '%s'" % shortname)
-logging.info("Parts: " + str(name_parts))
+if __name__ == '__main__':
+  workspace = Workspace.get_current_workspace()
+  logging.info("Renaming workspace: %s" % workspace.get_shortname())
 
-new_shortname = prompt_workspace_name(shortname) if len(sys.argv) < 2 else sys.argv[1]
-if new_shortname:
-  name_parts['shortname'] = new_shortname
-  new_name = construct_workspace_name(name_parts)
-
-  # get the current workspace and rename it
-  res = i3.command('rename workspace to "%s"' % new_name)
+  new_shortname = prompt_workspace_name(workspace.get_shortname()) if len(sys.argv) < 2 else sys.argv[1]
+  logging.info("New workspace name: %s" % new_shortname)
+  if new_shortname:
+    workspace.change_shortname(new_shortname)
