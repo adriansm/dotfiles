@@ -20,7 +20,6 @@ local keymappings = {
     ['<C-W>-'] = '<cmd>split<CR>',
 
     -- File Explorer
-    [';e'] = '<cmd>NvimTreeToggle<CR>',
     ['<leader>e'] = '<cmd>NvimTreeToggle<CR>',
 
     -- nnoremap <leader>r :NvimTreeRefresh<CR>
@@ -42,11 +41,16 @@ local keymappings = {
     [';w'] = '<cmd>Telescope grep_string<cr>',
     [';r'] = '<cmd>Telescope lsp_references<cr>',
     [';s'] = '<cmd>Telescope lsp_document_symbols<cr>',
-    [';d'] = '<cmd>Telescope diagnostics<cr>',
+    [';a'] = '<cmd>Telescope lsp_range_code_actions<cr>',
+    [';i'] = '<cmd>Telescope lsp_implementations<cr>',
+    [';d'] = '<cmd>Telescope lsp_definitions<cr>',
+    [';e'] = '<cmd>Telescope diagnostics<cr>',
 
     ['<leader>b'] = '<cmd>Telescope buffers<cr>',
     ['<leader>p'] = '<cmd>Telescope git_files<cr>',
     ['<leader>o'] = '<cmd>Telescope git_files use_git_root=false<cr>',
+
+    ['<leader>ca'] = '<cmd>CodeActionMenu<cr>',
 
     [';j'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
     [';k'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",

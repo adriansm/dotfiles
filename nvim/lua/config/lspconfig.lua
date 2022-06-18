@@ -26,7 +26,7 @@ local on_attach = function(client, bufnr)
       ['gp'] = '<Cmd>Lspsaga preview_definition<CR>',
       ['gs'] = '<Cmd>Lspsaga signature_help<CR>',
 
-      ['<leader>ca'] = '<cmd>Lspsaga code_action<CR>',
+      -- ['<leader>ca'] = '<cmd>Lspsaga code_action<CR>',
       ['<leader>rn'] = '<cmd>Lspsaga rename<CR>',
     })
     keymap.map('visual_mode', {
@@ -39,7 +39,7 @@ local on_attach = function(client, bufnr)
       ['gr'] = '<cmd>lua vim.lsp.buf.references()<CR>',
       ['gs'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
 
-      ['<leader>ca'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',
+      -- ['<leader>ca'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',
       ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
     })
   end

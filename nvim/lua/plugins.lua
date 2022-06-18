@@ -217,12 +217,16 @@ function M.setup()
       end
     }
 
-    -- A light-weight LSP plugin based on Neovim built-in LSP with highly a performant UI
     use {
-      'tami5/lspsaga.nvim',
+      'kosayoda/nvim-lightbulb',
       config = function()
-        require('config.lspsaga').setup()
+        vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
       end
+    }
+
+    use {                                      -- Code Action menu for lsp
+      'weilbith/nvim-code-action-menu',
+      cmd = 'CodeActionMenu',
     }
 
     -- Treesitter configurations and abstraction layer for Neovim
