@@ -3,6 +3,8 @@
 *.pyo
 *.o
 *.d
+*.class
+.classpath
 
 # IDE specific
 dwsync.xml

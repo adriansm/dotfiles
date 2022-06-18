@@ -51,6 +51,7 @@
     ~/.ripgreprc:
     ~/.screenrc:
     ~/.ssh/rc: ssh/rc
+    ~/.tigrc:
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vim:
