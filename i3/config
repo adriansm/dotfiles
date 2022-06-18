@@ -23,7 +23,6 @@ bindsym $super+g exec rofi -show window
 bindsym Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' -e 'viewnior $f'
 bindsym --release Control+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --select -e 'viewnior $f'
 bindsym $super+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --focused -e 'viewnior $f'
-bindsym $alt+Control+l exec xset s activate && xset dpms force off
 bindsym $super+Shift+f exec thunar;workspace 3;focus
 
 #change volume
@@ -269,7 +268,8 @@ client.background		#2f343f
 # Lock screen after 5 mins of idle
 #exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 5 -locker ~/.config/i3/i3_lock.sh
 exec_always --no-startup-id xset s 300 30
-exec_always --no-startup-id xset dpms 315 360
+exec_always --no-startup-id xset dpms 315 360 500
+bindsym $alt+Control+l exec --no-startup-id xset dpms force off
 # Lock screen upon suspend
 exec_always --no-startup-id "pgrep -x xss-lock || (xss-lock -l -- ~/.config/i3/i3_lock.sh &)"
 
