@@ -81,7 +81,7 @@ hi DiffAdd    guifg=#87ff5f ctermfg=119 ctermbg=NONE gui=NONE cterm=NONE
 hi DiffChange guifg=#fdd05f ctermfg=227 ctermbg=NONE gui=NONE cterm=NONE
 hi DiffDelete guifg=#df5f5f ctermfg=167 ctermbg=NONE gui=NONE cterm=NONE
 hi DiffText   guifg=#ff5f5f ctermfg=203 guibg=#5f0000 ctermbg=52 gui=bold cterm=bold
-hi SignColumn ctermfg=NONE guibg=#3a3a3a ctermbg=237 gui=NONE cterm=NONE
+hi SignColumn guibg=#3a3a3a ctermbg=237 gui=NONE cterm=NONE
 
 " Folds {{{1
 hi FoldColumn ctermfg=102 ctermbg=237 cterm=NONE guifg=#878787 guibg=#3a3a3a gui=NONE
@@ -126,9 +126,9 @@ hi EasyMotionTarget2First  guifg=#df005f ctermfg=161 ctermbg=NONE gui=NONE cterm
 hi EasyMotionTarget2Second guifg=#ffff5f ctermfg=227 ctermbg=NONE gui=NONE cterm=NONE
 
 " Plugin: vim-signify {{{1
-hi SignifySignAdd    guifg=#87ff5f ctermfg=119 guibg=#3a3a3a ctermbg=237 gui=bold cterm=bold
-hi SignifySignChange guifg=#ffff5f ctermfg=227 guibg=#3a3a3a ctermbg=237 gui=bold cterm=bold
-hi SignifySignDelete guifg=#df5f5f ctermfg=167 guibg=#3a3a3a ctermbg=237 gui=bold cterm=bold
+hi SignifySignAdd    guifg=#87ff5f ctermfg=119 guibg=NONE ctermbg=NONE gui=bold cterm=bold
+hi SignifySignChange guifg=#ffff5f ctermfg=227 guibg=NONE ctermbg=NONE gui=bold cterm=bold
+hi SignifySignDelete guifg=#df5f5f ctermfg=167 guibg=NONE ctermbg=NONE gui=bold cterm=bold
 
 " Plugin: vim-startify {{{1
 hi StartifyBracket guifg=#585858 ctermfg=240 ctermbg=NONE gui=NONE cterm=NONE

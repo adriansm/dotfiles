@@ -12,6 +12,8 @@
 noremap <C-e> :NERDTreeToggle<CR>
 map <Leader>tt :TagbarToggle<CR>
 
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 function! LoadPluginOptions()
   "

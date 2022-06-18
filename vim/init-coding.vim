@@ -1,7 +1,7 @@
 "
 " Coding Vim Settings
 "
-" Settings taken over the years that have considerably helped 
+" Settings taken over the years that have considerably helped
 " coding a lot easier, some dependencies on external plugins
 " are expected
 "
@@ -118,6 +118,10 @@ if get(g:, 'lang_completion', 'coc') == 'coc'
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
   autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+  " Configure error/warning section to use coc.nvim
+  let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+  let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 endif
 
 

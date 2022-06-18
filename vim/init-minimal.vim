@@ -99,6 +99,9 @@ set nobackup            " do not write backup files
 set nowritebackup
 set noswapfile          " do not write .swp files
 
+" Automatically re-read file if a change was detected outside of vim
+set autoread
+
 set history=50
 set wildmode=list:longest,full
 "set wildmenu            " enhanced command completion
@@ -116,7 +119,7 @@ end
 "
 " Plugin independent shortcuts
 "
-let mapleader = "<space>"
+map <Space> <Leader>
 
 " Remove the Windows ^M
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm

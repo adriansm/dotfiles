@@ -6,6 +6,8 @@
     "diagnostic.errorSign": "",
     "diagnostic.warningSign": "",
     "diagnostic.infoSign": "",
+    "diagnostic.enableMessage": "always",
+    "diagnostic.checkCurrentLine": true,
     "languageserver": {
         "ccls": {
             "command": "ccls",

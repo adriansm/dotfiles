@@ -56,6 +56,19 @@ autocmd BufEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 setlocal cursorline
 
+" Call method on window enter
+augroup WindowManagement
+  autocmd!
+  autocmd WinEnter * call Handle_Win_Enter()
+augroup END
+
+" Change highlight group of preview window when open
+function! Handle_Win_Enter()
+  if &previewwindow
+    setlocal winhighlight=Normal:MarkdownError
+  endif
+endfunction
+
 
 "
 " Status bar replacement (Airline/Tmux line)
@@ -95,6 +108,12 @@ let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_section_z = "%4l/%L%{g:airline_symbols.maxlinenr} :%3v"
 
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
+
+" Custom setup that removes filetype/whitespace from default vim airline bar
+let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
+
+let g:airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+let g:airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 
 "let g:tmuxline_powerline_separators = 0
 

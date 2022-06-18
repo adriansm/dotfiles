@@ -139,6 +139,7 @@ endif
 Plug 'Valloric/ListToggle'          " Quickly get locationlist and quickfix window
 Plug 'tpope/vim-dispatch'           " dispatch make async
 Plug 'tpope/vim-sensible'           " Defaults everyone can agree on
+Plug 'tpope/vim-eunuch'             " Unix shell commands
 
 
 "
