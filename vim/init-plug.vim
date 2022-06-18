@@ -168,6 +168,19 @@ if get(g:, 'lang_completion', '') == 'coc'
   Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
 
+if get(g:, 'lang_completion', '') == 'nvim'
+  " A collection of configurations for Neovim’s built-in LSP
+  Plug 'neovim/nvim-lspconfig'
+
+  " A light-weight LSP plugin based on Neovim built-in LSP with highly a performant UI
+  Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
+
+  " Treesitter configurations and abstraction layer for Neovim
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+endif
 "
 " Ide-like features
 "
