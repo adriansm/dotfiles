@@ -29,6 +29,7 @@ set tabstop=4
 set shiftround
 set expandtab
 set copyindent
+set cinoptions+=(0
 
 set formatoptions-=t
 

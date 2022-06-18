@@ -18,7 +18,7 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
-[ -d "$HOME/.linuxbrew" ] && PATH="$PATH:$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin"
-[ -d "$HOME/.homebrew" ] && PATH="$PATH:$HOME/.homebrew/bin:$HOME/.homebrew/sbin"
+[ -d "$HOME/.linuxbrew" ] && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+[ -d "$HOME/.homebrew" ] && PATH="$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH"
 [ -d "$HOME/.local" ] && PATH="$HOME/.local/bin:$HOME/.local/sbin:$PATH"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
