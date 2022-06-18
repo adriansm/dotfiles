@@ -1,13 +1,21 @@
 "
 " IDE Vim Settings
 "
-" Settings that help vim behave more like an IDE
+" Settings that help vim behave more like an IDE, but may be provided when
+" embedded within external IDEs (ex. Oni)
 "
 
+
+"
+" External Tag bars
+"
 noremap <C-e> :NERDTreeToggle<CR>
 map <Leader>t :TagbarToggle<CR>
 
-" ** CtrlP options **
+
+"
+" CtrlP options
+"
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
   \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
@@ -22,12 +30,18 @@ nmap <leader>bb :CtrlPBuffer<cr>
 nmap <leader>bm :CtrlPMixed<cr>
 nmap <leader>bs :CtrlPMRU<cr>
 
-" ** Command T **
-let g:CommandTFileScanner = 'git'
-let g:CommandTTraverseSCM = 'file'
-let g:CommandTMaxFiles    = 60000
+if executable('ag')
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-" ** File Explorer **
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching  = 1
+endif
+
+
+"
+" VIM File Explorer
+"
 let g:explVertical     = 1
 let g:explWinSize      = 35
 let g:explSplitLeft    = 1
@@ -35,22 +49,21 @@ let g:explSplitBelow   = 1
 let g:explHideFiles    = '^\.,.*\.class$,.*\.swp$,.*\.pyc$,.*\.swo$,\.DS_Store$'
 let g:explDetailedHelp = 0
 
-" ** Minibuffer **
+
+"
+" Command T (deprecated)
+"
+let g:CommandTFileScanner = 'git'
+let g:CommandTTraverseSCM = 'file'
+let g:CommandTMaxFiles    = 60000
+
+
+"
+" Minibuffer (deprecated)
+"
 let g:miniBufExplModSelTarget       = 1
 let g:miniBufExplorerMoreThanOne    = 2
 let g:miniBufExplUseSingleClick     = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs  = 1
 let g:bufExplorerSortBy             = "name"
-
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>[ <Plug>AirlineSelectPrevTab
-nmap <leader>] <Plug>AirlineSelectNextTab

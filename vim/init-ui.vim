@@ -4,10 +4,10 @@
 " Settings that affect UI, color scheme of editor and other related settings
 "
 
-""""""""""""""""""""""""""""""
-" Design Changes
-""""""""""""""""""""""""""""""
 
+"
+" Terminal Settings
+"
 let s:enable_true_colors=0
 if has('nvim') && ($TERM =~ '256color' || $COLORTERM == 'truecolor' || $COLORTERM == '24bit')
   " neovim has true color approximation even if terminal doesn't support it
@@ -24,21 +24,24 @@ if s:enable_true_colors && has("termguicolors")
   set termguicolors
 endif
 
-"" Format the statusline
-"set statusline=\ %<%F\ %h%m%r%=%{fugitive#statusline()}\ %-14.(%l/%L:%c%V%)
 
-"" Syntastic plugin warnings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+"
+" Color Settings
+"
 
 set background=dark
 let g:solarized_termcolors=256
 let g:rehash256=1
 colorscheme adrian
 
-" show line numbers
-set number relativenumber
+highlight LineNr ctermfg=darkgrey guifg=#050505
+
+" override backround for autocomplete popup on angr theme
+"hi Pmenu      guibg=#3a3a3a ctermbg=237
+
+"
+" Navigation
+"
 
 " toggle relative numbers for active buffers
 augroup numbertoggle
@@ -47,38 +50,25 @@ augroup numbertoggle
   autocmd WinLeave,BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-highlight LineNr ctermfg=darkgrey guifg=#050505
-
 " Set cursor line only on selected window
 autocmd WinEnter * setlocal cursorline
 autocmd BufEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 setlocal cursorline
 
-" enable mouse support
-set mouse=a
-if !has("nvim")
-  if has("mouse_sgr")
-      set ttymouse=sgr
-  else
-      set ttymouse=xterm2
-  end
-end
 
-" copy the current text selection to the system clipboard
-if has('gui_running') || has('nvim') && exists('$DISPLAY')
-  noremap <Leader>y "+y
-else
-  " copy to attached terminal using the yank(1) script:
-  " https://github.com/sunaku/home/blob/master/bin/yank
-  noremap <silent> <Leader>y y:call system('yank > /dev/tty', @0)<Return>
-endif
+"
+" Status bar replacement (Airline/Tmux line)
+"
 
-" Easily split windows
-nmap <C-W>\| :vsplit<CR>
-nmap <C-W>- :split<CR>
+"" Format the statusline
+"set statusline=\ %<%F\ %h%m%r%=%{fugitive#statusline()}\ %-14.(%l/%L:%c%V%)
 
-" ** airline/tmux line **
+"" Syntastic plugin warnings
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
 let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts = 1
 
@@ -117,5 +107,14 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 2
 
 let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux.design.conf"
 
-" override backround for autocomplete popup on angr theme
-"hi Pmenu      guibg=#3a3a3a ctermbg=237
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>[ <Plug>AirlineSelectPrevTab
+nmap <leader>] <Plug>AirlineSelectNextTab

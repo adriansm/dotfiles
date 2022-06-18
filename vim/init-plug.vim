@@ -6,7 +6,9 @@
 " NOTE: plug#begin must be called before including this
 "
 
-"*** Syntax Plugins ***
+"
+" Syntax Plugins
+"
 
 Plug 'editorconfig/editorconfig-vim'    " Syntax using .editorconfig files
 
@@ -19,30 +21,50 @@ Plug 'elzr/vim-json',                   { 'for': 'json' }
 Plug 'naseer/logcat',                   { 'for': 'logcat' }
 Plug 'plasticboy/vim-markdown',         { 'for': 'markdown' }
 
-"*** Code Editor ***
+
+"
+" Source Code Editor
+"
 
 Plug 'scrooloose/nerdcommenter'         " Easily adds comments
 " Plug 'tpope/vim-commentary'             " Easily add comments
+
+
+"
+" Code Browsing
+"
 Plug 'tpope/vim-unimpaired'             " Quick navigation using []
-Plug 'wellle/targets.vim'               " Quick shortcuts
-Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'wellle/targets.vim'               " Quick shortcuts
 
 
+"
 " Status bar plugins
+"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
+
+
+"
+" Tmux integration
+"
 Plug 'christoomey/vim-tmux-navigator'
 
-"*** Themes ***
+
+"
+" Themes
+"
 Plug 'sheerun/vim-wombat-scheme'
 "Plug 'jacoborus/tender.vim'
 "Plug 'keith/parsec.vim'
 "Plug 'joshdick/onedark.vim'
 
-"*** Code Browse ***
 
+"
+" File Browsing
+"
 Plug 'ctrlpvim/ctrlp.vim'           " Fast file switching
 Plug 'junegunn/fzf',                {
       \ 'dir': '~/.fzf',
@@ -50,12 +72,16 @@ Plug 'junegunn/fzf',                {
       \ }
 Plug 'junegunn/fzf.vim'
 
-Plug 'majutsushi/tagbar',           { 'on': 'TagbarToggle' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'Valloric/ListToggle'
-Plug 'tpope/vim-vinegar'
 
+Plug 'majutsushi/tagbar',           { 'on': 'TagbarToggle' }
+Plug 'tpope/vim-vinegar'            " Play nice with netrw
+
+
+"
+" Source control integration
+"
 Plug 'tpope/vim-fugitive'           " The git plugin
 Plug 'airblade/vim-gitgutter'       " show signs of lines add/deleted
 Plug 'dbakker/vim-projectroot'      " Easily jump to root of project
@@ -65,6 +91,11 @@ Plug 'mhinz/vim-grepper',           { 'on': ['Grepper', '<plug>(GrepperOperator)
 
 Plug 'bogado/file-line'             " Go to line when opening with 'vim file:line'
 Plug 'MattesGroeger/vim-bookmarks'  " set vim bookmarks
+
+
+"
+" Language Completion
+"
 
 if has('python')
   Plug 'SirVer/ultisnips'
@@ -94,11 +125,18 @@ if has('python3')
 endif
 endif
 
-"*** Others ***
 
+"
+" Others
+"
+
+Plug 'Valloric/ListToggle'          " Quickly get locationlist and quickfix window
 Plug 'tpope/vim-dispatch'           " dispatch make async
 Plug 'tpope/vim-sensible'           " Defaults everyone can agree on
 
+
+"
 " Local plugins
+"
 set rtp^=$VIMHOME/custom/adrian.vim
 

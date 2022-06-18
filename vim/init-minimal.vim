@@ -12,17 +12,20 @@ if s:was_compatible
   set nocompatible
 endif
 
-" ** User Interface **
-set history=50
-set wildmode=list:longest,full
-"set wildmenu            " enhanced command completion
-set clipboard=unnamed,unnamedplus
 
-" ** Text Formatting **
-set nowrap              " Do not wrap words (view)
+"
+" User Interface options
+"
+set number relativenumber   " show line numbers
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set visualbell          " use visual bell instead of beeping
+
+
+"
+" Text Formatting
+"
+set nowrap              " Do not wrap words (view)
 set list listchars=tab:→\ ,
 
 set shiftwidth=4
@@ -34,6 +37,10 @@ set cinoptions+=(0
 
 set formatoptions-=t
 
+
+"
+" File Types and formatting
+"
 augroup filetype
   autocmd BufNewFile,BufRead *.dts,*.dtsi           set filetype=dts
   autocmd BufNewFile,BufRead *.cmake,CMakeLists.txt set filetype=cmake
@@ -54,24 +61,64 @@ autocmd FileType html       set formatoptions+=tl
 autocmd FileType html,css   set noexpandtab tabstop=4
 autocmd FileType practice   set noexpandtab tabstop=8 shiftwidth=8
 
-" ** Search & Replace **
+
+"
+" Search & Replace
+"
 set gdefault
 set incsearch           " Incremental search
 set hlsearch            " Highlight search match
 set ignorecase          " Do case insensitive matching
 set smartcase           " do not ignore if search pattern has CAPS
 
-" ** Keystrokes -- Moving around **
-set whichwrap=h,l,~,[,]
 
-" backups
+"
+" Clipboard Management
+"
+set clipboard=unnamed,unnamedplus
+
+" copy the current text selection to the system clipboard
+if has('gui_running') || has('nvim') && exists('$DISPLAY')
+  noremap <Leader>y "+y
+else
+  " copy to attached terminal using the yank(1) script:
+  " https://github.com/sunaku/home/blob/master/bin/yank
+  noremap <silent> <Leader>y y:call system('yank > /dev/tty', @0)<Return>
+endif
+
+"Paste toggle - when pasting something in, don't indent.
+set pastetoggle=<F3>
+
+
+"
+" Other options
+"
+set whichwrap=h,l,~,[,] " wrap around at edges
 set nobackup            " do not write backup files
 set noswapfile          " do not write .swp files
 
-" ** MISC **
-"Remove the Windows ^M
+set history=50
+set wildmode=list:longest,full
+"set wildmenu            " enhanced command completion
+
+" enable mouse support
+set mouse=a
+if !has("nvim")
+  if has("mouse_sgr")
+      set ttymouse=sgr
+  else
+      set ttymouse=xterm2
+  end
+end
+
+"
+" Plugin independent shortcuts
+"
+
+" Remove the Windows ^M
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
+" Force sudo write
 cmap w!! w !sudo tee % >/dev/null
 
 " Delete buffer without closing window
@@ -79,4 +126,8 @@ nmap <Leader>bd :b#<bar>bd#<CR>
 
 " jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Easily split windows
+nmap <C-W>\| :vsplit<CR>
+nmap <C-W>- :split<CR>
 
