@@ -39,8 +39,15 @@ return require('packer').startup(function(use)
   use 'scrooloose/syntastic'              -- Checks syntax
 
   -- TODO: enable clang formatter
-  -- use 'kana/vim-operator-user'
-  -- use 'rhysd/vim-clang-format'
+  use {
+    'kana/vim-operator-user',
+    requires = { 'rhysd/vim-clang-format' },
+    config = function()
+      vim.cmd[[autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>]]
+      vim.cmd[[autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>]]
+      vim.cmd[[autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)]]
+    end,
+  }
 
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
 
