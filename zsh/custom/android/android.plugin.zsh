@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 my_path=${${(%):-%N}:A:h}
 fpath=($fpath $my_path)

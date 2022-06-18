@@ -7,6 +7,7 @@ alias tmxn='tmux new-session -s'
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
+alias ls='ls --color'
 
 mcd() { mkdir -p "$1" && cd "$1"; }
 

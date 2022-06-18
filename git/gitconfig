@@ -144,7 +144,7 @@
 	rex = remote rm
 	rem = remote rename
 
-	upload = review --no-topic --track --compatible
+	upload = review --no-topic --track
 
 [pretty]
 	fixes = Fixes: %h (\"%s\")

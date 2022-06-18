@@ -24,6 +24,8 @@
 # \e[K  => clears everything after the cursor on the current line
 # \e[2K => clear everything on the current line
 
+my_path=${${(%):-%N}:A:h}
+source $my_path/async.zsh
 
 # turns seconds into human readable time
 # 165392 => 1d 21h 56m 32s

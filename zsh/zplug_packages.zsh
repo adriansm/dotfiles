@@ -35,7 +35,7 @@ zplug "molovo/tipz"
 
 # Local plugins
 zplug "$ZSH_HOME/custom/android", from:local, use:android.plugin.zsh
-zplug "$ZSH_HOME/custom/iterm2_integration", from:local, use:iterm2.plugin.zsh
+#zplug "$ZSH_HOME/custom/iterm2_integration", from:local, use:iterm2.plugin.zsh
 
 # Theme
 zplug "mafredri/zsh-async"
