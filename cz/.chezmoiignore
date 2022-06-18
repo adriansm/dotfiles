@@ -1,5 +1,6 @@
 {{ if not .i3wm }}
 .config/compton.conf
+.config/dconf
 .config/dunst
 .config/i3
 .config/i3status
