@@ -134,14 +134,16 @@ function list_android_devices_helper()
     local adb_devices=$(command $ADB_BIN devices -l | sed -n "2,100p")
     for dev in ${(f)adb_devices}; do
       local aserial=${dev[(w)1]}
-      print_row "$(get_android_adb_info $aserial ${dev##*  })"
+      local details=$(echo ${dev#* } | xargs)
+      print_row "$(get_android_adb_info $aserial $details)"
     done
   fi
 
   local fb_devices=$(command $FASTBOOT_BIN devices -l)
   for dev in ${(f)fb_devices}; do
     local aserial=${dev%% *}
-    print_row "$(get_android_fb_info $aserial ${dev##*  })"
+    local details=$(echo ${dev#* } | xargs)
+    print_row "$(get_android_fb_info $aserial $details)"
   done
 }
 
