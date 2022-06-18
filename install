@@ -10,6 +10,7 @@ DOTBOT_BIN="$DOTBOT_DIR/bin/dotbot"
 
 PLUGINS="
     dotbot-brew
+    dotbot-oslink
     dotbot-sync
 "
 
