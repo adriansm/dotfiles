@@ -61,8 +61,8 @@ prompt_pure_set_title() {
 
 	# tell the terminal we are setting the title
 	print -n '\e]0;'
-	# show hostname if connected through ssh
-	[[ -n $SSH_CONNECTION ]] && print -Pn '%n@%m: '
+	# show hostname if connected through ssh, but not tmux
+	[ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && print -Pn '%n@%m: '
 	case $1 in
 		expand-prompt)
 			print -Pn $2;;
@@ -71,6 +71,18 @@ prompt_pure_set_title() {
 	esac
 	# end set title
 	print -n '\a'
+
+	# TMUX pane title
+	if [ -n "$TMUX" ]; then
+		local pane_title=
+		if [ -n "$TARGET_PRODUCT" -a -n "$TARGET_BUILD_VARIANT" ]; then
+			pane_title="[${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}] "
+		fi
+		if [ "$1" == 'ignore-escape' ]; then
+			pane_title=${pane_title}$(print -rn $2)
+		fi
+		printf '\033]2;%s\033\\' $pane_title
+	fi
 }
 
 prompt_pure_preexec() {
