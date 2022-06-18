@@ -2,6 +2,11 @@
 set $super Mod4
 set $alt Mod1
 
+mode "passthrough" {
+    bindsym $super+Escape mode "default"
+}
+bindsym $super+Escape mode "passthrough"
+
 # set font
 font pango: FontAwesome 11
 
