@@ -116,7 +116,7 @@ bindsym $alt+Control+$vi_down workspace next
 bindsym $alt+Control+$vi_up workspace prev
 
 # worksace shortcuts
-set $personal_chrome google-chrome --user-data-dir=~/.config/chrome-personal --class=chrome-personal
+set $personal_chrome google-chrome --user-data-dir=.config/chrome-personal --class=chrome-personal
 
 bindsym $super+Shift+n exec $personal_chrome
 bindsym $super+n exec google-chrome
