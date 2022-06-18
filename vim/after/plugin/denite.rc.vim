@@ -1,14 +1,15 @@
 "
 " Denite options
 "
-if ! exists(":Denite")
-  finish
-endif
+if !exists(":Denite") | finish | endif
 
 "   ;         - Browser currently open buffers
 "   <leader>o - Browse list of files in current directory
 "   <leader>p - Browse list of files in project directory
-nmap ; :Denite buffer -split=floating<CR>i
+nmap ;; :Denite buffer -split=floating<CR>
+nmap ;b :Denite buffer -split=floating<CR>
+nmap ;o :Denite file/rec -split=floating<CR>
+nmap ;p :DeniteProjectDir file/rec -split=floating<CR>
 nmap <leader>o :Denite file/rec -split=floating<CR>i
 nmap <leader>p :DeniteProjectDir file/rec -split=floating<CR>i
 
@@ -50,28 +51,17 @@ autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
   let w:persistent_cursorline = 1
 
-  nnoremap <silent><buffer><expr> <CR>
-        \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-        \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> o
-        \ denite#do_map('do_action', 'open')
-  nnoremap <silent><buffer><expr> p
-        \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> s
-        \ denite#do_map('do_action', 'split')
-  nnoremap <silent><buffer><expr> v
-        \ denite#do_map('do_action', 'vsplit')
-  nnoremap <silent><buffer><expr> q
-        \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-        \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> /
-        \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-        \ denite#do_map('toggle_select')
-  nnoremap <silent><buffer><expr> x
-        \ denite#do_map('toggle_select')
+  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> o denite#do_map('do_action', 'open')
+  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'split')
+  nnoremap <silent><buffer><expr> v denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> q denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> / denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select')
+  nnoremap <silent><buffer><expr> x denite#do_map('toggle_select')
   nnoremap <silent><buffer> <C-j> j
   nnoremap <silent><buffer> <C-k> k
 endfunction

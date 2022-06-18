@@ -204,12 +204,17 @@ endif
 " Ide-like features
 "
 
-if has('python3')
-  if has('nvim')
-    Plug 'Shougo/denite.nvim', {'tag': '*', 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/denite.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
+if has('nvim')
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+else
+  if has('python3')
+    if has('nvim')
+      Plug 'Shougo/denite.nvim', {'tag': '*', 'do': ':UpdateRemotePlugins' }
+    else
+      Plug 'Shougo/denite.nvim'
+      Plug 'roxma/nvim-yarp'
+      Plug 'roxma/vim-hug-neovim-rpc'
+    endif
   endif
 endif
