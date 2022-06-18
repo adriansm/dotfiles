@@ -140,10 +140,8 @@ function M.setup()
     --
     -- [[ Source Control Integration ]]
     --
-    use {                                       -- The git plugin
-      'tpope/vim-fugitive',
-      event = "BufRead"
-    }
+    use { 'tpope/vim-fugitive' }                                       -- The git plugin
+
     -- use {                                       -- show signs of lines add/deleted
     --   'airblade/vim-gitgutter',
     --   event = "BufRead"
