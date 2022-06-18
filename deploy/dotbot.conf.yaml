@@ -86,6 +86,7 @@
     actions:
         apt:
             - build-essential
+            - clang-format
             - exuberant-ctags
             - neovim
             - rsync
