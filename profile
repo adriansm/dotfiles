@@ -22,3 +22,9 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 [ -d "$HOME/.homebrew" ] && PATH="$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH"
 [ -d "$HOME/.local" ] && PATH="$HOME/.local/bin:$HOME/.local/sbin:$PATH"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+
+# ssh-agent fix
+if [[ -z "$SSH_CONNECTION" ]]; then
+  pkill ssh-agent
+  eval $(ssh-agent -s)
+fi
