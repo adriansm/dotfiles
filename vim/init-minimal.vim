@@ -33,9 +33,7 @@ set updatetime=300
 set shortmess+=c
 
 " always show signcolumns
-if has('nvim')
-  set signcolumn=auto:4
-elseif has("signcolumn")
+if has("signcolumn")
   set signcolumn=yes
 endif
 

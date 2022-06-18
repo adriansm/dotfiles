@@ -32,11 +32,7 @@ endif
 
 " Plug 'scrooloose/nerdcommenter'         " Easily adds comments
 " Plug 'tpope/vim-commentary'             " Easily add comments
-if has('nvim')
-  Plug 'numToStr/Comment.nvim'
-else
-  Plug 'tomtom/tcomment_vim'
-endif
+Plug 'tomtom/tcomment_vim'
 
 
 "
@@ -101,17 +97,10 @@ endif
 "
 " Status bar plugins
 "
-if has('nvim')
-  Plug 'nvim-lualine/lualine.nvim'
-  " If you want to have icons in your statusline choose one of these
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'kdheepak/tabline.nvim'
-else
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'edkolev/tmuxline.vim'
-endif
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
 
 
 "
@@ -123,7 +112,6 @@ Plug 'sheerun/vim-wombat-scheme'
 "Plug 'joshdick/onedark.vim'
 
 Plug 'lilydjwg/colorizer'
-Plug 'Mofiqul/vscode.nvim'
 
 
 "
@@ -180,47 +168,16 @@ if get(g:, 'lang_completion', '') == 'coc'
   Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
 
-if get(g:, 'lang_completion', '') == 'nvim' && has('nvim')
-  " A collection of configurations for Neovim’s built-in LSP
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'williamboman/nvim-lsp-installer'
-
-  " A light-weight LSP plugin based on Neovim built-in LSP with highly a performant UI
-  Plug 'tami5/lspsaga.nvim'
-
-  " Treesitter configurations and abstraction layer for Neovim
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-  " Plug 'nvim-lua/completion-nvim'
-
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
-
-  " For vsnip users.
-  Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/vim-vsnip'
-
-  Plug 'onsails/lspkind-nvim'
-endif
-
 "
 " Ide-like features
 "
 
-if has('nvim')
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-else
-  if has('python3')
-    if has('nvim')
-      Plug 'Shougo/denite.nvim', {'tag': '*', 'do': ':UpdateRemotePlugins' }
-    else
-      Plug 'Shougo/denite.nvim'
-      Plug 'roxma/nvim-yarp'
-      Plug 'roxma/vim-hug-neovim-rpc'
-    endif
+if has('python3')
+  if has('nvim')
+    Plug 'Shougo/denite.nvim', {'tag': '*', 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/denite.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
   endif
 endif

@@ -9,11 +9,7 @@
 " Terminal Settings
 "
 let s:enable_true_colors=0
-if has('nvim') && ($TERM =~ '256color' || $COLORTERM == 'truecolor' || $COLORTERM == '24bit')
-  " neovim has true color approximation even if terminal doesn't support it
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  let s:enable_true_colors=1
-elseif $TMUX == "" && ($COLORTERM == 'truecolor' || $COLORTERM == '24bit')
+if $TMUX == "" && ($COLORTERM == 'truecolor' || $COLORTERM == '24bit')
   let s:enable_true_colors=1
 endif
 
@@ -32,16 +28,8 @@ set background=dark
 let g:solarized_termcolors=256
 let g:rehash256=1
 
-if has('nvim')
-  " For dark theme
-  let g:vscode_style = "dark"
-  " Enable italic comment
-  let g:vscode_italic_comment = 1
-  colorscheme vscode
-else
-  let g:airline_theme='adrian'
-  colorscheme adrian
-endif
+let g:airline_theme='adrian'
+colorscheme adrian
 
 
 " override backround for autocomplete popup on angr theme
@@ -63,18 +51,3 @@ endif
 "
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_airline_tabline = 0
-
-
-"
-" Terminal options
-"
-
-if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
-  tnoremap <silent> <C-h> <C-\><C-N>:TmuxNavigateLeft<cr>
-  tnoremap <silent> <C-j> <C-\><C-N>:TmuxNavigateDown<cr>
-  tnoremap <silent> <C-k> <C-\><C-N>:TmuxNavigateUp<cr>
-  tnoremap <silent> <C-l> <C-\><C-N>:TmuxNavigateRight<cr>
-
-  autocmd TermOpen * setlocal nonumber norelativenumber
-endif
