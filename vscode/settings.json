@@ -27,7 +27,6 @@
         "--disable=missing-docstring",
         "--max-line-length=100"
     ],
-    "python.linting.pylintPath": "/usr/bin/gpylint",
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
     "window.titleBarStyle": "custom",
     "workbench.colorTheme": "Darcula",
@@ -40,12 +39,12 @@
     "projectManager.vscode.maxDepthRecursion": 2,
     "projectManager.vscode.baseFolders": [
         "$home/Android/kernels",
-        "$home/Android/builds",
+        "$home/Android/builds"
     ],
     "projectManager.git.maxDepthRecursion": 1,
     "projectManager.git.baseFolders": [
         "$home/workspace",
-        "$home/workspace/tools",
+        "$home/workspace/tools"
     ],
     "files.exclude": {
         "**/.ccls-cache": true
@@ -62,4 +61,7 @@
             "after": ["g", "c", "c"]
         }
     ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "editor.fontLigatures": true
 }
