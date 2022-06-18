@@ -1,0 +1,4 @@
+neovim
+pynvim
+i3ipc
+fontawesome

@@ -5,27 +5,8 @@ source "${GITAWAREPROMPT}/main.sh"
 
 export _TITLE_PREFIX=""
 
-get_g3_client() {
-  echo $@ | grep '^/google/src/cloud/[^/]*/[^/]*' > /dev/null || return
-  echo $@ | sed -e 's`^/google/src/cloud/\([^/]*\)/\([^/]*\).*$`\1:\2`'
-}
-
-g3_client() {
-  get_g3_client $PWD
-}
-
-g3_client_short() {
-  get_client | sed 's`^'"$USER"':``'
-}
-
-g3_client_prompt() {
-  echo $@ | sed -r "s_/google/src/cloud/$USER/(.*)/google3_[\1]:_"
-}
-
 find_work_dir() {
-  local shortcuts="$HOME:~
-               /usr/local/google2/$USER/builds:~/builds
-               $X20:~/x20"
+  local shortcuts="$HOME:~"
   local p=$PWD
   export pwd2=""
 
@@ -37,9 +18,6 @@ find_work_dir() {
     [ "${w}" != "${p}" ] && pwd2="$n" && break;
   done
   pwd2="${pwd2}${p}"
-  if [ -n "$(g3_client $pwd2)" ]; then
-    pwd2=$(echo ${pwd2} | sed -r "s_/google/src/cloud/$USER/(.*)/google3_[\1]:_")
-  fi
 }
 
 find_title_prefix() {
@@ -69,7 +47,8 @@ case "$OSTYPE" in
     export PS1="\[$txtgrn\]\u@\h\[$txtrst\]:\[$txtblu\]\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
     ;;
   linux*) # linux
-    PROMPT_COMMAND="find_title_prefix; find_work_dir; $PROMPT_COMMAND"
+    export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"
+    export PROMPT_COMMAND+="find_title_prefix; find_work_dir"
     PS1="\${debian_chroot:+(\$debian_chroot)}\[$bldgrn\]\u@\h\[$txtrst\]:\[$bldblu\]\$pwd2 \[$txtrst\]\[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
     ;;
 esac
@@ -82,4 +61,3 @@ xterm*|rxvt*|screen*)
 *)
   ;;
 esac
-

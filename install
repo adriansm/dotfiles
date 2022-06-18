@@ -17,15 +17,14 @@ PLUGINS="
 
 function install_linux()
 {
-    # TODO: create dotbot plugin for pip
-    pip install --user neovim pynvim
-    pip3 install --user neovim pynvim i3ipc fontawesome
-
-    APT_PKGS="git-core python3 python3-pip python python-pip"
-    dpkg-query -l $APT_PKGS 1>/dev/null 2>&1 && return
-    echo "Installing required packages"
-    sudo apt-get update -y
-    sudo apt-get install -y $APT_PKGS
+    APT_PKGS="git-core python3 python3-pip"
+    dpkg-query -l $APT_PKGS 1>/dev/null 2>&1 || (
+        echo "Installing required packages";
+        sudo apt-get update -y;
+        sudo apt-get install -y $APT_PKGS
+    )
+    # TODO: use dotbot plugin for pip?
+    pip3 install --user -r requirements.txt
 }
 
 function run_dotbot()
@@ -33,7 +32,16 @@ function run_dotbot()
     "${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" $DOTBOT_ARGS $@
 }
 
-if [[ "$OSTYPE" == "linux"* ]]; then
+export INSTALL_TYPE="default"
+case $1 in
+    minimal | full)
+        export INSTALL_TYPE=$1
+        shift
+        ;;
+esac
+
+
+if [ "$INSTALL_TYPE" != "minimal" ] && [[ "$OSTYPE" == "linux"* ]]; then
     [ -n $(command -v apt-get) ] && PLUGINS+=" dotbot-apt"
     install_linux
 fi
@@ -51,4 +59,3 @@ for p in $PLUGINS; do
     DOTBOT_ARGS+=" --plugin-dir $PLUGIN_DIR/$p"
 done
 run_dotbot "${@}"
-

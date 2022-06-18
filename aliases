@@ -39,10 +39,10 @@ function dirdiff()
     vim $@ +DirDiff $DIR1 $DIR2
 }
 
-alias vi="rrr vi"
-alias vim="rrr vim"
-alias nvim="rrr nvim"
-alias gvim="rrr gvim"
+test "$(command -v vi)" && alias vi="rrr vi"
+test "$(command -v vim)" && alias vim="rrr vim"
+test "$(command -v nvim)" && alias vim="rrr nvim"
+test "$(command -v gvim)" && alias vim="rrr gvim"
 
 function fixtmux() {
     eval $(tmux show-env -s)

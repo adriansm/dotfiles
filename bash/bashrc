@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PROMPT_COMMAND=
+
 # local settings
 [ -f $HOME/.bashrc.local ] && source $HOME/.bashrc.local
 

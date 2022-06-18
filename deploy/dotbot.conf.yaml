@@ -80,9 +80,11 @@
             - the_silver_searcher
             - ctags
 
-# Simple packages that don't have X/wm dependency
+# Simple packages that don't have X/wm dependency but only if not minimal install
 - if:
-    os: linux
+    and:
+        os: linux
+        shell: [ test "$INSTALL_TYPE" != "minimal" ]
     actions:
         apt:
             - build-essential
@@ -97,11 +99,11 @@
             - vim
             - zsh
 
-# Packages needed when X is available
+# Packages needed when X is available and full install
 - if:
     and:
         os: linux
-        shell: [ test -n "$(command -v X)" ]
+        shell: [ test -n "$(command -v X)" -a "$INSTALL_TYPE" = "full" ]
     actions:
         clean: ['~/.local/share/fonts']
         link:
@@ -139,11 +141,11 @@
             - xsecurelock
             - xss-lock
 
-# Gnome settings if dconf is installed
+# Gnome settings if dconf is installed and full install
 - if:
     and:
         os: linux
-        shell: [ test -n "$(command -v dconf)" ]
+        shell: [ test -n "$(command -v dconf)" -a "$INSTALL_TYPE" = "full"]
     actions:
         link:
             ~/.config/dconf:
@@ -152,5 +154,10 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - [vim +PlugInstall +qall, Installing Vim Plugins]
+
+- if:
+    shell: [ test -n "$(command -v vim)"]
+    actions:
+        shell:
+            - [vim +PlugInstall +qall, Installing Vim Plugins]
 
