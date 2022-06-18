@@ -31,11 +31,16 @@ bindsym --release Control+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --sele
 bindsym $super+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --focused -e 'viewnior $f'
 bindsym $super+Shift+f exec thunar
 
+## Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 #change volume
 #bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 i3status
 #bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && killall -SIGUSR1 i3status
 #bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -SIGUSR1 i3status
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && killall -SIGUSR1 i3status
+#bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && killall -SIGUSR1 i3status
 
 # backlight adjustment support
 #bindsym XF86MonBrightnessDown exec --no-startup-id /usr/bin/xbacklight -dec 10
@@ -291,9 +296,9 @@ exec_always --no-startup-id "killall xss-lock; (xss-lock -l -- ~/.config/i3/scri
 
 exec_always --no-startup-id "pgrep -x gnome-keyring-d || ~/.config/i3/scripts/gnome-keyring.sh"
 exec_always --no-startup-id "pgrep -x polkit-mate-aut || ( /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)"
-exec_always --no-startup-id "pgrep -x mate-settings-d || (mate-settings-daemon &)"
 exec_always --no-startup-id "pgrep -x mate-power-mana || (mate-power-manager &)"
-exec_always --no-startup-id "killall volumeicon; (volumeicon &)"
+exec_always --no-startup-id "killall mate-settings-d; (mate-settings-daemon &)"
+exec_always --no-startup-id "killall mate-volume-con; (mate-volume-control-applet &)"
 #exec --no-startup-id dunst
 
 # Compositor
