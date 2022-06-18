@@ -2,20 +2,26 @@
 " IDE Vim Settings
 "
 " Settings that help vim behave more like an IDE, but may be provided when
-" embedded within external IDEs (ex. Oni)
+" embedded within external IDEs (ex. Oni, VSCode). So need to make sure
+" settings are changed only if needed (Not already provided by external IDE)
 "
 
-
-"
-" External Tag bars
-"
-noremap <C-e> :NERDTreeToggle<CR>
-map <Leader>tt :TagbarToggle<CR>
-
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 function! LoadPluginOptions()
+  "
+  " External Tag bars
+  "
+  if exists(":NERDTreeToggle")
+    noremap <C-e> :NERDTreeToggle<CR>
+
+    " Automaticaly close nvim if NERDTree is only thing left open
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  endif
+
+  if exists(":TagbarToggle")
+    map <Leader>tt :TagbarToggle<CR>
+  endif
+
   "
   " CtrlP options (deprecated)
   "
