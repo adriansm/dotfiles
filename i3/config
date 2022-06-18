@@ -8,18 +8,6 @@ font pango: Noto Sans 9
 # Use Mouse+$super to drag floating windows to their wanted position
 floating_modifier $super
 
-#autostart
-exec --no-startup-id xsettingsd &
-exec --no-startup-id compton --fading --daemon --paint-on-overlay --backend glx
-exec --no-startup-id dex -ae i3
-
-set $i3lock ~/.config/i3/i3_lock.sh
-# Lock screen after 5 mins of idle
-#exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 5 -locker ~/.config/i3/i3_lock.sh
-exec --no-startup-id xset s 300 10
-# Lock screen upon suspend
-exec --no-startup-id xss-lock -n /usr/lib/x86_64-linux-gnu/xsecurelock/dimmer -l -- $i3lock
-
 # start a terminal
 bindsym $super+Return exec i3-sensible-terminal
 
@@ -35,7 +23,7 @@ bindsym $super+g exec rofi -lines 8 -padding 18 -width 60 -location 0 -show wind
 bindsym Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' -e 'viewnior $f'
 bindsym --release Control+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --select -e 'viewnior $f'
 bindsym $super+Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' --focused -e 'viewnior $f'
-bindsym $alt+Control+l exec xset s activate
+bindsym $alt+Control+l exec xset s activate && xset dpms force off
 bindsym $super+Shift+f exec thunar;workspace 3;focus
 
 #change volume
@@ -125,15 +113,15 @@ set $personal_chrome google-chrome --user-data-dir=~/.config/chrome-personal --c
 bindsym $super+Shift+n exec $personal_chrome
 bindsym $super+n exec google-chrome
 
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
+set $ws1 "1:web"
+set $ws2 "2:coding"
+set $ws3 "3:testing"
+set $ws4 "4:scripts"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9"
+set $ws9 "9:remote"
 set $ws0 "10:personal"
 
 bindsym $super+1 workspace $ws1
@@ -159,8 +147,10 @@ bindsym $super+Shift+8 move container to workspace $ws8
 bindsym $super+Shift+9 move container to workspace $ws9
 bindsym $super+Shift+0 move container to workspace $ws0
 
+bindsym $super+m exec "~/.local/bin/detect_monitors.sh"
+
 # reload the configuration file
-bindsym $super+Shift+c restart
+bindsym $super+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $super+Shift+r restart
@@ -213,6 +203,11 @@ bar {
     status_command i3status
 }
 
+# control focused window hwen follows the mouse movements
+focus_follows_mouse no
+
+popup_during_fullscreen smart
+
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 1
 for_window [class="Viewnior"] floating enable
@@ -229,3 +224,19 @@ client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background		#2f343f
+
+# startup applications
+exec --no-startup-id xsettingsd &
+exec --no-startup-id compton --fading --daemon --paint-on-overlay --backend glx
+#exec --no-startup-id dex -ae i3
+exec --no-startup-id /usr/share/goobuntu-indicator/goobuntu_indicator.py
+
+set $i3lock ~/.config/i3/i3_lock.sh
+# Lock screen after 5 mins of idle
+#exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 5 -locker ~/.config/i3/i3_lock.sh
+exec --no-startup-id xset s 300 30
+exec --no-startup-id xset dpms 315 360
+# Lock screen upon suspend
+exec --no-startup-id xss-lock -l -- $i3lock
+
+

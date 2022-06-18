@@ -2,7 +2,7 @@
 
 . /etc/lsb-release
 GLOCK=/usr/share/goobuntu-desktop-files/xsecurelock.sh
-if [ -f $GLOCK -a "$GOOGLE_ROLE" != "laptop" ]; then
+if [ -f $GLOCK ]; then
     export XSECURELOCK_SAVER=$HOME/.local/bin/saver_img
 
     $GLOCK $@
