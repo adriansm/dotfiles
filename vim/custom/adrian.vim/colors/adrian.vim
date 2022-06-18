@@ -7,7 +7,7 @@ endif
 
 let g:colors_name = 'adrian'
 
-hi Normal guifg=#e5e5e5 ctermfg=253 guibg=#262626 gui=NONE cterm=NONE
+hi Normal guifg=#e5e5e5 ctermfg=253 guibg=#202020 gui=NONE cterm=NONE
 
 " Misc {{{1
 hi Boolean        guifg=#af97df ctermfg=98  ctermbg=NONE gui=NONE guibg=bg cterm=NONE
@@ -74,7 +74,7 @@ hi CursorLineNr guifg=#878787 ctermfg=102 guibg=#3a3a3a ctermbg=237 gui=NONE cte
 hi LineNr       guifg=#878787 ctermfg=102 guibg=#3a3a3a ctermbg=237 gui=NONE cterm=NONE
 
 " Color column {{{1
-hi ColorColumn ctermfg=NONE guibg=#3a3a3a ctermbg=237 gui=NONE cterm=NONE
+hi ColorColumn ctermfg=NONE guibg=#333333 ctermbg=237 gui=NONE cterm=NONE
 
 " Diff & Signs {{{1
 hi DiffAdd    guifg=#87ff5f ctermfg=119 ctermbg=NONE gui=NONE cterm=NONE
@@ -144,7 +144,7 @@ hi StartifySpecial guifg=#585858 ctermfg=240 ctermbg=NONE gui=NONE cterm=NONE
 
 " Neovim {{{1
 if has('nvim')
-  hi EndOfBuffer  ctermfg=235  guifg=#262626 ctermbg=NONE gui=NONE cterm=NONE
+  hi EndOfBuffer  ctermfg=235  guifg=#202020 ctermbg=NONE gui=NONE cterm=NONE
   hi TermCursor   ctermfg=NONE guibg=#ff00af ctermbg=199 gui=NONE cterm=NONE
   hi TermCursorNC ctermfg=NONE ctermbg=NONE gui=NONE cterm=NONE
   hi Whitespace guifg=#3a3a3a ctermfg=237 ctermbg=NONE gui=NONE cterm=NONE
