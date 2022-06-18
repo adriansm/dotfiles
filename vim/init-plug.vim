@@ -141,19 +141,19 @@ if !exists('g:vscode')
 
   if get(g:, 'lang_completion', '') == 'lps'
     Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
+          \ 'branch': 'next',
+          \ 'do': 'bash install.sh',
+          \ }
 
-  if has('python3')
-    if has('nvim')
-      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
-      Plug 'Shougo/deoplete.nvim'
-      Plug 'roxma/nvim-yarp'
-      Plug 'roxma/vim-hug-neovim-rpc'
+    if has('python3')
+      if has('nvim')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+      else
+        Plug 'Shougo/deoplete.nvim'
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+      endif
     endif
-  endif
   endif
 
   if get(g:, 'lang_completion', '') == 'coc'
