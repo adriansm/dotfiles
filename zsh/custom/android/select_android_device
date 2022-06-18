@@ -53,7 +53,7 @@ function get_android_adb_info()
     devinfo[dev]="Unknown"
     devinfo[protocol]+=" ($state)"
   else
-    devinfo[dev]="$(get_android_adb_var $aserial ro.hardware)"
+    devinfo[dev]="$(get_android_adb_var $aserial ro.product.device)"
     devinfo[rev]="$(get_android_adb_var $aserial ro.revision)"
     devinfo[build]="$(get_android_adb_var $aserial ro.build.id)"
   fi
