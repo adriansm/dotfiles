@@ -110,10 +110,16 @@ bindsym $super+Shift+plus move scratchpad
 bindsym $super+plus scratchpad show
 
 # switch to workspace
-bindsym $alt+Control+Right workspace next
-bindsym $alt+Control+Left workspace prev
-bindsym $alt+Control+$vi_down workspace next
-bindsym $alt+Control+$vi_up workspace prev
+bindsym $super+$alt+Right workspace next
+bindsym $super+$alt+Left workspace prev
+bindsym $super+$alt+Up workspace prev_on_output
+bindsym $super+$alt+Down workspace next_on_output
+bindsym $super+$alt+$vi_right workspace next
+bindsym $super+$alt+$vi_left workspace prev
+bindsym $super+$alt+$vi_up workspace prev_on_output
+bindsym $super+$alt+$vi_down workspace next_on_output
+
+bindsym $super+Tab workspace back_and_forth
 
 # worksace shortcuts
 set $personal_chrome google-chrome --user-data-dir=.config/chrome-personal --class=chrome-personal
