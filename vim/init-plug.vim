@@ -67,7 +67,7 @@ Plug 'lilydjwg/colorizer'
 "
 " File Browsing
 "
-Plug 'ctrlpvim/ctrlp.vim'           " Fast file switching
+"Plug 'ctrlpvim/ctrlp.vim'           " Fast file switching
 Plug 'junegunn/fzf',                {
       \ 'dir': '~/.fzf',
       \ 'do': './install --key-bindings --completion'
