@@ -1,16 +1,13 @@
-local status_ok, cmp = pcall(require, "cmp")
-if not status_ok then
+local prequire = require('common').prequire
+
+local cmp = prequire('cmp')
+local lspkind = prequire('lspkind')
+
+if not cmp or not lspkind then
   return
 end
 
-local status_ok, lspkind = pcall(require, "lspkind")
-if not status_ok then
-  return
-end
-
--- " Use <Tab> and <S-Tab> to navigate through popup menu
--- " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
--- " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+local luasnip = prequire(cmp)
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -28,7 +25,11 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users
+      if luasnip then
+        luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      else
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users
+      end
     end,
   },
   mapping = {
@@ -46,8 +47,10 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif luasnip and luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      -- elseif vim.fn["vsnip#available"](1) == 1 then
+      --   feedkey("<Plug>(vsnip-expand-or-jump)", "")
       elseif has_words_before() then
         cmp.complete()
       else
@@ -55,17 +58,22 @@ cmp.setup({
       end
     end, { "i", "s" }),
 
-    ["<S-Tab>"] = cmp.mapping(function()
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
+      elseif luasnip and luasnip.jumpable(-1) then
+        luansnip.jump(-1)
+      -- elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+      --   feedkey("<Plug>(vsnip-jump-prev)", "")
+      else
+        fallback()
       end
     end, { "i", "s" }),
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
+    -- { name = 'vsnip' }, -- For vsnip users.
+    { name = 'luasnip' },
   }, {
     { name = 'buffer' },
   }),

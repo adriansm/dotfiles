@@ -28,6 +28,8 @@ return require('packer').startup(function(use)
 
   use {'aymericbeaumet/vim-symlink',          -- Handling of symlinks
     requires = 'moll/vim-bbye' }
+  use({ "nvim-lua/popup.nvim" })              -- An implementation of the Popup API from vim in Neovim
+
 
   --
   -- [[ Syntax Plugins ]]
@@ -40,16 +42,14 @@ return require('packer').startup(function(use)
   -- use 'kana/vim-operator-user'
   -- use 'rhysd/vim-clang-format'
 
+  use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
 
   --
   -- [[ Source Code Editor ]]
   --
 
   -- Easily add comments
-  use { 'numToStr/Comment.nvim', config = function()
-	  require('Comment').setup()
-  end
-  }
+  use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
 
 
   --
@@ -118,7 +118,7 @@ return require('packer').startup(function(use)
   -- [[ Language Completion (lsp) ]]
   --
   use {
-    'neovim/nvim-lspconfig',
+    'neovim/nvim-lspconfig',                  -- Collection of configurations for the built-in LSP client
     requires = {'williamboman/nvim-lsp-installer'},
     config = load_config('lspconfig'),
   }
@@ -135,6 +135,11 @@ return require('packer').startup(function(use)
     run = ':TSUpdate',
     config = load_config('treesitter'),
   }
+  use {
+    'romgrk/nvim-treesitter-context',
+    requires = {'nvim-treesitter/nvim-treesitter'},
+    config = function() require('treesitter-context').setup() end
+  }
 
   use {
     'hrsh7th/nvim-cmp',
@@ -143,16 +148,33 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-vsnip',
     },
     config = load_config('cmp')
   }
 
-  -- For vsnip users.
-  use { 'hrsh7th/cmp-vsnip', requires = { use 'hrsh7th/vim-vsnip', opt = true }}
+  -- For vsnip as snippet manager for LSP completion
+  -- use { 'hrsh7th/cmp-vsnip', requires = { 'hrsh7th/vim-vsnip' }}
+
+  use { 'saadparwaiz1/cmp_luasnip', requires = { 'L3MON4D3/LuaSnip' } }
+
+  use { "rafamadriz/friendly-snippets",     -- common snippets for faster development
+    config = function ()
+      local luasnip = require('common').prequire('luasnip')
+      if luasnip then
+        require("luasnip.loaders.from_vscode").load()
+      end
+    end
+  }
 
   use 'onsails/lspkind-nvim'
 
+  use { 'ray-x/lsp_signature.nvim',         -- function signature for some lsp
+    config = function() require('lsp_signature').setup() end
+  }
+
+  use { 'j-hui/fidget.nvim',                -- nvim-lsp progress. Eye candy for the impatient
+    config = function() require('fidget').setup() end
+  }
 
   --
   -- [[ IDE ]]
@@ -162,6 +184,11 @@ return require('packer').startup(function(use)
     requires = { {'nvim-lua/plenary.nvim'} },
     config = function() require('telescope').setup() end
   }
+
+  -- use {
+  --   'mrjones2014/legendary.nvim',
+  --   config = load_config("legendary")
+  -- }
 
   -- use 'scrooloose/nerdtree'
   -- use 'Xuyuanp/nerdtree-git-plugin'

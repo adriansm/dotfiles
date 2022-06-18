@@ -21,4 +21,13 @@ function M.set_options(options)
     end
 end
 
+function M.prequire(...)
+  local status, lib = pcall(require, ...)
+  if (status) then
+    return lib
+  else
+    return nil
+  end
+end
+
 return M

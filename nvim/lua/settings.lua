@@ -5,6 +5,10 @@ vim.opt.listchars.tab = "\\u2192"
 vim.opt.listchars.trail = "\\u2022"
 vim.opt.listchars.extends = "\\u27E9"
 vim.opt.listchars.precedes = "\\u27E8"
+cmd[[let &showbreak="\u21aa "]]
+
+-- jump to the last position when reopening a file
+cmd[[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 
 vim.opt.shortmess:append({ c = true })   -- don't give |ins-completion-menu| messages.
 vim.opt.completeopt = { "menuone", "noselect" }, -- mostly just for cmp
@@ -16,8 +20,6 @@ set_options({
   number = true,           -- show line numbers
   relativenumber = true,   -- relative line numbers
   cursorline = true,       -- Show cursor line
-
-  showbreak = "\\u21aa ",
 
   foldmethod = "marker",
   encoding = "UTF-8",
