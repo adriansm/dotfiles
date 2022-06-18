@@ -8,15 +8,20 @@
 " Design Changes
 """"""""""""""""""""""""""""""
 
-if (($COLORTERM == 'truecolor') || ($COLORTERM == '24bit') || ($TERM =~ '256color' && has('nvim')))
+let s:enable_true_colors=0
+if has('nvim') && ($TERM =~ '256color' || $COLORTERM == 'truecolor' || $COLORTERM == '24bit')
+  " neovim has true color approximation even if terminal doesn't support it
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  let s:enable_true_colors=1
+elseif $TMUX == "" && ($COLORTERM == 'truecolor' || $COLORTERM == '24bit')
+  let s:enable_true_colors=1
+endif
 
-  if (has("termguicolors"))
-    " set Vim-specific sequences for RGB colors
-    let t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-    let t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-  endif
+if s:enable_true_colors && has("termguicolors")
+  " set Vim-specific sequences for RGB colors
+  let t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
 
 "" Format the statusline
