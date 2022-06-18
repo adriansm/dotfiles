@@ -355,12 +355,6 @@ if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:patience
 endif
 
-"
-" Vim Diff
-"
-
-" Custom setup for vimdiff
-
 
 "
 " Vim Bookmarks Plugin
@@ -374,20 +368,19 @@ let g:bookmark_auto_close = 1
 
 " Finds the Git super-project directory based on the file passed as an argument.
 function! g:BMBufferFileLocation(file)
-    let filename = 'vim-bookmarks'
-    let location = ''
-    let cur_location = fnamemodify(a:file, ":p:h").'/.git'
-    if isdirectory(cur_location)
-        " Current work dir is git's work tree
-        let location = cur_location
-    else
-        " Look upwards (at parents) for a directory named '.git'
-        let location = finddir('.git', fnamemodify(a:file, ":p:h").'/.;')
-    endif
-    if len(location) > 0
-        return simplify(location.'/'.filename)
-    else
-        return simplify(fnamemodify(a:file, ":p:h").'/.'.filename)
-    endif
+  let filename = 'vim-bookmarks'
+  let cur_dir = fnamemodify(a:file, ":p:h")
+  if isdirectory(cur_dir.'/.git')
+    " Current work dir is git's work tree
+    let git_location = cur_dir.'/.git'
+  else
+    " Look upwards (at parents) for a directory named '.git'
+    let git_location = finddir('.git', cur_dir.'/.;')
+  endif
+  if len(git_location) > 0
+    return simplify(git_location.'/'.filename)
+  else
+    return simplify(cur_dir.'/.'.filename)
+  endif
 endfunction
 
