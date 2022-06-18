@@ -19,10 +19,12 @@ Plug 'sheerun/vim-polyglot'             " Language Pack
 Plug 'nickhutchinson/vim-cmake-syntax', { 'for': 'cmake' }
 Plug 'elzr/vim-json',                   { 'for': 'json' }
 Plug 'naseer/logcat',                   { 'for': 'logcat' }
-Plug 'plasticboy/vim-markdown',         { 'for': 'markdown' }
+"Plug 'plasticboy/vim-markdown',         { 'for': 'markdown' }
 
+if get(g:, "enable_clang_format", 1)
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-clang-format'
+endif
 
 "
 " Source Code Editor

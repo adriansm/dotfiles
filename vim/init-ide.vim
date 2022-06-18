@@ -51,9 +51,9 @@ function! LoadPluginOptions()
     "   ;         - Browser currently open buffers
     "   <leader>o - Browse list of files in current directory
     "   <leader>p - Browse list of files in project directory
-    nmap ; :Denite buffer -split=floating<CR>
+    nmap ; :Denite buffer -split=floating<CR>i
     nmap <leader>o :Denite file/rec -split=floating<CR>i
-    nmap <leader>p :DeniteProjectDir file/rec -split=floating<CR>
+    nmap <leader>p :DeniteProjectDir file/rec -split=floating<CR>i
 
     if executable('ag')
       " use ag to list current directory files

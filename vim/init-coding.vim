@@ -217,6 +217,7 @@ if get(g:, 'lang_completion', '') == 'lps'
 endif
 
 
+if get(g:, "enable_clang_format", 1)
 "
 " Clang Formatter
 "
@@ -238,6 +239,7 @@ autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
 
 " Toggle auto formatting:
 nmap <Leader>C :ClangFormatAutoToggle<CR>
+endif
 
 
 "
