@@ -114,6 +114,7 @@
             - xbacklight
             - xinput
             - xsecurelock
+            - xsettingsd
             - xss-lock
 
 - shell:

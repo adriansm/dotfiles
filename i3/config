@@ -13,11 +13,12 @@ exec --no-startup-id xsettingsd &
 exec --no-startup-id compton --fading --daemon --paint-on-overlay --backend glx
 exec dex -ae i3
 
+set $i3lock ~/.config/i3/i3_lock.sh
 # Lock screen after 5 mins of idle
 #exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 5 -locker ~/.config/i3/i3_lock.sh
-exec --no-startup-id xset s 300 15
+exec --no-startup-id xset s 300 10
 # Lock screen upon suspend
-exec --no-startup-id xss-lock -n /usr/lib/x86_64-linux-gnu/xsecurelock/dimmer -l -- ~/.config/i3/i3_lock.sh
+exec --no-startup-id xss-lock -n /usr/lib/x86_64-linux-gnu/xsecurelock/dimmer -l -- $i3lock
 
 # start a terminal
 bindsym $super+Return exec i3-sensible-terminal
