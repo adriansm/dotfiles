@@ -5,6 +5,8 @@ alias tmux='tmux -2'
 alias tmxa='tmux attach -d -t'
 alias tmxn='tmux new-session -s'
 
+alias vsc-restart='systemctl --user restart code-server'
+
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
