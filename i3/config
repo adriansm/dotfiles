@@ -200,8 +200,12 @@ bar {
 
 # window rules, you can find the window class using xprop
 for_window [class=".*"] border pixel 1
-for_window [class=Viewnior|Gnome-calculator] floating enable
-for_window [class=google-chrome|chrome-personal] border none
+for_window [class="Viewnior"] floating enable
+for_window [class="Gnome-calculator"] floating enable
+for_window [class="^Google-chrome|chrome-personal"] border none
+
+# Android bug tool
+for_window [class="Google-chrome" instance="^crx_loihechlnnjagmecjghjnghfmobgalmg$"] floating enable
 
 # colour of border, background, text, indicator, and child_border
 client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
