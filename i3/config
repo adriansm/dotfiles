@@ -272,6 +272,8 @@ for_window [class="Action_gcertstatus.py"] floating enable
 for_window [instance="XDialogPeer"] floating enable
 for_window [instance="^Emulator$"] floating enable
 for_window [instance="^com-glavsoft-viewer-Viewer$"] floating enable
+for_window [instance="^scrcpy$"] floating enable
+for_window [instance="^gdebi-gtk$"] floating enable
 
 # Android bug tool
 for_window [class="Google-chrome" instance="^crx_loihechlnnjagmecjghjnghfmobgalmg$"] floating enable
