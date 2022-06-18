@@ -27,17 +27,25 @@ bindsym $alt+Control+l exec xset s activate && xset dpms force off
 bindsym $super+Shift+f exec thunar;workspace 3;focus
 
 #change volume
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 i3status
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && killall -SIGUSR1 i3status
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -SIGUSR1 i3status
+#bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 i3status
+#bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && killall -SIGUSR1 i3status
+#bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -SIGUSR1 i3status
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && killall -SIGUSR1 i3status
 
 # backlight adjustment support
-bindsym XF86MonBrightnessDown exec --no-startup-id /usr/bin/xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec --no-startup-id /usr/bin/xbacklight -inc 10
+#bindsym XF86MonBrightnessDown exec --no-startup-id /usr/bin/xbacklight -dec 10
+#bindsym XF86MonBrightnessUp exec --no-startup-id /usr/bin/xbacklight -inc 10
+
+bindsym XF86Calculator exec --no-startup-id gnome-calculator
 
 # kill focused window
 bindsym $alt+F4 kill
+
+# vi keybindings
+set $vi_left h
+set $vi_down j
+set $vi_up k
+set $vi_right l
 
 # change focus
 bindsym $super+Left focus left
@@ -45,10 +53,10 @@ bindsym $super+Down focus down
 bindsym $super+Up focus up
 bindsym $super+Right focus right
 
-bindsym $super+h focus left
-bindsym $super+j focus down
-bindsym $super+k focus up
-bindsym $super+l focus right
+bindsym $super+$vi_left focus left
+bindsym $super+$vi_down focus down
+bindsym $super+$vi_up focus up
+bindsym $super+$vi_right focus right
 
 # move focused window
 bindsym $super+Shift+Left move left
@@ -56,15 +64,15 @@ bindsym $super+Shift+Down move down
 bindsym $super+Shift+Up move up
 bindsym $super+Shift+Right move right
 
-bindsym $super+Shift+h move left
-bindsym $super+Shift+j move down
-bindsym $super+Shift+k move up
-bindsym $super+Shift+l move right
+bindsym $super+Shift+$vi_left move left
+bindsym $super+Shift+$vi_down move down
+bindsym $super+Shift+$vi_up move up
+bindsym $super+Shift+$vi_right move right
 
-bindsym $super+Control+h move workspace to output left
-bindsym $super+Control+j move workspace to output down
-bindsym $super+Control+k move workspace to output up
-bindsym $super+Control+l move workspace to output right
+bindsym $super+Control+$vi_left move workspace to output left
+bindsym $super+Control+$vi_down move workspace to output down
+bindsym $super+Control+$vi_up move workspace to output up
+bindsym $super+Control+$vi_right move workspace to output right
 
 bindsym $super+Control+Left move workspace to output left
 bindsym $super+Control+Down move workspace to output down
@@ -104,8 +112,8 @@ bindsym $super+plus scratchpad show
 # switch to workspace
 bindsym $alt+Control+Right workspace next
 bindsym $alt+Control+Left workspace prev
-bindsym $alt+Control+j workspace next
-bindsym $alt+Control+k workspace prev
+bindsym $alt+Control+$vi_down workspace next
+bindsym $alt+Control+$vi_up workspace prev
 
 # worksace shortcuts
 set $personal_chrome google-chrome --user-data-dir=~/.config/chrome-personal --class=chrome-personal
@@ -156,22 +164,23 @@ bindsym $super+Shift+c reload
 bindsym $super+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+bindsym $super+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
 
-set $mode_system System (l) lock | (e) logout | (h) hibernate | (r) reboot | (Shift+s) shutdown
+set $mode_system System (l)ock, (e)xit, (h)ibernate, (r)eboot, (s)uspend, shut(d)own
 mode "$mode_system" {
     bindsym l exec --no-startup-id xset s activate, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym h exec --no-startup-id systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+    bindsym d --no-startup-id systemctl poweroff -i, mode "default"
 
     # back to normal Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $super+Pause mode "$mode_system"
+bindsym $super+Shift+s mode "$mode_system"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -204,6 +213,25 @@ bar {
     position       top
 }
 
+#bar {
+    #status_command      SCRIPT_DIR=~/workspace/i3blocks-contrib i3blocks
+    #position            top
+    ##separator_symbol    "."
+    ##workspace_buttons   yes
+
+    #colors {
+        #background  #212121
+        #statusline  #dddddd
+        #separator   #666666
+        ## class             border  backgr. text
+        #focused_workspace   #2b83a6 #2b83a6 #ffffff
+        #active_workspace    #212121 #212121 #ffffff
+        #inactive_workspace  #212121 #212121 #86888c
+        #urgent_workspace    #d64e4e #d64e4e #ffffff
+        #binding_mode        #229c56 #229c56 #ffffff
+    #}
+#}
+
 # control focused window hwen follows the mouse movements
 focus_follows_mouse no
 
@@ -226,20 +254,25 @@ client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background		#2f343f
 
-# startup applications
-exec --no-startup-id xsettingsd &
-exec --no-startup-id compton --fading --daemon --paint-on-overlay --backend glx
-#exec --no-startup-id dex -ae i3
-set $gindicator /usr/share/goobuntu-indicator/goobuntu_indicator.py
-exec --no-startup-id test -x $gindicator && $gindicator
-exec --no-startup-id blueman-applet &
+# auto start programs
 
-set $i3lock ~/.config/i3/i3_lock.sh
 # Lock screen after 5 mins of idle
 #exec --no-startup-id env LOCKED_BY_SESSION_IDLE=true xautolock -time 5 -locker ~/.config/i3/i3_lock.sh
-exec --no-startup-id xset s 300 30
-exec --no-startup-id xset dpms 315 360
+exec_always --no-startup-id xset s 300 30
+exec_always --no-startup-id xset dpms 315 360
 # Lock screen upon suspend
-exec --no-startup-id xss-lock -l -- $i3lock
+exec_always --no-startup-id "pgrep -x xss-lock || (xss-lock -l -- ~/.config/i3/i3_lock.sh &)"
 
+exec_always --no-startup-id "pgrep -x xsettingsd || (xsettingsd &)"
+
+exec_always --no-startup-id "pgrep -x mate-power-manager || (mate-power-manager &)"
+exec_always --no-startup-id "pgrep -x volumeicon || (volumeicon &)"
+#exec --no-startup-id dunst
+
+# Compositor
+exec_always --no-startup-id "killall compton; compton --fading --daemon --paint-on-overlay --backend glx"
+
+
+# XDG autostart
+exec --no-startup-id dex -ae i3
 

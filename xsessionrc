@@ -8,7 +8,7 @@ export DESKTOP_SESSION=cinnamon  # gnome for trusty.
 export GTK_IM_MODULE=xim
 
 # Desktop background color.
-xsetroot -solid "#333333"
+xsetroot -solid "#30586c"
 
 ## Uncomment if you use urxvt terminal emulator.
 ## Start urxvtd

@@ -15,7 +15,9 @@
     '~',
     '~/.nano.d',
     '~/.local/bin',
-    '~/.config/nvim',
+    '~/.config',
+    '~/.config/oni',
+    '~/.config/nvim'
   ]
 
 - link:
@@ -108,12 +110,15 @@
         shell:
             - [ test -z "$(command -v fc-cache)" || fc-cache -f ~/.local.share.fonts ]
         apt:
+            - compton
             - dex
             - fonts-font-awesome
             - i3
+            - mate-power-manager
             - rofi
             - scrot
             - viewnior
+            - volumeicon-alsa
             - xbacklight
             - xinput
             - xsecurelock
