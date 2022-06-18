@@ -74,17 +74,25 @@ function M.setup()
     }
     -- use 'scrooloose/syntastic'              -- Checks syntax
 
-    use {
-      'kana/vim-operator-user',
-      requires = { 'rhysd/vim-clang-format' },
-      config = function()
-        vim.cmd[[
-          autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-          autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-          autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
-        ]]
-      end,
-    }
+
+    if vim.g.enable_clang_format ~= 0 then
+      use {
+        'kana/vim-operator-user',
+        requires = { 'rhysd/vim-clang-format' },
+        config = function()
+          vim.cmd[[
+            let g:clang_format#detect_style_file = 1
+            let g:clang_format#auto_formatexpr = 1
+            let g:clang_format#auto_format_git_diff = 1
+            let g:clang_format#auto_format_git_diff_fallback = 'pass'
+
+            autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+            autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+            autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
+          ]]
+        end,
+      }
+    end
 
     use {
       'norcalli/nvim-colorizer.lua',
