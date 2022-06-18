@@ -93,7 +93,7 @@ set rtp^=$VIMHOME/custom/adrian.vim
 
 """" NOTE: remaining plugins shouldn't be required if not running nvim
 """" for example as a an extension directly
-if !exists('g:vscode')
+if exists('g:vscode')
   finish
 endif
 
