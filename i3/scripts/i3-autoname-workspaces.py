@@ -28,8 +28,8 @@ import subprocess
 import sys
 
 import fontawesome as fa
-from i3_workspace import Workspace
 import i3ipc
+from i3_workspace import Workspace
 
 
 # Add icons here for common programs you use.  The keys are the X window class
@@ -148,17 +148,26 @@ def set_dpms(state):
 
 
 def on_fullscreen(i3):
+  print('Full screen mode detected')
   set_dpms(not find_fullscreen(i3.get_tree()))
 
 
 def on_window_close(i3):
   if not find_fullscreen(i3.get_tree()):
+    print('closed full screen window')
     set_dpms(True)
   rename_workspaces(i3)
 
 
 def on_window_change(i3):
   rename_workspaces(i3)
+
+
+def init_windows(i3):
+  rename_workspaces(i3conn)
+  if find_fullscreen(i3.get_tree()):
+    print('Detected changed full screen window')
+    set_dpms(False)
 
 
 if __name__ == '__main__':
@@ -179,6 +188,6 @@ if __name__ == '__main__':
 
     i3conn.on('window', window_event_handler)
 
-    rename_workspaces(i3conn)
+    init_windows(i3conn)
 
     i3conn.main()

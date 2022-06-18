@@ -103,7 +103,7 @@ class Workspace():
 
       output = self.i3.command('rename workspace "%s" to "%s"' % (ws_name, new_name))
 
-    logging.info('Output: %s', output)
+    logging.debug('Output: %s', str(output))
     return output
 
   def get_icons(self):
