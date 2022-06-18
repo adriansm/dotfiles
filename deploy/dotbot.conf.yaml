@@ -102,6 +102,7 @@
             ~/.config/i3:
             ~/.config/i3status:
             ~/.config/rofi:
+            ~/.config/volumeicon:
             ~/.local/share/fonts:
                 glob: true
                 path: fonts/*
