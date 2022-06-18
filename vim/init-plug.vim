@@ -160,6 +160,7 @@ if !exists('g:vscode')
 
   if get(g:, 'lang_completion', '') == 'coc'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
   endif
 
   "

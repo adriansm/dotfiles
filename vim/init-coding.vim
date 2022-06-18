@@ -8,6 +8,10 @@
 
 source $VIMHOME/init-minimal.vim
 
+" c++ syntax highlighting
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
 
 "
 " cscope
@@ -90,16 +94,35 @@ endif
 
 if get(g:, 'lang_completion', '') == 'coc'
   " Remap keys for gotos
-  nmap <silent> <silent>gd <Plug>(coc-definition)
-  nmap <silent> <silent>gy <Plug>(coc-type-definition)
-  nmap <silent> <silent>gi <Plug>(coc-implementation)
-  nmap <silent> <leader>gr <Plug>(coc-references)
-  nmap <silent> <silent>gh :call CocAction('doHover')<CR>
-  nmap <leader>m <Plug>(coc-rename)
-  vmap <leader>gf <Plug>(coc-format-selected)
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> gh :call CocActionAsync('doHover')<CR>
+  vmap <silent> gf <Plug>(coc-format-selected)
+
+  " Use `[g` and `]g` to navigate diagnostics
+  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+  " Symbol renaming.
+  nmap <leader>rn <Plug>(coc-rename)
+
+  " Formatting selected code.
+  xmap <leader>f  <Plug>(coc-format-selected)
+  nmap <leader>f  <Plug>(coc-format-selected)
 
   " Fix autofix problem of current line
   nmap <leader>qf  <Plug>(coc-fix-current)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
   " Use `:Format` to format current buffer
   command! -nargs=0 Format :call CocAction('format')
@@ -124,8 +147,12 @@ if get(g:, 'lang_completion', '') == 'coc'
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  " use <c-space> to trigger completion
-  inoremap <silent><expr> <c-space> coc#refresh()
+  " Use <c-space> to trigger completion.
+  if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+  endif
 
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -149,6 +176,16 @@ if get(g:, 'lang_completion', '') == 'coc'
   nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
   autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+  " Remap <C-f> and <C-b> for scroll float windows/popups.
+  if has('nvim-0.4.0') || has('patch-8.2.0750')
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  endif
 endif
 
 
@@ -304,7 +341,7 @@ endif
 " quick search with ctrl-shift-K binding
 "nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap K :Grepper -open -cword -noprompt<cr>
-nnoremap <leader>f :Grepper<cr>
+nnoremap <leader>ff :Grepper<cr>
 nnoremap <leader>fw :Grepper -open -cword -noprompt<cr>
 nnoremap <leader>fr :Grepper -open -dir repo,filecwd -cword -noprompt<cr>
 nnoremap <leader>fs :Grepper -open -side -dir repo,filecwd -cword -noprompt<cr>

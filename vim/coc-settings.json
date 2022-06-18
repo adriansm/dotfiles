@@ -19,13 +19,18 @@
             "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
             "initializationOptions": {
                 "index": {
+                    // This will re-index the file on buffer change which is definitely a performance hit. See if it works for you
+                    "onChange": true,
                     "initialBlacklist": ["."]
                 },
                 "cache": {
                     "directory": ".ccls-cache"
-                }
+                },
+                // This is mandatory!
+                "highlight": { "lsRanges" : true }
             }
         }
     },
+    "clangd.semanticHighlighting": true,
     "java.errors.incompleteClasspath.severity": "ignore"
 }

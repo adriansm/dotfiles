@@ -46,7 +46,7 @@ hi SpecialKey     guifg=#6c6c6c ctermfg=248 ctermbg=NONE gui=NONE cterm=NONE
 hi Statement      guifg=#afdf87 ctermfg=150 ctermbg=NONE gui=NONE cterm=NONE
 hi StorageClass   guifg=#95d5f1 ctermfg=117 ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
 hi String         guifg=#87afdf ctermfg=110 ctermbg=NONE gui=NONE cterm=NONE
-hi Structure      guifg=#95d5f1 ctermfg=117 ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
+hi Structure      guifg=#9876e0 ctermfg=117 ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
 hi Tag            guifg=#55747c ctermfg=66  ctermbg=NONE gui=NONE guibg=NONE cterm=NONE
 hi Title          guifg=#9d7ff2 ctermfg=141 ctermbg=NONE gui=bold guibg=NONE cterm=NONE
 hi Todo           guifg=#ffdfaf ctermfg=223 ctermbg=NONE gui=NONE cterm=NONE guibg=NONE
@@ -120,15 +120,61 @@ hi qfLineNr     ctermfg=240 ctermbg=NONE cterm=NONE guifg=#585858 guibg=NONE gui
 hi qfSeparator  ctermfg=243 ctermbg=NONE cterm=NONE guifg=#767676 guibg=NONE gui=NONE
 hi QuickFixLine guifg=#e4e4e4 ctermfg=254 guibg=#005f87 ctermbg=24 gui=NONE cterm=NONE
 
+" C/C++ {{{1
+" hi! link cMacroName Macro hi! link cConstant cMacroName
+" hi! link cPreInclude String
+" hi! link cPreProcRegion NormalFg
+" hi! link cUserLabel NormalFg
+" hi! link cDataStructureKeyword Keyword
+" hi! link cDataStructure Structure
+" hi! link cFunction Function
+" hi! link cppDestructor cFunction
+" hi! link cSemicolon Keyword
+" hi! link cComma Keyword
+" " call s:Hi('cppAfterColon', s:p.cStructField)
+" hi! link cppBeforeColon cDataStructure
+" hi! link cStructField Identifier
+" hi! link cppNullptr Keyword
+" hi! link cppTemplate Keyword
+" hi! link cTypedef Keyword
+" hi! link cppTypeName Keyword
+" hi! link cSpecial Keyword
+" hi! link cEnum Keyword
+" hi! link cSomeMacro cMacroName
+
 " Plugin: vim-easymotion {{{1
 hi EasyMotionTarget        guifg=#ffff5f ctermfg=227 ctermbg=NONE gui=bold cterm=bold
 hi EasyMotionTarget2First  guifg=#df005f ctermfg=161 ctermbg=NONE gui=NONE cterm=NONE
 hi EasyMotionTarget2Second guifg=#ffff5f ctermfg=227 ctermbg=NONE gui=NONE cterm=NONE
 
-" Plugin: vim-signify {{{1
-hi SignifySignAdd    guifg=#87ff5f ctermfg=119 guibg=NONE ctermbg=NONE gui=bold cterm=bold
-hi SignifySignChange guifg=#ffff5f ctermfg=227 guibg=NONE ctermbg=NONE gui=bold cterm=bold
-hi SignifySignDelete guifg=#df5f5f ctermfg=167 guibg=NONE ctermbg=NONE gui=bold cterm=bold
+" Plugin: cocnvim {{{1
+hi default link CocSem_namespace Identifier
+hi default link CocSem_type Type
+hi default link CocSem_class Structure
+hi default link CocSem_enum Type
+hi default link CocSem_interface Type
+hi default link CocSem_struct Structure
+hi default link CocSem_typeParameter Type
+" TODO pick colors for param/var
+hi CocSem_parameter guifg=#fafafa ctermfg=254 guibg=NONE gui=NONE cterm=NONE
+" hi default link CocSem_parameter Normal
+hi CocSem_variable guifg=#e4b4b4 ctermfg=254 guibg=NONE gui=NONE cterm=NONE
+hi default link CocSem_variable Normal
+hi default link CocSem_property Identifier
+hi default link CocSem_enumMember Constant
+hi default link CocSem_event Identifier
+hi default link CocSem_function Function
+hi default link CocSem_method Function
+hi default link CocSem_macro Macro
+hi default link CocSem_keyword Keyword
+hi default link CocSem_modifier StorageClass
+hi default link CocSem_comment Comment
+hi default link CocSem_string String
+hi default link CocSem_number Number
+hi default link CocSem_regexp Normal
+hi default link CocSem_operator Operator
+
+" Plugin: vim-signify {{{1 hi SignifySignAdd    guifg=#87ff5f ctermfg=119 guibg=NONE ctermbg=NONE gui=bold cterm=bold hi SignifySignChange guifg=#ffff5f ctermfg=227 guibg=NONE ctermbg=NONE gui=bold cterm=bold hi SignifySignDelete guifg=#df5f5f ctermfg=167 guibg=NONE ctermbg=NONE gui=bold cterm=bold
 
 " Plugin: vim-startify {{{1
 hi StartifyBracket guifg=#585858 ctermfg=240 ctermbg=NONE gui=NONE cterm=NONE

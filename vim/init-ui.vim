@@ -28,10 +28,10 @@ endif
 "
 " Color Settings
 "
-
 set background=dark
 let g:solarized_termcolors=256
 let g:rehash256=1
+let g:airline_theme='adrian'
 colorscheme adrian
 
 highlight LineNr ctermfg=darkgrey guifg=#050505
@@ -98,6 +98,10 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 2
 " Custom setup that removes filetype/whitespace from default vim airline bar
 let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
 
+
+let g:airline#extensions#coc#enabled = 0
+let airline#extensions#coc#error_symbol = 'Error:'
+let airline#extensions#coc#warning_symbol = 'Warning:'
 let g:airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
 let g:airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 

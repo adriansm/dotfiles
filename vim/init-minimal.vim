@@ -20,7 +20,7 @@ set number relativenumber   " show line numbers
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set visualbell          " use visual bell instead of beeping
-set hidden
+set hidden              " TextEdit might fail if hidden is not set
 set cursorline          " Show cursor line
 
 " Better display for messages
@@ -33,7 +33,9 @@ set updatetime=300
 set shortmess+=c
 
 " always show signcolumns
-if has("signcolumn")
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  set signcolumn=number
+elseif has("signcolumn")
   set signcolumn=yes
 endif
 
@@ -144,7 +146,7 @@ end
 map <Space> <Leader>
 
 " Remove the Windows ^M
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <Leader>lf mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Force sudo write
 cmap w!! w !sudo tee % >/dev/null
