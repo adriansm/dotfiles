@@ -22,6 +22,9 @@ local sources = {
 
 function M.setup(opts)
   nls.setup({
+    on_init = function(new_client, _)
+      new_client.offset_encoding = 'utf-8'
+    end,
     sources = sources,
     on_attach = opts.on_attach,
   })
