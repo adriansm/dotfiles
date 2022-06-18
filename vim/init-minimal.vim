@@ -37,6 +37,7 @@ set copyindent
 set cinoptions+=(0
 
 set formatoptions-=t
+set foldmethod=marker
 
 
 "
