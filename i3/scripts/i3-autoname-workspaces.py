@@ -45,7 +45,11 @@ from i3_workspace import Workspace
 WINDOW_INFO = {
     'chromium': (fa.icons.get('chrome'), 'Web'),
     'google-chrome': (fa.icons.get('chrome'), 'Web'),
-    'spotify': fa.icons.get('music'), # could also use 'spotify' from font awesome
+    'chrome-personal': (fa.icons.get('chrome'), 'Personal'),
+    'atom': (fa.icons.get('code'), 'Atom'),
+    'jetbrains-pycharm-ce': (fa.icons.get('code'), 'Pycharm'),
+    'code': (fa.icons.get('code'), 'VSCode'),
+    'spotify': fa.icons.get('music'),  # could also use 'spotify' from font awesome
     'firefox': fa.icons.get('firefox'),
     'libreoffice': fa.icons.get('file-text-o'),
     'feh': fa.icons.get('picture-o'),
@@ -53,11 +57,8 @@ WINDOW_INFO = {
     'evince': fa.icons.get('file-pdf-o'),
     'thunar': fa.icons.get('files-o'),
     'gpick': fa.icons.get('eyedropper'),
-    'atom': (fa.icons.get('code'), 'Atom'),
     'steam': fa.icons.get('steam'),
     'zenity': fa.icons.get('window-maximize'),
-    'chrome-personal': (fa.icons.get('chrome'), 'Personal'),
-    'jetbrains-pycharm-ce': (fa.icons.get('code'), 'Pycharm')
 }
 
 TERMINALS = [
@@ -73,8 +74,10 @@ TERMINAL_ICON = fa.icons.get('terminal')
 DEFAULT_ICON = ''
 
 
-def name_for_terminal(window):
+def name_for_terminal(unused_window):
+  # TODO(adriansm): implement something reading WM_NAME
   return None
+
 
 def info_for_window_class(cls):
   icon, name = None, None
@@ -87,6 +90,7 @@ def info_for_window_class(cls):
 
   return icon, name
 
+
 def info_for_window(window):
   if window.window_class.lower() in TERMINALS:
     return TERMINAL_ICON, name_for_terminal(window)
@@ -98,6 +102,7 @@ def info_for_window(window):
       return icon, name
   print('No icon available for window with classes: %s' % str(classes))
   return DEFAULT_ICON, None
+
 
 # renames all workspaces based on the windows present
 def rename_workspaces(i3):
@@ -127,18 +132,18 @@ def undo_window_renaming(i3):
 
 
 if __name__ == '__main__':
-  i3 = i3ipc.Connection()
+  i3conn = i3ipc.Connection()
 
   # exit gracefully when ctrl+c is pressed
   for sig in [signal.SIGINT, signal.SIGTERM]:
-    signal.signal(sig, lambda signal, frame: undo_window_renaming(i3))
+    signal.signal(sig, lambda signal, frame: undo_window_renaming(i3conn))
 
     # call rename_workspaces() for relevant window events
     def window_event_handler(i3, e):
       if e.change in ['new', 'close', 'move']:
         rename_workspaces(i3)
-    i3.on('window', window_event_handler)
+    i3conn.on('window', window_event_handler)
 
-    rename_workspaces(i3)
+    rename_workspaces(i3conn)
 
-    i3.main()
+    i3conn.main()

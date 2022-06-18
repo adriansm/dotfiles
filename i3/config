@@ -293,7 +293,7 @@ exec_always --no-startup-id "pgrep -x gnome-keyring-d || ~/.config/i3/scripts/gn
 exec_always --no-startup-id "pgrep -x polkit-mate-aut || ( /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)"
 exec_always --no-startup-id "pgrep -x mate-settings-d || (mate-settings-daemon &)"
 exec_always --no-startup-id "pgrep -x mate-power-mana || (mate-power-manager &)"
-exec_always --no-startup-id "pgrep -x volumeicon || (volumeicon &)"
+exec_always --no-startup-id "killall volumeicon; (volumeicon &)"
 #exec --no-startup-id dunst
 
 # Compositor
