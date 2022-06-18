@@ -1,29 +1,13 @@
 import sys
 from dotbot import Plugin
 
-
-class Conditional(Plugin):
-    _directive = 'if'
-
+class Dispatcher(object):
     def __init__(self, context):
-        super(Conditional, self).__init__(context)
+        self._context = context
+        self._plugins = [plugin(self._context)
+                         for plugin in Plugin.__subclasses__()]
 
-        for os in ['linux', 'darwin', 'win']:
-            if sys.platform.startswith(os):
-                self._os = os
-
-        self._sub_directives = {
-            'bool': self._is_bool,
-            'os': self._is_os,
-        }
-        self._plugins = None
-
-    def _process_actions(self, task):
-        # lazy load plugins
-        if self._plugins is None:
-            self._plugins = [plugin(self._context)
-                             for plugin in Plugin.__subclasses__()]
-
+    def _dispatch_task(self, task):
         success = True
         for action in task:
             handled = False
@@ -42,6 +26,34 @@ class Conditional(Plugin):
                 self._log.error('Action %s not handled' % action)
         return success
 
+    def dispatch(self, tasks):
+        success = True
+        if isinstance(tasks, list):
+            for task in tasks:
+                success &= self._dispatch_task(task)
+        elif isinstance(tasks, dict):
+            success &= self._dispatch_task(tasks)
+        else:
+            raise ValueError("Invalid actions")
+        return success
+
+
+class Conditional(Plugin):
+    _directive = 'if'
+
+    def __init__(self, context):
+        super(Conditional, self).__init__(context)
+
+        for os in ['linux', 'darwin', 'win']:
+            if sys.platform.startswith(os):
+                self._os = os
+
+        self._sub_directives = {
+            'bool': self._is_bool,
+            'os': self._is_os,
+        }
+        self._dispatcher = None
+
     def can_handle(self, directive):
         return directive == self._directive
 
@@ -49,21 +61,18 @@ class Conditional(Plugin):
         return data
 
     def _is_os(self, data):
-        self._log.debug("Checking OS")
         if isinstance(data, list):
             return self._os in data
         else:
             return data == self._os
 
     def _process_and(self, data):
-        self._log.debug("Processing AND")
         for key, value in data.items():
             if not self._process_conditional(key, value):
                 return False
         return True
 
     def _process_or(self, data):
-        self._log.debug("Processing OR")
         for key, value in data.items():
             if self._process_conditional(key, value):
                 return True
@@ -79,6 +88,13 @@ class Conditional(Plugin):
             return func(data)
         else:
             raise ValueError("Invalid conditional %s" % key)
+
+    def _process_actions(self, actions):
+        # lazy load dispatcher
+        if self._dispatcher is None:
+            self._dispatcher = Dispatcher(self._context)
+
+        return self._dispatcher.dispatch(actions)
 
     def handle(self, directive, data):
         if directive != self._directive:

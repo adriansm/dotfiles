@@ -17,6 +17,7 @@ dwsync.xml
 .komodotools
 nbproject
 .idea
+*.iml
 
 # OS generated files
 ._*
