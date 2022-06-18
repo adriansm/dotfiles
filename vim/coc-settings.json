@@ -1,0 +1,21 @@
+{
+    "suggest.autoTrigger": "trigger",
+	"suggest.echodocSupport": true,
+	"suggest.maxCompleteItemCount": 10,
+	"coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact"],
+	"diagnostic.errorSign": "",
+	"diagnostic.warningSign": "",
+	"diagnostic.infoSign": "",
+	"languageserver": {
+		"ccls": {
+			"command": "ccls",
+			"filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+			"rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+			"initializationOptions": {
+				"cache": {
+					"directory": ".ccls-cache"
+				}
+			}
+		}
+	}
+}

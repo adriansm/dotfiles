@@ -29,6 +29,7 @@
     ~/.ctags:
     ~/.curlrc:
     ~/.config/nvim/autoload: vim/autoload
+    ~/.config/nvim/coc-settings.json: vim/coc-settings.json
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.config/oni/config.tsx: oni/config.tsx
     ~/.config/oni/.editorconfig: oni/editorconfig
