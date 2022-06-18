@@ -128,7 +128,7 @@ endif
 endif
 
 if get(g:, 'lang_completion', '') == 'coc'
-  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 
