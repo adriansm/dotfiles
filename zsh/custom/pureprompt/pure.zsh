@@ -153,7 +153,7 @@ prompt_pure_preprompt_render() {
 	# Add git branch and dirty status info.
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
-		preprompt_right+=("%F{$git_color}"'[${prompt_pure_vcs_info[system]}:%${vcs_len}<...<${prompt_pure_vcs_info[branch]}%]%F{red}${prompt_pure_git_dirty}%F{$git_color}]%f')
+		preprompt_right+=("%F{$git_color}"'[${prompt_pure_vcs_info[system]}:%${vcs_len}<...<${prompt_pure_vcs_info[branch]}%]%F{red}${prompt_pure_git_dirty}'"%F{$git_color}]%f")
 	fi
 	# Git pull/push arrows.
 	if [[ -n $prompt_pure_git_arrows ]]; then
