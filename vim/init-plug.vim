@@ -21,6 +21,8 @@ Plug 'elzr/vim-json',                   { 'for': 'json' }
 Plug 'naseer/logcat',                   { 'for': 'logcat' }
 Plug 'plasticboy/vim-markdown',         { 'for': 'markdown' }
 
+Plug 'kana/vim-operator-user'
+Plug 'rhysd/vim-clang-format'
 
 "
 " Source Code Editor
