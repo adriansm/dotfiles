@@ -73,6 +73,8 @@ let g:airline#extensions#bookmark#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#tab_nr_type = 1
 
 let g:airline_mode_map = {
       \ '__' : '-',
@@ -121,6 +123,13 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>[ <Plug>AirlineSelectPrevTab
 nmap <leader>] <Plug>AirlineSelectNextTab
+
+"
+" Vim Devicons
+"
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_airline_tabline = 0
+
 
 "
 " Terminal options

@@ -167,6 +167,12 @@ if !exists('g:vscode')
   "
 
   if has('python3')
-    Plug 'Shougo/denite.nvim', {'tag': '*' }
+    if has('nvim')
+      Plug 'Shougo/denite.nvim', {'tag': '*', 'do': ':UpdateRemotePlugins' }
+    else
+      Plug 'Shougo/denite.nvim'
+      Plug 'roxma/nvim-yarp'
+      Plug 'roxma/vim-hug-neovim-rpc'
+    endif
   endif
 endif
