@@ -32,7 +32,9 @@ set updatetime=300
 set shortmess+=c
 
 " always show signcolumns
-set signcolumn=yes
+if has("signcolumn")
+  set signcolumn=yes
+endif
 
 "
 " Text Formatting

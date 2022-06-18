@@ -157,3 +157,6 @@
 
 [advice]
 	detachedHead = false
+[user]
+	email = adriansm@gmail.com
+	name = Adrian Salido
