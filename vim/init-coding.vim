@@ -109,6 +109,9 @@ if get(g:, 'lang_completion', 'coc') == 'coc'
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
 
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
   " use <c-space>for trigger completion
   inoremap <silent><expr> <c-space> coc#refresh()
   inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
