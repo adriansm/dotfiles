@@ -8,10 +8,11 @@ local M = {}
 local keymap = require('utils.keymap')
 
 local keymappings = {
-  all_modes = {
-    -- EasyMotion line motions
-    ['<Leader>j'] = '<Plug>(easymotion-j)',
-    ['<Leader>k'] = '<Plug>(easymotion-k)',
+  visual_mode = {
+    [',j'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
+    [',k'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
+    [',l'] = "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
+    [',h'] = "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
   },
   normal_mode = {
     -- Easily split windows
@@ -28,21 +29,30 @@ local keymappings = {
     -- Find files using Telescope command-line sugar.
     ['<leader>ff'] = '<cmd>Telescope find_files<cr>',
     ['<leader>fg'] = '<cmd>Telescope live_grep<cr>',
-    ['<leader>fb'] = '<cmd>Telescope buffers<cr>',
-    ['<leader>fh'] = '<cmd>Telescope help_tags<cr>',
+    ['<leader>fw'] = '<cmd>Telescope grep_string<cr>',
 
     [';;'] = '<cmd>Telescope buffers<cr>',
-    [';p'] = '<cmd>Telescope git_files<cr>',
-    [';o'] = '<cmd>Telescope git_files use_git_root=false<cr>',
-    [';h'] = '<cmd>Telescope help_tags<cr>',
+    [';b'] = '<cmd>Telescope buffers<cr>',
+    [';c'] = '<cmd>Telescope commands<cr>',
+    [';f'] = '<cmd>Telescope find_files<cr>',
+    [';p'] = '<cmd>lua require("config.telescope").project_files({use_git_root=true})<cr>',
+    [';o'] = '<cmd>lua require("config.telescope").project_files({use_git_root=false})<cr>',
+    [';t'] = '<cmd>Telescope help_tags<cr>',
     [';g'] = '<cmd>Telescope live_grep<cr>',
-    [';r'] = '<cmd>Telescope grep_string<cr>',
+    [';w'] = '<cmd>Telescope grep_string<cr>',
+    [';r'] = '<cmd>Telescope lsp_references<cr>',
+    [';s'] = '<cmd>Telescope lsp_document_symbols<cr>',
+    [';d'] = '<cmd>Telescope diagnostics<cr>',
 
     ['<leader>b'] = '<cmd>Telescope buffers<cr>',
     ['<leader>p'] = '<cmd>Telescope git_files<cr>',
     ['<leader>o'] = '<cmd>Telescope git_files use_git_root=false<cr>',
 
-    ['s'] = '<Plug>(easymotion-overwin-f)',
+    [';j'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
+    [';k'] = "<cmd>lua require'hop'.hint_lines({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
+    [';l'] = "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
+    [';h'] = "<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
+    ['s'] = '<cmd>HopChar1<CR>',
   },
   term_mode = {
     ['<Esc>'] = '<C-\\><C-n>',

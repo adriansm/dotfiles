@@ -55,7 +55,7 @@ local on_attach = function(client, bufnr)
     ['<leader>wr'] = '<cmd>lua vim.lsp.buf.remove_workleader_folder()<CR>',
     ['<leader>wl'] = '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workleader_folders()))<CR>',
 
-    ['<leader>e'] = '<cmd>lua vim.diagnostic.open_float()<CR>',
+    ['<leader>d'] = '<cmd>lua vim.diagnostic.open_float()<CR>',
     ['[d'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
     [']d'] = '<cmd>lua vim.diagnostic.goto_next()<CR>',
     ['<leader>q'] = '<cmd>lua vim.diagnostic.setloclist()<CR>',

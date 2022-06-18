@@ -63,7 +63,7 @@ function M.setup()
         vim.g.EditorConfig_max_line_indicator = "fill"
       end
     }
-    use 'scrooloose/syntastic'              -- Checks syntax
+    -- use 'scrooloose/syntastic'              -- Checks syntax
 
     use {
       'kana/vim-operator-user',
@@ -108,22 +108,32 @@ function M.setup()
     --
     use { 'tpope/vim-unimpaired' }              -- Quick navigation using []
     use { 'MattesGroeger/vim-bookmarks' }       -- set vim bookmarks
-    use {                                       -- search tool
-      'mhinz/vim-grepper',
-      cmd = {'Grepper', '<plug>(GrepperOperator)'},
-    }
+    -- use {                                       -- search tool
+    --   'mhinz/vim-grepper',
+    --   -- cmd = {'Grepper', '<plug>(GrepperOperator)'},
+    -- }
 
     use {                                       -- Mark/highlight words to analyze faster
       'inkarkat/vim-mark',
       requires = { 'inkarkat/vim-ingo-library' }
     }
 
-    use {                                       -- Easy motion with mappings
-      'easymotion/vim-easymotion',
+    -- use {                                       -- Easy motion with mappings
+    --   'easymotion/vim-easymotion',
+    --   event = "BufRead",
+    --   config = function()
+    --     vim.g.EasyMotion_smartcase = 1
+    --   end
+    -- }
+    use {                                       -- Easy motion like plugin for nvim
+      'phaazon/hop.nvim',
+      branch = 'v1', -- optional but strongly recommended
       config = function()
-        vim.g.EasyMotion_smartcase = 1
+        -- you can configure Hop the way you like here; see :h hop-config
+        require('hop').setup()
       end
     }
+
     use { 'wellle/targets.vim' }                -- Quick shortcuts
 
 
@@ -230,6 +240,7 @@ function M.setup()
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-nvim-lsp-document-symbol',
       },
       config = function()
         require('config.cmp').setup()
@@ -274,9 +285,12 @@ function M.setup()
     --
     use {
       'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} },
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      },
       config = function()
-        require('telescope').setup()
+        require('config.telescope').setup()
       end
     }
 
