@@ -1,7 +1,7 @@
 #!/bin/bash
 
+PROMPT_COMMAND=
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
-source "${GITAWAREPROMPT}/main.sh"
 
 export _TITLE_PREFIX=""
 
@@ -42,12 +42,13 @@ find_title_prefix() {
 # avoid android scripts to mess this up
 STAY_OFF_MY_LAWN=true
 
+source "${GITAWAREPROMPT}/main.sh"
 case "$OSTYPE" in
   *darwin*) # mac
     export PS1="\[$txtgrn\]\u@\h\[$txtrst\]:\[$txtblu\]\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
     ;;
   linux*) # linux
-    export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"
+    # export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"
     export PROMPT_COMMAND+="find_title_prefix; find_work_dir"
     PS1="\${debian_chroot:+(\$debian_chroot)}\[$bldgrn\]\u@\h\[$txtrst\]:\[$bldblu\]\$pwd2 \[$txtrst\]\[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
     ;;

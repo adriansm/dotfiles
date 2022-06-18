@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PROMPT_COMMAND=
-
 # local settings
 [ -f $HOME/.bashrc.local ] && source $HOME/.bashrc.local
 
@@ -30,7 +28,4 @@ case $OSTYPE in
         echo "WARNING! Unsupported OS $OSTYPE"
         ;;
 esac
-
-# google specific settings
-[ -f $HOME/.at_google ] && source $MY_BASH_PATH/google.sh
 
