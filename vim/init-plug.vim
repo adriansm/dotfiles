@@ -12,12 +12,12 @@
 
 Plug 'editorconfig/editorconfig-vim'    " Syntax using .editorconfig files
 
-Plug 'godlygeek/tabular'                " Tabular helper (required by vim-markdown)
+" Plug 'godlygeek/tabular'                " Tabular helper (required by vim-markdown)
 Plug 'scrooloose/syntastic'             " Checks syntax
 
 Plug 'sheerun/vim-polyglot'             " Language Pack
-Plug 'nickhutchinson/vim-cmake-syntax', { 'for': 'cmake' }
-Plug 'elzr/vim-json',                   { 'for': 'json' }
+" Plug 'nickhutchinson/vim-cmake-syntax', { 'for': 'cmake' }
+" Plug 'elzr/vim-json',                   { 'for': 'json' }
 Plug 'naseer/logcat',                   { 'for': 'logcat' }
 "Plug 'plasticboy/vim-markdown',         { 'for': 'markdown' }
 
@@ -43,9 +43,9 @@ endif
 " Code Browsing
 "
 Plug 'tpope/vim-unimpaired'             " Quick navigation using []
-Plug 'haya14busa/incsearch.vim'         " Highlight incremental searches
 Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch-easymotion.vim'
+" Plug 'haya14busa/incsearch.vim'         " Highlight incremental searches
+" Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'wellle/targets.vim'               " Quick shortcuts
 
 
@@ -86,7 +86,6 @@ Plug 'tpope/vim-dispatch'           " dispatch make async
 Plug 'tpope/vim-sensible'           " Defaults everyone can agree on
 Plug 'tpope/vim-eunuch'             " Unix shell commands
 Plug 'will133/vim-dirdiff'          " Dir diff
-Plug 'ryanoasis/vim-devicons'
 Plug 'vim-scripts/CursorLineCurrentWindow' " Cursor line only for current window
 
 
@@ -104,6 +103,7 @@ if has('nvim')
   " If you want to have icons in your statusline choose one of these
   Plug 'kyazdani42/nvim-web-devicons'
 else
+  Plug 'ryanoasis/vim-devicons'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'edkolev/tmuxline.vim'
@@ -119,6 +119,7 @@ Plug 'sheerun/vim-wombat-scheme'
 "Plug 'joshdick/onedark.vim'
 
 Plug 'lilydjwg/colorizer'
+Plug 'Mofiqul/vscode.nvim'
 
 
 "
