@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 CONFIG="deploy/dotbot.conf.yaml"
-APT_BINS="git gcc python ruby zsh"
-APT_PKGS="git-core build-essential python ruby zsh"
+APT_BINS="git gcc python ruby zsh vim"
+APT_PKGS="git-core build-essential python ruby zsh vim"
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -26,6 +26,7 @@ function install_linux()
 {
     which $APT_BINS 1>/dev/null && return
     echo "Installing required packages"
+    sudo apt-get update -y
     sudo apt-get install -y $APT_PKGS
 }
 
