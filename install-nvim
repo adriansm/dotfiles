@@ -1,6 +1,7 @@
 #!/bin/sh
 
-if [ -n "$NVIM_NIGHTLY" ]; then
+NVIM_NIGHTLY=${NVIM_NIGHTLY:-1}
+if [ -n "$NVIM_NIGHTLY" -a $NVIM_NIGHTLY -eq 1 ]; then
   echo "Downloading nightly version of neovim"
   subpath=download/nightly
 else
@@ -11,8 +12,8 @@ curl -LO https://github.com/neovim/neovim/releases/${subpath}/nvim.appimage
 chmod u+x nvim.appimage
 mv nvim.appimage $HOME/.local/bin/nvim
 
-exit
-sudo apt install yarnpkg
+APT_PKGS="yarnpkg ripgrep"
+dpkg-query -l $APT_PKGS 1>/dev/null 2>&1 || ( sudo apt install -y $APT_PKGS )
 
 yarnpkg global add tree-sitter-cli
 nvim +PackerInstall +qall
