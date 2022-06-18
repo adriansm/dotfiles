@@ -1,0 +1,51 @@
+{
+    "[bazel]": {
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.formatOnSave": true
+    },
+    "clang-format.fallbackStyle": "google",
+    "editor.detectIndentation": true,
+    "editor.fontFamily": "SauceCodePro Nerd Font Mono, Medium",
+    "editor.fontSize": 14,
+    "editor.rulers": [ 80 ],
+    "editor.tabSize": 4,
+    "files.associations": {
+        "*.gss": "css",
+        "BUILD": "bazel",
+        "METADATA": "bazel",
+        "WORKSPACE": "bazel"
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "python.linting.pylintArgs": [
+        "--indent-string=\"  \"",
+        "--disable=missing-docstring",
+        "--max-line-length=100"
+    ],
+    "python.linting.pylintPath": "/usr/bin/gpylint",
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "window.titleBarStyle": "custom",
+    "workbench.colorTheme": "Darcula",
+    "C_Cpp.updateChannel": "Insiders",
+    "editor.renderWhitespace": "none",
+    "C_Cpp.clang_format_fallbackStyle": "Google",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
+    "projectManager.vscode.maxDepthRecursion": 2,
+    "projectManager.vscode.baseFolders": [
+        "$home/Android/kernels",
+        "$home/Android/builds",
+    ],
+    "projectManager.git.maxDepthRecursion": 1,
+    "projectManager.git.baseFolders": [
+        "$home/workspace",
+        "$home/workspace/tools",
+    ],
+    "files.exclude": {
+        "**/.ccls-cache": true
+    },
+}

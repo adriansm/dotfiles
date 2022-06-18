@@ -16,6 +16,7 @@
     '~/.nano.d',
     '~/.local/bin',
     '~/.config',
+    '~/.config/Code/User',
     '~/.config/oni',
     '~/.config/nvim',
     '~/.config/tig'
@@ -29,6 +30,7 @@
     ~/.bash_aliases: bash/bashrc
     ~/.ctags:
     ~/.curlrc:
+    ~/.config/Code/User/settings.json: vscode/settings.json
     ~/.config/nvim/autoload: vim/autoload
     ~/.config/nvim/coc-settings.json: vim/coc-settings.json
     ~/.config/nvim/init.vim: vim/init.vim
