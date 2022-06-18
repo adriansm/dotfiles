@@ -150,5 +150,23 @@ def rename(ctx, name):
     ws.set_shortname(name)
 
 
+@cli.command(short_help='Switch workspace helper')
+@click.option('--switch', is_flag=True,
+              help='Switch to workspace')
+@click.option('--move-container', is_flag=True,
+              help='Move container to workspace')
+def next_empty(switch, move_container):
+  i3 = I3Connection()
+
+  ws_nums = {w.num: w for w in i3.get_tree().workspaces()}
+
+  w = next((x for x in range(1, 25) if x not in ws_nums), None)
+  if w:
+    if move_container:
+      i3.command('move container to workspace number %d' % w)
+    if switch:
+      i3.command('workspace number %d' % w)
+
+
 if __name__ == '__main__':
   cli()

@@ -138,6 +138,8 @@ bindsym $super+n exec google-chrome
 #set $ws9 "9:  Remote"
 #set $ws0 "10:   Personal"
 
+set $ws_script ~/.config/i3/scripts/i3_workspace.py
+
 bindsym $super+1 workspace number 1
 bindsym $super+2 workspace number 2
 bindsym $super+3 workspace number 3
@@ -148,6 +150,7 @@ bindsym $super+7 workspace number 7
 bindsym $super+8 workspace number 8
 bindsym $super+9 workspace number 9
 bindsym $super+0 workspace number 10
+bindsym $super+grave exec "$ws_script next-empty --switch"
 
 # move focused container to workspace
 bindsym $super+Shift+1 move container to workspace number 1
@@ -160,9 +163,10 @@ bindsym $super+Shift+7 move container to workspace number 7
 bindsym $super+Shift+8 move container to workspace number 8
 bindsym $super+Shift+9 move container to workspace number 9
 bindsym $super+Shift+0 move container to workspace number 10
+bindsym $super+Shift+grave exec "$ws_script next-empty --move-container --switch"
 
 #bindsym $super+m exec "~/.local/bin/detect_monitors.sh"
-bindsym $super+m exec "~/.config/i3/scripts/i3_workspace.py rename"
+bindsym $super+m exec "$ws_script rename"
 
 # reload the configuration file
 bindsym $super+Shift+c reload
