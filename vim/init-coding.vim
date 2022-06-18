@@ -65,6 +65,10 @@ if get(g:, 'lang_completion', '') == 'ycm'
   let g:ycm_autoclose_preview_window_after_insertion   = 1
   let g:ycm_min_num_of_chars_for_completion            = 4
   let g:ycm_collect_identifiers_from_tags_files        = 1
+
+  let g:ycm_enable_diagnostic_signs = 1
+  let g:ycm_enable_diagnostic_highlighting = 0
+  let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
 elseif get(g:, 'lang_completion', '') == 'lps'
   "let g:LanguageClient_serverCommands = {
   "    \ 'cpp': ['/usr/local/google/home/salidoa/workspace/tools/llvm-6.0.1.src/build/bin/clangd'],
@@ -141,9 +145,9 @@ function! DetectCheckPatch(file)
   endif
 endfunction
 
-"augroup kernel
-  "autocmd BufNewFile,BufReadPost *.c,*.h :call DetectCheckPatch(expand('<afile>:p'))
-"augroup END
+augroup kernel
+  autocmd BufNewFile,BufReadPost *.c,*.h :call DetectCheckPatch(expand('<afile>:p'))
+augroup END
 
 let g:syntastic_c_check_header           = 1
 let g:syntastic_always_populate_loc_list = 1
