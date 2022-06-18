@@ -289,11 +289,12 @@ exec_always --no-startup-id "setxkbmap -layout us -option compose:ralt"
 exec_always --no-startup-id "killall i3_workspace_mgr.sh; (~/.config/i3/scripts/i3_workspace_mgr.sh &)"
 
 # Lock screen after 5 mins of idle
-exec_always --no-startup-id xset s 300 30
+exec_always --no-startup-id xset s 150 10
 exec_always --no-startup-id xset dpms 315 360 500
 bindsym $alt+Control+l exec --no-startup-id xset dpms force off
+# bindsym $alt+Control+l exec --no-startup-id xset s activate
 # Lock screen upon suspend
-exec_always --no-startup-id "killall xss-lock; (xss-lock -n ~/.config/i3/scripts/i3_dimmer.sh -l -- ~/.config/i3/scripts/i3_lock.sh &)"
+exec_always --no-startup-id "killall xss-lock; (xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- ~/.config/i3/scripts/i3_lock.sh &)"
 
 exec_always --no-startup-id "pgrep -x gnome-keyring-d || ~/.config/i3/scripts/gnome-keyring.sh"
 exec_always --no-startup-id "pgrep -x polkit-mate-aut || ( /usr/lib/x86_64-linux-gnu/polkit-mate/polkit-mate-authentication-agent-1 &)"
@@ -303,7 +304,8 @@ exec_always --no-startup-id "killall mate-volume-con; (mate-volume-control-statu
 #exec --no-startup-id dunst
 
 # Compositor
-exec_always --no-startup-id "killall compton; compton --fading --daemon --paint-on-overlay --backend glx"
+exec_always --no-startup-id "killall compton; compton --daemon --paint-on-overlay --backend glx"
+bindsym $super+Shift+t exec --no-startup-id "killall compton; compton --daemon --paint-on-overlay --backend glx"
 
 # XDG autostart
 exec --no-startup-id dex -ae i3

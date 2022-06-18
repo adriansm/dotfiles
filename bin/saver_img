@@ -152,7 +152,8 @@ protect() {
     # wait until the next full minute before adding new timestamp.
     # modulo is not required, but a safety against unexpected output from date.
     # "% 61" instead of "% 60" to account for leap seconds.
-    protect sleep "$((60 - $(date +%-S) % 61))" || protect sleep 60
+    # protect sleep "$((60 - $(date +%-S) % 61))" || protect sleep 60
+    sleep "$((60 - $(date +%-S) % 61))" || sleep 60
     add_timestamp
   done
 } &
@@ -167,7 +168,7 @@ while true; do
     --no-audio \
     -- \
     "$img"
-  protect sleep 1
+  sleep 1
 done &
 
 exec ./saver_blank
