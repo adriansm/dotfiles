@@ -117,7 +117,9 @@
             - dex
             - fonts-font-awesome
             - i3
+            - mate-media
             - mate-power-manager
+            - mate-settings-daemon
             - rofi
             - scrot
             - viewnior
@@ -125,7 +127,6 @@
             - xbacklight
             - xinput
             - xsecurelock
-            - xsettingsd
             - xss-lock
 
 # Gnome settings if dconf is installed

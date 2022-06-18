@@ -269,15 +269,13 @@ exec_always --no-startup-id xset dpms 315 360
 # Lock screen upon suspend
 exec_always --no-startup-id "pgrep -x xss-lock || (xss-lock -l -- ~/.config/i3/i3_lock.sh &)"
 
-exec_always --no-startup-id "pgrep -x xsettingsd || (xsettingsd &)"
-
+exec_always --no-startup-id "pgrep -x mate-settings-daemon || (mate-settings-daemon &)"
 exec_always --no-startup-id "pgrep -x mate-power-manager || (mate-power-manager &)"
 exec_always --no-startup-id "pgrep -x volumeicon || (volumeicon &)"
 #exec --no-startup-id dunst
 
 # Compositor
 exec_always --no-startup-id "killall compton; compton --fading --daemon --paint-on-overlay --backend glx"
-
 
 # XDG autostart
 exec --no-startup-id dex -ae i3
