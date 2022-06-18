@@ -1,5 +1,5 @@
 [core]
-	pager = less -FRSX
+	pager = diff-so-fancy | less --tabs=8 -RFX
 	whitespace = fix,trailing-space,space-before-tabs,cr-at-eol
 	attributesfile = ~/.gitattributes
 	excludesfile = ~/.gitignore
@@ -27,16 +27,22 @@
 [color "diff"]
 	meta = yellow
 	frag = magenta
+	commit = yellow bold
 	old = red
 	new = green
 	whitespace = white reverse
+
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
 
 [color "status"]
 	added = green
 	changed = yellow
 	untracked = cyan
 	branch = magenta
-
 
 [diff]
 	tool = vimdiff
@@ -116,14 +122,17 @@
 	ir = reset
 
 	# log
-	l   = log --topo-order --pretty=format:'%C(yellow)%h %C(cyan)%cn %C(blue)%cr%C(reset) %s'
+	l   = log --topo-order --pretty=format:'%C(yellow)%h %C(reset)%s %C(green)%cn %C(cyan)%cr%C(reset)'
+    # log with files changes
 	ls  = log --topo-order --stat --pretty=format:'%C(bold)%C(yellow)Commit:%C(reset) %C(yellow)%H%C(red)%d%n%C(bold)%C(yellow)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)%C(yellow)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+    # log with diff
 	ld  = log --topo-order --stat --patch --full-diff --pretty=format:'%C(bold)%C(yellow)Commit:%C(reset) %C(yellow)%H%C(red)%d%n%C(bold)%C(yellow)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)%C(yellow)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+    # log with graphs
 	lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # log with all local branches
 	lga = log --topo-order --all --graph --pretty=format:'%C(yellow)%h %C(cyan)%cn%C(reset) %s %C(red)%d%C(reset)%n'
-	lm  = log --topo-order --pretty=format:'%s'
+    # count number of changes by author
 	lh  = shortlog --summary --numbered
-	llf = fsck --lost-found
 
 	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
@@ -155,3 +164,6 @@
 
 [include]
 	path = ~/.gitconfig.local
+[diff-so-fancy]
+	markEmptyLines = false
+	stripLeadingSymbols = false

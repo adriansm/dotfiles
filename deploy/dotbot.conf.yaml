@@ -23,7 +23,7 @@
     ~/.ackrc:
     ~/.aliases:
     ~/.agignore:
-    ~/.bash: bash
+    ~/.bash:
     ~/.bash_aliases: bash/bashrc
     ~/.ctags:
     ~/.curlrc:
@@ -41,16 +41,18 @@
         path: bin/*
     ~/.nanorc: nano/nanorc
     ~/.nano.d/syntax-highlighting: nano/syntax-highlighting
+    ~/.profile:
     ~/.pythonrc: python/pythonrc
     ~/.pylintrc: python/pylintrc
+    ~/.ripgreprc:
     ~/.screenrc:
     ~/.ssh/rc: ssh/rc
-    ~/.tmux: tmux
+    ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.vim: vim
+    ~/.vim:
     ~/.vimrc: vim/init.vim
     ~/.wgetrc:
-    ~/.zsh: zsh
+    ~/.zsh:
     ~/.zshenv: zsh/zshenv
     ~/.zshprofile: zsh/zshenv
     ~/.zprofile: zsh/zprofile
