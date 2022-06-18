@@ -7,5 +7,5 @@ mv nvim.appimage $HOME/.local/bin/nvim
 sudo apt install yarnpkg
 
 yarnpkg global add tree-sitter-cli
-nvim +PlugInstall +qall
+nvim +PackerInstall +qall
 

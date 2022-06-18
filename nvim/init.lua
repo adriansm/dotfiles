@@ -1,3 +1,4 @@
 require('mappings')             -- load custom mappings
-require('packer-config')        -- configure packer with plugins to load
 require('settings')             -- vim settings
+
+require('plugins').setup()        -- Set up plugins
