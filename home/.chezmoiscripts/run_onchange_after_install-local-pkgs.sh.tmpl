@@ -1,0 +1,25 @@
+{{ if not .ephemeral -}}
+
+{{ $packages := list
+      "neovim"
+      "pynvim" -}}
+
+{{ if not .headless -}}
+{{   $packages = concat $packages (list
+      "fontawesome") -}}
+{{ end -}}
+
+{{ if .i3wm -}}
+{{   $packages = concat $packages (list
+      "i3ipc") -}}
+{{ end -}}
+
+#!/bin/bash
+
+set -eufo pipefail
+
+pip install --user {{ $packages | join " " }}
+
+# for nvim
+yarnpkg global add tree-sitter-cli
+{{ end -}}

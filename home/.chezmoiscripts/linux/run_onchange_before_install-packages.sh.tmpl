@@ -1,0 +1,58 @@
+{{ if eq .osid "linux-debian" "linux-ubuntu" -}}
+
+{{ $packages := list
+      "curl"
+      "direnv"
+      "git-core"
+      "ripgrep"
+      "rsync"
+      "vim"
+      "zsh" -}}
+
+{{ if not .ephemeral -}}
+{{   $packages = concat $packages (list
+      "build-essential"
+      "clang-format"
+      "neovim"
+      "python3"
+      "python3-pip"
+      "tig"
+      "tmux"
+      "yarnpkg") -}}
+{{ end -}}
+
+{{ if .i3wm -}}
+{{   $packages = concat $packages (list
+      "compton"
+      "dex"
+      "fonts-font-awesome"
+      "i3"
+      "mate-media"
+      "mate-control-center"
+      "mate-power-manager"
+      "mate-settings-daemon"
+      "playerctl"
+      "rofi"
+      "scrot"
+      "viewnior"
+      "volumeicon-alsa"
+      "xbacklight"
+      "xinput"
+      "xsecurelock"
+      "xss-lock") -}}
+{{ end -}}
+
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{   $sudo = "" -}}
+{{ end -}}
+
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $sudo }}apt-get update
+{{ $sudo }}apt-get install -y {{ $packages | join " " }}
+
+{{ end -}}
+

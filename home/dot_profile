@@ -12,12 +12,13 @@
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+      . "$HOME/.bashrc"
     fi
 fi
 
 # set PATH so it includes user's private bin if it exists
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
+[ -d "$HOME/.yarn" ] && PATH="$HOME/.yarn/bin:$PATH"
 [ -d "$HOME/.linuxbrew" ] && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
 [ -d "$HOME/.homebrew" ] && PATH="$HOME/.homebrew/bin:$HOME/.homebrew/sbin:$PATH"
 [ -d "$HOME/.local" ] && PATH="$HOME/.local/bin:$HOME/.local/sbin:$PATH"
@@ -28,5 +29,3 @@ if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[
   pkill ssh-agent
   eval $(ssh-agent -s)
 fi
-
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

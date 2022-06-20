@@ -12,13 +12,19 @@ stripComponents = 1
 type = "archive"
 url = "https://github.com/zplug/zplug/archive/refs/heads/master.zip"
 stripComponents = 1
-
+{{  if eq .chezmoi.os "linux" -}}
+[".local/bin/nvim"]
+type = "file"
+url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+executable = true
+refreshPeriod = "168h"
+{{  end -}}
 {{- if and (not .ephemeral) (not .headless) -}}
 {{-   $fontDir := "" -}}
-{{-   if eq .chezmoi.os "darwin" }}
-{{-     $fontDir = "Library/Fonts" }}
-{{-   else if eq .chezmoi.os "linux" }}
-{{-     $fontDir = ".local/share/fonts" }}
+{{-   if eq .chezmoi.os "darwin" -}}
+{{-     $fontDir = "Library/Fonts" -}}
+{{-   else if eq .chezmoi.os "linux" -}}
+{{-     $fontDir = ".local/share/fonts" -}}
 {{-   end }}
 ["{{ $fontDir }}/Sauce Code Pro Nerd Font Complete.ttf"]
 type = "file"
@@ -32,4 +38,4 @@ url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMo
 ["{{ $fontDir }}/Anonymice Nerd Font Complete.ttf"]
 type = "file"
 url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/AnonymousPro/complete/Anonymice%20Nerd%20Font%20Complete.ttf"
-{{- end -}}
+{{  end -}}

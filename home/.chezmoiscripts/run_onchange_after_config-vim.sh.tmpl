@@ -1,0 +1,8 @@
+{{ if (not .ephemeral) -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+vim -c PlugInstall -c qall
+nvim -c PackerInstall -c qall
+{{ end -}}
