@@ -1,9 +1,11 @@
 : ${ZSH_HOME:=${${(%):-%N}:A:h}}
 
+ZPLUG_HOME=$HOME/.zplug
+
 # zplug environment variables
 export ZPLUG_LOADFILE=$ZSH_HOME/zplug_packages.zsh
 
-source $ZSH_HOME/zplug/init.zsh
+source $ZPLUG_HOME/init.zsh
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then

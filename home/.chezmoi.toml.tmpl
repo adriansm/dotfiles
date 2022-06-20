@@ -1,0 +1,51 @@
+{{/* boolean feature tags */}}
+{{- $ephemeral := false -}}{{/* true if this machine is ephemeral, e.g. a cloud or VM instance */}}
+{{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
+{{- $i3wm := false -}}{{/* true i3 window manager should be installed */}}
+
+{{- $osID := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osID = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+{{/* detect GitHub codespaces, VSCode remote containers, Docker containers, Multipass VMs, and Vagrant boxes */}}
+{{- if or (env "CLOUD_SHELL") (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") -}}
+{{-   $ephemeral = true -}}
+{{-   $headless = true -}}
+{{- end -}}
+
+{{- if not $ephemeral -}}
+{{-   if eq .chezmoi.hostname "penguin" -}}{{/* chromeos Linux container */}}
+{{-     $ephemeral = false -}}
+{{-     $headless = false -}}
+{{-   else if stdinIsATTY -}}
+{{-     if hasKey . "headless" -}}
+{{-       $headless = .headless -}}
+{{-     else -}}
+{{-       $headless = promptBool "headless" -}}
+{{-     end -}}
+{{-     if hasKey . "ephemeral" -}}
+{{-       $ephemeral = .ephemeral -}}
+{{-     else -}}
+{{-       $ephemeral = promptBool "ephemeral" -}}
+{{-     end -}}
+{{-     if hasKey . "i3wm" -}}
+{{-       $i3wm = .i3wm -}}
+{{-     else if or $ephemeral $headless (not (eq .chezmoi.os "linux")) -}}
+{{-       $i3wm = false -}}
+{{-     else -}}
+{{-       $i3wm = promptBool "i3 window manager" -}}
+{{-     end -}}
+{{-   else -}}
+{{-     $ephemeral = true -}}
+{{-     $headless = true -}}
+{{-   end -}}
+{{- end -}}
+
+[data]
+email = "adriansm@gmail.com"
+name = "Adrian Salido"
+ephemeral = {{ $ephemeral }}
+headless = {{ $headless }}
+i3wm = {{ $i3wm }}
+osid = {{ $osID | quote }}
