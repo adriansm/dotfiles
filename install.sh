@@ -19,5 +19,11 @@ fi
 
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+
+# If no chezmoi instalation exists, symlink to this script's dir
+if [ ! -d $HOME/.local/share/chezmoi ]; then
+  ln -s $script_dir $HOME/.local/share/chezmoi
+fi
+
 # exec: replace current process with chezmoi init
 exec "$chezmoi" init --apply "--source=$script_dir"
