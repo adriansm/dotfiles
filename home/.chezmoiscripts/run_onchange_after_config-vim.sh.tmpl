@@ -6,6 +6,6 @@ set -eufo pipefail
 vim -c PlugInstall -c qall
 
 {{ if not (eq .chezmoi.arch "arm") -}}
-nvim -c PackerCompile -c PackerInstall -c qall
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 {{- end }}
 {{ end -}}
