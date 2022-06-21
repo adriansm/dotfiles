@@ -217,7 +217,9 @@ let g:terminal_color_15 = '#ffffff'
 
 " Nvim Cmp {{{1
 " gray
+if exists('strikethrough')
 highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+endif
 " blue
 highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
 highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6

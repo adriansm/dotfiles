@@ -107,7 +107,7 @@ vnoremap <leader>y :OSCyank<CR>
 noremap <c-c> "+y
 
 
-if !exists('g:vscode')
+if !exists('g:vscode') && exists('##TextYankPost')
   autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
 endif
 
