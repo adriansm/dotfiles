@@ -4,7 +4,8 @@
 set -eufo pipefail
 
 vim -c PlugInstall -c qall
+
 {{ if not (eq .chezmoi.arch "arm") -}}
-nvim -c PackerInstall -c qall
+nvim -c PackerCompile -c PackerInstall -c qall
 {{- end }}
 {{ end -}}

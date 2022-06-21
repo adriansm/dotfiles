@@ -19,7 +19,11 @@
 {{- if or (env "CLOUD_SHELL") (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") -}}
 {{-   $ephemeral = true -}}
 {{-   $headless = true -}}
+{{- else if hasSuffix ".c.googlers.com" .chezmoi.fqdnHostname -}}
+{{-   writeToStdout "Detected Google cloudtop instance\n" -}}
+{{-   $headless = true -}}
 {{- end -}}
+
 
 {{- if not $ephemeral -}}
 {{-   if eq .chezmoi.hostname "penguin" -}}{{/* chromeos Linux container */}}
@@ -72,7 +76,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data]
 email = {{ $email | quote }}
 name = {{ $name | quote }}
+osid = {{ $osID | quote }}
 ephemeral = {{ $ephemeral }}
 headless = {{ $headless }}
 i3wm = {{ $i3wm }}
-osid = {{ $osID | quote }}
