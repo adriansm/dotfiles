@@ -1,7 +1,14 @@
+{{/* Default user details */}}
+{{- $name := "Adrian Salido" -}}
+{{- $email := "adriansm@gmail.com" -}}
+
 {{/* boolean feature tags */}}
 {{- $ephemeral := false -}}{{/* true if this machine is ephemeral, e.g. a cloud or VM instance */}}
 {{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
 {{- $i3wm := false -}}{{/* true i3 window manager should be installed */}}
+
+{{- /* Checks if running interactively, which is not the case for GitHub Codespaces */ -}}
+{{- $interactive := stdinIsATTY -}}
 
 {{- $osID := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
@@ -18,23 +25,23 @@
 {{-   if eq .chezmoi.hostname "penguin" -}}{{/* chromeos Linux container */}}
 {{-     $ephemeral = false -}}
 {{-     $headless = false -}}
-{{-   else if stdinIsATTY -}}
+{{-   else if $interactive -}}
 {{-     if hasKey . "headless" -}}
 {{-       $headless = .headless -}}
 {{-     else -}}
-{{-       $headless = promptBool "headless" -}}
+{{-       $headless = promptBool "Headless mode" $headless -}}
 {{-     end -}}
 {{-     if hasKey . "ephemeral" -}}
 {{-       $ephemeral = .ephemeral -}}
 {{-     else -}}
-{{-       $ephemeral = promptBool "ephemeral" -}}
+{{-       $ephemeral = promptBool "Ephemeral instance (ex. cloud VM)" $ephemeral -}}
 {{-     end -}}
 {{-     if hasKey . "i3wm" -}}
 {{-       $i3wm = .i3wm -}}
 {{-     else if or $ephemeral $headless (not (eq .chezmoi.os "linux")) -}}
 {{-       $i3wm = false -}}
 {{-     else -}}
-{{-       $i3wm = promptBool "i3 window manager" -}}
+{{-       $i3wm = promptBool "Install i3 window manager" $i3wm -}}
 {{-     end -}}
 {{-   else -}}
 {{-     $ephemeral = true -}}
@@ -42,11 +49,29 @@
 {{-   end -}}
 {{- end -}}
 
+{{- /* If name was previously set, reuses it */ -}}
+{{- if hasKey . "name" -}}
+{{-   $name = .name -}}
+{{- /* Otherwise, if running interactively, prompts for a name */ -}}
+{{- else if $interactive -}}
+{{-   $name = promptString "Name" $name -}}
+{{- end -}}
+
+{{- if hasKey . "email" -}}
+{{-   $email = .email -}}
+{{- else if $interactive -}}
+{{-   $email = promptString "E-mail" $email -}}
+{{- end -}}
+
+{{- if $interactive -}}
+{{-   writeToStdout "💡 Tip: you can re-enter config (including name and email) with `chezmoi init --data=false`.\n" -}}
+{{- end -}}
+
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data]
-email = "adriansm@gmail.com"
-name = "Adrian Salido"
+email = {{ $email | quote }}
+name = {{ $name | quote }}
 ephemeral = {{ $ephemeral }}
 headless = {{ $headless }}
 i3wm = {{ $i3wm }}
