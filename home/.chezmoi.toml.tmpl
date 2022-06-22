@@ -2,7 +2,7 @@
 {{- $name := "Adrian Salido" -}}
 {{- $email := "adriansm@gmail.com" -}}
 
-{{/* boolean feature tags */}}
+{{/* default values for boolean feature tags */}}
 {{- $ephemeral := false -}}{{/* true if this machine is ephemeral, e.g. a cloud or VM instance */}}
 {{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
 {{- $i3wm := false -}}{{/* true i3 window manager should be installed */}}
@@ -21,7 +21,11 @@
 {{-   $headless = true -}}
 {{- else if hasSuffix ".c.googlers.com" .chezmoi.fqdnHostname -}}
 {{-   writeToStdout "Detected Google cloudtop instance\n" -}}
+{{-   $email = printf "%s@google.com" .chezmoi.username -}}
 {{-   $headless = true -}}
+{{- else if hasSuffix ".corp.google.com" .chezmoi.fqdnHostname -}}
+{{-   $email = printf "%s@google.com" .chezmoi.username -}}
+{{-   $ephemeral = false -}}
 {{- end -}}
 
 
