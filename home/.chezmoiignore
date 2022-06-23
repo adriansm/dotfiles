@@ -7,6 +7,13 @@
 .config/volumeicon
 {{ end }}
 
+{{ if or .headless .ephemeral }}
+.urxvt
+.xsessionrc
+.xsettingsd
+.Xresources
+{{ end }}
+
 {{ if or .personal .headless }}
 .local/bin/personal-google-chrome
 .local/share/applications/personal-chrome.desktop
