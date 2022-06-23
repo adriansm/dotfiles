@@ -8,6 +8,9 @@
 {{ end }}
 
 {{ if or .headless .ephemeral }}
+.config.alacritty
+.config.oni
+.config.Code
 .urxvt
 .xsessionrc
 .xsettingsd
