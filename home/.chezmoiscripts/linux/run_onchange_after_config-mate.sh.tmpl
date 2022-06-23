@@ -1,0 +1,64 @@
+{{ if .i3wm -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $gschema = "org.mate.caja.desktop" -}}
+gsettings set {{ $gschema }} font "'Roboto 10'"
+
+{{ $gschema = "org.mate.marco.general" -}}
+gsettings set {{ $gschema }} theme "'Blackbird'"
+gsettings set {{ $gschema }} titlebar-font "'Roboto Bold 10'"
+
+{{ $gschema = "org.mate.power-manager" -}}
+gsettings set {{ $gschema }} backlight-battery-reduce "false"
+gsettings set {{ $gschema }} button-lid-ac "'suspend'"
+gsettings set {{ $gschema }} action-critical-battery "'hibernate'"
+gsettings set {{ $gschema }} button-lid-battery "'suspend'"
+
+{{ $gschema = "org.mate.desktop.peripherals.touchpad" -}}
+gsettings set {{ $gschema }} natural-scroll "true"
+gsettings set {{ $gschema }} two-finger-click "3"
+gsettings set {{ $gschema }} disable-while-typing "true"
+gsettings set {{ $gschema }} horizontal-two-finger-scrolling "true"
+gsettings set {{ $gschema }} three-finger-click "2"
+gsettings set {{ $gschema }} tap-to-click "false"
+
+{{ $gschema = "org.mate.desktop.peripherals.mouse" -}}
+gsettings set {{ $gschema }} cursor-theme "'Adwaita'"
+
+{{ $gschema = "org.mate.desktop.accessibility.keyboard" -}}
+gsettings set {{ $gschema }} slowkeys-beep-press "true"
+gsettings set {{ $gschema }} mousekeys-accel-time "1200"
+gsettings set {{ $gschema }} bouncekeys-beep-reject "true"
+gsettings set {{ $gschema }} slowkeys-beep-reject "false"
+gsettings set {{ $gschema }} togglekeys-enable "false"
+gsettings set {{ $gschema }} enable "false"
+gsettings set {{ $gschema }} bouncekeys-enable "false"
+gsettings set {{ $gschema }} stickykeys-enable "false"
+gsettings set {{ $gschema }} feature-state-change-beep "false"
+gsettings set {{ $gschema }} slowkeys-beep-accept "true"
+gsettings set {{ $gschema }} bouncekeys-delay "300"
+gsettings set {{ $gschema }} mousekeys-max-speed "750"
+gsettings set {{ $gschema }} mousekeys-enable "false"
+gsettings set {{ $gschema }} timeout-enable "false"
+gsettings set {{ $gschema }} slowkeys-delay "300"
+gsettings set {{ $gschema }} stickykeys-modifier-beep "true"
+gsettings set {{ $gschema }} stickykeys-two-key-off "true"
+gsettings set {{ $gschema }} mousekeys-init-delay "160"
+gsettings set {{ $gschema }} timeout "120"
+gsettings set {{ $gschema }} slowkeys-enable "false"
+
+{{ $gschema = "org.mate.desktop.interface" -}}
+gsettings set {{ $gschema }} font-name "'Roboto 10'"
+gsettings set {{ $gschema }} document-font-name "'Roboto 10'"
+gsettings set {{ $gschema }} menus-have-icons "true"
+gsettings set {{ $gschema }} icon-theme "'Adwaita'"
+gsettings set {{ $gschema }} gtk-theme "'BlueMenta'"
+gsettings set {{ $gschema }} monospace-font-name "'RobotoMono Nerd Font 10'"
+
+{{ $gschema = "org.mate.desktop.sound" -}}
+gsettings set {{ $gschema }} input-feedback-sounds "false"
+gsettings set {{ $gschema }} theme-name "'__no_sounds'"
+gsettings set {{ $gschema }} event-sounds "false"
+{{ end -}}

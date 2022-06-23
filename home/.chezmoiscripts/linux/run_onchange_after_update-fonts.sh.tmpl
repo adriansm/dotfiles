@@ -4,9 +4,4 @@
 set -eufo pipefail
 
 fc-cache
-
-{{ if .i3wm -}}
-cat ~/.config/dconf/user.d/* | dconf load /
-{{ end -}}
-
 {{ end -}}

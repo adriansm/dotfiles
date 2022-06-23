@@ -6,6 +6,7 @@
 {{- $ephemeral := false -}}{{/* true if this machine is ephemeral, e.g. a cloud or VM instance */}}
 {{- $headless := false -}}{{/* true if this machine does not have a screen and keyboard */}}
 {{- $i3wm := false -}}{{/* true i3 window manager should be installed */}}
+{{- $personal := false -}}{{/* true if this machine is for personal use only */}}
 
 {{- /* Checks if running interactively, which is not the case for GitHub Codespaces */ -}}
 {{- $interactive := stdinIsATTY -}}
@@ -26,6 +27,9 @@
 {{- else if hasSuffix ".corp.google.com" .chezmoi.fqdnHostname -}}
 {{-   $email = printf "%s@google.com" .chezmoi.username -}}
 {{-   $ephemeral = false -}}
+{{- else -}}
+{{/* if above conditions are not met, this is likely personal use only */}}
+{{-   $personal = true -}}
 {{- end -}}
 
 
@@ -44,10 +48,10 @@
 {{-     else -}}
 {{-       $ephemeral = promptBool "Ephemeral instance (ex. cloud VM)" $ephemeral -}}
 {{-     end -}}
-{{-     if hasKey . "i3wm" -}}
-{{-       $i3wm = .i3wm -}}
-{{-     else if or $ephemeral $headless (not (eq .chezmoi.os "linux")) -}}
+{{-     if or $ephemeral $headless (not (eq .chezmoi.os "linux")) -}}
 {{-       $i3wm = false -}}
+{{-     else if hasKey . "i3wm" -}}
+{{-       $i3wm = .i3wm -}}
 {{-     else -}}
 {{-       $i3wm = promptBool "Install i3 window manager" $i3wm -}}
 {{-     end -}}
@@ -85,3 +89,4 @@ osid = {{ $osID | quote }}
 ephemeral = {{ $ephemeral }}
 headless = {{ $headless }}
 i3wm = {{ $i3wm }}
+personal = {{ $personal }}

@@ -1,0 +1,25 @@
+{{if (and (eq .chezmoi.os "linux") (not .ephemeral) (not .headless)) -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+## gsettings set org.gnome.shell.extensions.app-switcher current-workspace-only true
+gsettings set org.gnome.shell.extensions.dash-to-panel multi-monitors false
+gsettings set org.gnome.shell.extensions.window-list grouping-mode "'auto'"
+gsettings set org.gnome.shell.extensions.window-list show-on-all-monitors true
+
+## [settings-daemon/plugins/media-keys]
+## calculator=['<Super>c']
+## control-center=['<Super>comma']
+## custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+## home=['<Super>h']
+## www=['<Super>n']
+
+{{ $gschema := "org.gnome.settings-daemon.plugins.media-keys.custom-keybindings" }}
+{{ if not .personal -}}
+## gsettings set {{ $gschema }}.personal_www.binding "'<Super>Return'"
+## gsettings set {{ $gschema }}.personal_www.command "'personal-google-chrome'"
+## gsettings set {{ $gschema }}.personal_www.name "'Personal Chrome'"
+{{ end -}}
+
+{{ end -}}

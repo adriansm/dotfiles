@@ -1,0 +1,40 @@
+{{if (and (eq .chezmoi.os "linux") (not .ephemeral) (not .headless)) -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $gschema := "org.cinnamon.desktop.keybindings.custom-keybinding:/org/cinnamon/desktop/keybindings/custom-keybindings/custom0/" -}}
+gsettings set {{ $gschema }} binding "['<Shift><Super>n']"
+gsettings set {{ $gschema }} command "'personal-google-chrome'"
+gsettings set {{ $gschema }} name "'Personal Chrome'"
+
+{{ $gschema := "org.cinnamon.desktop.keybindings" -}}
+gsettings set {{ $gschema }} custom-list "['custom0']"
+
+{{ $gschema := "org.cinnamon.desktop.keybindings.media-keys" -}}
+gsettings set {{ $gschema }} screensaver "['<Control><Alt>l', 'XF86ScreenSaver', '<Super>l']"
+gsettings set {{ $gschema }} terminal "['<Primary><Alt>t', '<Super>Return']"
+gsettings set {{ $gschema }} www "['XF86WWW', '<Super>n']"
+
+{{ $gschema := "org.cinnamon.desktop.keybindings.wm" -}}
+gsettings set {{ $gschema }} switch-to-workspace-1 "['<Super>1']"
+gsettings set {{ $gschema }} switch-to-workspace-2 "['<Super>2']"
+gsettings set {{ $gschema }} switch-to-workspace-3 "['<Super>3']"
+gsettings set {{ $gschema }} switch-to-workspace-4 "['<Super>4']"
+gsettings set {{ $gschema }} switch-to-workspace-5 "['<Super>5']"
+gsettings set {{ $gschema }} switch-to-workspace-6 "['<Super>6']"
+gsettings set {{ $gschema }} move-to-workspace-1 "['<Shift><Super>exclam']"
+gsettings set {{ $gschema }} move-to-workspace-2 "['<Shift><Super>at']"
+gsettings set {{ $gschema }} move-to-workspace-3 "['<Shift><Super>numbersign']"
+gsettings set {{ $gschema }} move-to-workspace-4 "['<Shift><Super>dollar']"
+gsettings set {{ $gschema }} move-to-workspace-5 "['<Shift><Super>percent']"
+gsettings set {{ $gschema }} move-to-workspace-6 "['<Shift><Super>asciicircum']"
+gsettings set {{ $gschema }} switch-to-workspace-left "['<Control><Alt>Left', '<Super><Alt>j']"
+gsettings set {{ $gschema }} switch-to-workspace-right "['<Control><Alt>Left', '<Super><Alt>k']"
+gsettings set {{ $gschema }} move-to-monitor-left "['<Super><Shift>Left', '<Super><Shift>h']"
+gsettings set {{ $gschema }} move-to-monitor-right "['<Super><Shift>Right', '<Super><Shift>l']"
+gsettings set {{ $gschema }} move-to-monitor-up "['<Super><Shift>Up', '<Super><Shift>k']"
+gsettings set {{ $gschema }} move-to-monitor-down "['<Super><Shift>Down', '<Super><Shift>j']"
+gsettings set {{ $gschema }} move-to-workspace-right "['<Control><Shift><Alt>Right', '<Shift><Alt><Super>l']"
+gsettings set {{ $gschema }} move-to-workspace-left "['<Control><Shift><Alt>Left', '<Shift><Alt><Super>h']"
+{{ end -}}
