@@ -13,4 +13,5 @@
 
 {{ if or .personal .headless }}
 .local/bin/personal-google-chrome
+.local/share/applications/personal-chrome.desktop
 {{ end }}
