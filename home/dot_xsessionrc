@@ -1,14 +1,11 @@
 #!/bin/sh
 
 # Necessary to make chrome pick up the proxy settings stored in gconf.
-export DESKTOP_SESSION=cinnamon  # gnome for trusty.
+export DESKTOP_SESSION=gnome
 
 # NOTE: This may break your compose key.
 # See http://g/i3-users/YBexXGbik7E for more details.
 export GTK_IM_MODULE=xim
-
-# Desktop background color.
-xsetroot -solid "#30586c"
 
 ## Uncomment if you use urxvt terminal emulator.
 ## Start urxvtd
@@ -16,7 +13,7 @@ xsetroot -solid "#30586c"
 #export TERMINAL=urxvtc
 
 # ssh-agent fix
-if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
+if [ -z "$SSH_CONNECTION" ] && [ -z "$CHROME_REMOTE_DESKTOP_SESSION" ] && [ -z "$SSH_AUTH_SOCK" ]; then
   pkill ssh-agent
   eval $(ssh-agent -s)
 fi
