@@ -8,11 +8,15 @@ gsettings set {{ $gschema }} default-show-menubar false
 gsettings set {{ $gschema }} theme-variant 'dark'
 
 profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
-gschema="org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles/${profile}/"
+profile=${profile:1:-1} # remove leading and trailing single quotes
+
+gschema="org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${profile}/"
+
 gsettings set $gschema use-theme-colors false
 gsettings set $gschema background-color "'rgb(31,31,31)'"
 gsettings set $gschema palette "['rgb(0,0,0)', 'rgb(247,120,109)', 'rgb(189,233,124)', 'rgb(239,223,172)', 'rgb(110,186,248)', 'rgb(239,136,255)', 'rgb(144,253,248)', 'rgb(229,225,216)', 'rgb(180,180,180)', 'rgb(249,159,146)', 'rgb(227,247,161)', 'rgb(242,233,191)', 'rgb(179,210,255)', 'rgb(229,189,255)', 'rgb(194,254,250)', 'rgb(103,29,29)']"
 gsettings set $gschema foreground-color "'rgb(229,225,216)'"
 gsettings set $gschema use-system-font false
 gsettings set $gschema font "'SauceCodePro Nerd Font 11'"
+
 {{ end -}}
