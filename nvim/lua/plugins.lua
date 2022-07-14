@@ -36,6 +36,14 @@ function M.setup()
     use { 'dstein64/vim-startuptime' }
 
     use { 'wbthomason/packer.nvim' }
+    use {
+      'alker0/chezmoi.vim',
+      setup = function()
+        vim.cmd[[
+          let g:chezmoi#use_external = 1
+        ]]
+      end
+    }
 
     --
     -- [[ Common Plugins ]]
@@ -54,7 +62,7 @@ function M.setup()
 
     use {                                       -- Highlight trailing white space
       'ntpeters/vim-better-whitespace',
-      config = function()
+      setup = function()
         vim.g.better_whitespace_ctermcolor = "red"
         vim.g.better_whitespace_guicolor = "red"
         vim.g.strip_whitespace_on_save = 1
