@@ -1,0 +1,8 @@
+.gitattributes
+.gitconfig
+.gitignore
+.gitk
+.gvimrc
+.tmux.design.conf
+.tmux.conf
+.vimrc

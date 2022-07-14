@@ -1,3 +1,0 @@
-let $VIMHOME = $HOME."/.vim"
-
-source $VIMHOME/gvimrc
