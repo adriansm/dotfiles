@@ -64,7 +64,7 @@ let g:airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
     "\ 'right_alt' : '<',
     "\ 'space' : ' '}
 
-let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux.design.conf"
+let g:airline#extensions#tmuxline#snapshot_file = "~/.config/tmux/design.conf"
 
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
