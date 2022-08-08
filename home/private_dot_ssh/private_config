@@ -1,0 +1,13 @@
+Include config.d/*
+
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/ctrl-%C
+    # Timeout failed connections
+    ServerAliveInterval 30
+    ServerAliveCountMax 5
+    ConnectTimeout 60
+    ConnectionAttempts 2
+
+Host gitlab.com github.com
+    User git
