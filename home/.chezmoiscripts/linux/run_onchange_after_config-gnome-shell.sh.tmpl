@@ -3,6 +3,8 @@
 
 set -eufo pipefail
 
+test -n "$(command -v gnome-shell)" || exit 0
+
 ## gsettings set org.gnome.shell.extensions.app-switcher current-workspace-only true
 gnome-extensions enable dash-to-panel@jderose9.github.com
 gsettings set org.gnome.shell.extensions.dash-to-panel multi-monitors false

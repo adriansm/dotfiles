@@ -3,6 +3,8 @@
 
 set -eufo pipefail
 
+test -n "$(command -v gnome-terminal)" || exit 0
+
 {{ $gschema := "org.gnome.Terminal.Legacy.Settings" -}}
 gsettings set {{ $gschema }} default-show-menubar false
 gsettings set {{ $gschema }} theme-variant 'dark'

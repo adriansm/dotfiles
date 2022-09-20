@@ -3,6 +3,8 @@
 
 set -eufo pipefail
 
+test -n "$(command -v cinnamon)" || exit 0
+
 {{ $gschema := "org.cinnamon.desktop.keybindings.custom-keybinding:/org/cinnamon/desktop/keybindings/custom-keybindings/custom0/" -}}
 gsettings set {{ $gschema }} binding "['<Shift><Super>n']"
 gsettings set {{ $gschema }} command "'personal-google-chrome'"
