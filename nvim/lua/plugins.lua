@@ -213,9 +213,14 @@ function M.setup()
     use { 'DanilaMihailov/beacon.nvim' }        -- cursor jump
     use { 'Mofiqul/vscode.nvim',                -- color scheme
       config = function()
-        vim.g.vscode_style = 'dark'
-        vim.g.vscode_italic_comment = true
-        vim.cmd [[colorscheme vscode]]
+        vim.o.background = 'dark'
+        require('vscode').setup({
+          -- Enable transparent background
+          transparent = true,
+
+          -- Enable italic comment
+          italic_comments = true,
+        })
       end
     }
 

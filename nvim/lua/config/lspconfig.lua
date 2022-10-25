@@ -112,18 +112,17 @@ function M.setup()
     return
   end
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  if vim.g.loaded_cmp then
-    -- Set up completion using nvim_cmp with LSP source if available
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-  end
   local opts = {
     on_attach = on_attach,
-    capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
     }
   }
+
+  if vim.g.loaded_cmp then
+    -- Set up completion using nvim_cmp with LSP source if available
+    opts.capabilities = require('cmp_nvim_lsp').default_capabilities()
+  end
 
   -- null-ls
   require('config.null-ls').setup(opts)

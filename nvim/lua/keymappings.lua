@@ -80,7 +80,6 @@ local keymappings = {
       'pumvisible() ? "\\<C-p>" : "\\<C-k>"',
       { expr = true, noremap = true },
     },
-    ["w!!"] = "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!",
     ["%%"] = { "getcmdtype() == ':' ? expand('%:p:h').'/' : '%%'", { expr = true, noremap = true } },
     ["%H"] = { "<C-R>=expand('%:h:p') . std#path#separator()<CR>", { expr = false, noremap = true } },
     ["%T"] = { "<C-R>=expand('%:t')<CR>", { expr = false, noremap = true } },
@@ -93,6 +92,7 @@ function M.setup()
     keymap.map(mode, mapping)
   end
 
+  vim.cmd[[cmap w!! w !sudo tee > /dev/null %]]
   vim.api.nvim_set_keymap('', '<space>', '<leader>', {})
 
   -- Terminal options
