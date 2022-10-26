@@ -35,8 +35,8 @@ local keymappings = {
     [';;'] = '<cmd>Telescope buffers<cr>',
     [';b'] = '<cmd>Telescope buffers<cr>',
     [';f'] = '<cmd>Telescope find_files<cr>',
-    [';p'] = '<cmd>lua require("config.telescope").project_files({use_git_root=true})<cr>',
-    [';o'] = '<cmd>lua require("config.telescope").project_files({use_git_root=false})<cr>',
+    [';p'] = '<cmd>lua require("plugins.config.telescope").project_files({use_git_root=true})<cr>',
+    [';o'] = '<cmd>lua require("plugins.config.telescope").project_files({use_git_root=false})<cr>',
 
     -- Grep Search
     [';g'] = '<cmd>Telescope live_grep<cr>',

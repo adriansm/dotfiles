@@ -125,7 +125,7 @@ function M.setup()
   end
 
   -- null-ls
-  require('config.null-ls').setup(opts)
+  require('plugins.config.null-ls').setup(opts)
 
   -- Installer
   local lspinstaller = prequire('nvim-lsp-installer')
