@@ -217,7 +217,7 @@ local function plugins(use)
     'kdheepak/tabline.nvim',
     requires = {
       { 'nvim-lualine/lualine.nvim' },
-      { 'kyazdani42/nvim-web-devicons' }
+      { 'kyazdani42/nvim-web-devicons' },
     },
     config = function()
       require('plugins.config.tabline').setup()
@@ -258,7 +258,9 @@ local function plugins(use)
   -- Treesitter configurations and abstraction layer for Neovim
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    run = function()
+      require('nvim-treesitter.install').update({ with_sync = true })
+    end,
     config = function()
       require('plugins.config.treesitter').setup()
     end
