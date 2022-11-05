@@ -3,7 +3,5 @@
 .gitignore
 .gitk
 .gvimrc
-.tmux
-.tmux.conf
 .tmux.design.conf
 .vimrc
