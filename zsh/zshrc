@@ -24,3 +24,4 @@ unsetopt inc_append_history
 [[ -f ~/.aliases ]] && source ~/.aliases
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -z "$(command -v direnv)" ] || eval "$(direnv hook zsh)"

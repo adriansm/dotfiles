@@ -1,5 +1,4 @@
 .gitattributes
-.gitconfig
 .gitignore
 .gitk
 .gvimrc
