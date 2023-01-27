@@ -22,4 +22,8 @@
 .local/share/applications/personal-chrome.desktop
 {{ end }}
 
+{{ if not (lookPath "alacritty") }}
+.local/share/applications/Alacritty.desktop
+{{ end }}
+
 .config/fish/fishd.*
