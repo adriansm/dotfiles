@@ -107,9 +107,19 @@ local on_attach = function(client, bufnr)
 end
 
 function M.setup()
-  lspconfig = prequire('lspconfig')
+  local lspconfig = prequire('lspconfig')
   if not lspconfig then
     return
+  end
+
+  local neoconf = prequire('neoconf')
+  if neoconf then
+    neoconf.setup()
+  end
+
+  local neodev = prequire('neodev')
+  if neodev then
+    neodev.setup()
   end
 
   local opts = {

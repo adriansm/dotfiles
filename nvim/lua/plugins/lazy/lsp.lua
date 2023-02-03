@@ -1,4 +1,5 @@
 return {
+
   -- Collection of configurations for the built-in LSP client
   {
     "neovim/nvim-lspconfig",
@@ -6,10 +7,12 @@ return {
       "nvim-lua/plenary.nvim",
       "williamboman/nvim-lsp-installer",
       "jose-elias-alvarez/null-ls.nvim",
+      "folke/neoconf.nvim",
+      "folke/neodev.nvim",
     },
     config = function()
       require("plugins.config.lspconfig").setup()
-    end
+    end,
   },
 
   {
