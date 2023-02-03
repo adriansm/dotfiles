@@ -1,5 +1,3 @@
-local M = {}
-
 --
 -- Map Helpers
 --
@@ -84,17 +82,9 @@ local keymappings = {
   }
 }
 
-function M.setup()
-  for mode, mapping in pairs(keymappings) do
-    keymap.map(mode, mapping)
-  end
-
-  vim.cmd[[cmap w!! w !sudo tee > /dev/null %]]
-  vim.api.nvim_set_keymap('', '<space>', '<leader>', {})
-
-  -- Terminal options
-
-  vim.cmd[[autocmd TermOpen * setlocal nonumber norelativenumber]]
+for mode, mapping in pairs(keymappings) do
+  keymap.map(mode, mapping)
 end
 
-return M
+vim.cmd[[cmap w!! w !sudo tee > /dev/null %]]
+vim.api.nvim_set_keymap('', '<space>', '<leader>', {})

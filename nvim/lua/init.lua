@@ -1,4 +1,7 @@
-require('keymappings').setup()  -- load custom mappings
-require('settings').setup()     -- vim settings
+local M = {}
 
-require('plugins').setup()
+function M.setup(opts)
+  require('plugins').setup(opts)
+end
+
+return M

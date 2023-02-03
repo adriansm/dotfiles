@@ -18,7 +18,11 @@ function M.setup()
       disable = {},
     },
     ensure_installed = {
+      "c",
+      "cpp",
       "lua",
+      "vim",
+      "help",
       "python",
       "toml",
       "json",
