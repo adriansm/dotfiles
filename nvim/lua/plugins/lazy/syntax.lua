@@ -12,7 +12,7 @@ return {
   },
   {
     "kana/vim-operator-user",
-    requires = { "rhysd/vim-clang-format" },
+    dependencies = { "rhysd/vim-clang-format" },
     cond = (vim.g.enable_clang_format ~= 0),
     config = function()
       vim.cmd[[
