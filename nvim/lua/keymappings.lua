@@ -20,9 +20,6 @@ local keymappings = {
     ['<C-W>|'] = '<cmd>vsplit<CR>',
     ['<C-W>-'] = '<cmd>split<CR>',
 
-    -- File Explorer
-    ['<leader>e'] = '<cmd>NvimTreeToggle<CR>',
-
     -- nnoremap <leader>r :NvimTreeRefresh<CR>
     -- nnoremap <leader>n :NvimTreeFindFile<CR>
 
