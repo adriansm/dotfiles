@@ -1,6 +1,5 @@
-local M = {}
 
-function M.project_files(args)
+local function project_files(args)
   local opts = args or {} -- define here if you want to define something
   local ok = pcall(require('telescope.builtin').git_files, opts)
   if not ok then
@@ -8,12 +7,11 @@ function M.project_files(args)
   end
 end
 
-function M.setup()
-  local telescope = require('telescope')
+local function telescope_setup()
   local actions = require('telescope.actions')
   local action_layout = require('telescope.actions.layout')
 
-  telescope.setup {
+  require('telescope').setup({
     extensions = {
       ["fzf"] = {
         fuzzy = true,                    -- false will only do exact matching
@@ -69,12 +67,56 @@ function M.setup()
         }
       },
     },
-  }
+  })
 
   -- To get fzf loaded and working with telescope, you need to call
   -- load_extension, somewhere after setup function:
-  telescope.load_extension('fzf')
+  require("telescope").load_extension('fzf')
   -- telescope.load_extension('ui-select')
 end
 
-return M
+
+--
+-- [[ Telescope related plug-ins and config ]]
+--
+
+return {
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      -- { "nvim-telescope/telescope-ui-select.nvim" },
+    },
+    config = telescope_setup,
+    cmd = "Telescope",
+
+    keys = {
+      -- Find files using Telescope command-line sugar.
+      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+      { "<leader>fw", "<cmd>Telescope grep_string<cr>", desc = "Grep word under cursor" },
+
+      -- File search
+      { ";;", "<cmd>Telescope buffers<cr>", desc = "Browse open buffers" },
+      { ";b", "<cmd>Telescope buffers<cr>", desc = "Browse open buffers" },
+      { ";f", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      { ";p", function() project_files({use_git_root=true}) end, desc = "Find files within git project" },
+      { ";o", function() project_files({use_git_root=false}) end, desc = "Find file in current working dir" },
+
+      -- Grep Search
+      { ";g", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+      { ";w", "<cmd>Telescope grep_string<cr>", desc = "Grep word under cursor" },
+
+      { ";c", "<cmd>Telescope commands<cr>", desc = "Show list of commands" },
+      { ";t", "<cmd>Telescope help_tags<cr>", desc = "Show list of help tags" },
+
+      -- LSP key bindings
+      { ";r", "<cmd>Telescope lsp_references<cr>", desc = "List of LSP references" },
+      { ";s", "<cmd>Telescope lsp_document_symbols<cr>", desc = "List of document symbols" },
+      { ";i", "<cmd>Telescope lsp_implementations<cr>", desc = "List of implementations" },
+      { ";d", "<cmd>Telescope lsp_definitions<cr>", desc = "List of definitions" },
+      { ";x", "<cmd>Telescope diagnostics<cr>", desc = "List of Diagnostics" },
+    }
+  },
+}

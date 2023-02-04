@@ -1,7 +1,4 @@
-local M = {}
-
 local prequire = require('utils.common').prequire
-local keymap = require('utils.keymap')
 
 local function onAttach(bufnr)
   local gs = package.loaded.gitsigns
@@ -42,16 +39,29 @@ local function onAttach(bufnr)
   map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
 
-function M.setup()
-  local gitsigns = prequire('gitsigns')
-  if not gitsigns then
-    return
-  end
+local function gitsigns_setup()
   local opts = {
     on_attach = onAttach
   }
 
-  gitsigns.setup(opts)
+  prequire('gitsigns').setup(opts)
 end
 
-return M
+
+--
+-- [[ Git related plug-ins ]]
+--
+
+return {
+  -- The git plugin
+  "tpope/vim-fugitive",
+
+  {
+    "lewis6991/gitsigns.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = gitsigns_setup,
+  },
+
+  -- Easily jump to root of project
+  "dbakker/vim-projectroot",
+}

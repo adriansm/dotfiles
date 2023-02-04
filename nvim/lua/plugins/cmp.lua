@@ -1,4 +1,3 @@
-local M = {}
 local prequire = require('utils.common').prequire
 
 local has_words_before = function()
@@ -6,11 +5,11 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
+-- local feedkey = function(key, mode)
+--   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+-- end
 
-function M.setup()
+local function cmp_setup()
   local cmp = prequire('cmp')
   local lspkind = prequire('lspkind')
 
@@ -64,7 +63,7 @@ function M.setup()
         if cmp.visible() then
           cmp.select_prev_item()
         elseif luasnip and luasnip.jumpable(-1) then
-          luansnip.jump(-1)
+          luasnip.jump(-1)
         -- elseif vim.fn["vsnip#jumpable"](-1) == 1 then
         --   feedkey("<Plug>(vsnip-jump-prev)", "")
         else
@@ -111,4 +110,52 @@ function M.setup()
   vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
 end
 
-return M
+
+--
+-- [[ nvim-cmp related plug-in List ]]
+--
+
+return {
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lsp-document-symbol",
+    },
+    config = cmp_setup
+  },
+
+  -- add vscode-like pictograms to LSP
+  "onsails/lspkind-nvim",
+
+  -- For vsnip as snippet manager for LSP completion
+  -- { "hrsh7th/cmp-vsnip", requires = { "hrsh7th/vim-vsnip" }}
+
+  {
+    "saadparwaiz1/cmp_luasnip",
+    dependencies = {
+      { "L3MON4D3/LuaSnip", version = "1.*", build = "make install_jsregexp" },
+    }
+  },
+
+  -- common snippets for faster development
+  {
+    "rafamadriz/friendly-snippets",
+    config = function ()
+      local luasnip = require("utils.common").prequire("luasnip")
+      if luasnip then
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end
+    end
+  },
+
+  -- function signature for some lsp
+  {
+    "ray-x/lsp_signature.nvim",
+    config = true,
+  },
+
+}

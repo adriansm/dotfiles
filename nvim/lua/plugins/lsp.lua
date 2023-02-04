@@ -1,5 +1,3 @@
-local M = {}
-
 local prequire = require('utils.common').prequire
 
 -- Use an on_attach function to only map the following keys
@@ -18,31 +16,15 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  if vim.g.loaded_lspsaga then
-    keymap.map('normal_mode', {
-      ['K'] = '<Cmd>Lspsaga hover_doc<CR>',
-      ['gh'] = '<Cmd>Lspsaga hover_doc<CR>',
-      ['gr'] = '<Cmd>Lspsaga lsp_finder<CR>',
-      ['gp'] = '<Cmd>Lspsaga preview_definition<CR>',
-      ['gs'] = '<Cmd>Lspsaga signature_help<CR>',
+  keymap.map('normal_mode', {
+    ['K'] = '<Cmd>lua vim.lsp.buf.hover()<CR>',
+    ['gh'] = '<Cmd>lua vim.lsp.buf.hover()<CR>',
+    ['gr'] = '<cmd>lua vim.lsp.buf.references()<CR>',
+    ['gs'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
 
-      -- ['<leader>ca'] = '<cmd>Lspsaga code_action<CR>',
-      ['<leader>rn'] = '<cmd>Lspsaga rename<CR>',
-    })
-    keymap.map('visual_mode', {
-      ['<leader>ca'] = '<cmd>Lspsaga range_code_action<CR>',
-    })
-  else
-    keymap.map('normal_mode', {
-      ['K'] = '<Cmd>lua vim.lsp.buf.hover()<CR>',
-      ['gh'] = '<Cmd>lua vim.lsp.buf.hover()<CR>',
-      ['gr'] = '<cmd>lua vim.lsp.buf.references()<CR>',
-      ['gs'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-
-      -- ['<leader>ca'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',
-      ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
-    })
-  end
+    -- ['<leader>ca'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',
+    ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+  })
 
   keymap.map('normal_mode', {
     ['gD'] = '<Cmd>lua vim.lsp.buf.declaration()<CR>',
@@ -106,7 +88,40 @@ local on_attach = function(client, bufnr)
   }
 end
 
-function M.setup()
+local function null_ls_setup()
+  local nls = prequire("null-ls")
+  if not nls then
+    return
+  end
+
+  local b = nls.builtins
+  local sources = {
+    -- formatting
+    b.formatting.shfmt,
+    b.formatting.fixjson,
+    b.formatting.stylua,
+
+    -- diagnostics
+    b.diagnostics.shellcheck,
+
+    -- code actions
+    b.code_actions.gitsigns,
+    b.code_actions.gitrebase,
+
+    -- hover
+    b.hover.dictionary,
+  }
+
+  nls.setup({
+    on_init = function(new_client, _)
+      new_client.offset_encoding = "utf-16"
+    end,
+    sources = sources,
+    on_attach = on_attach,
+  })
+end
+
+local function lsp_setup()
   local lspconfig = prequire('lspconfig')
   if not lspconfig then
     return
@@ -132,10 +147,11 @@ function M.setup()
   if vim.g.loaded_cmp then
     -- Set up completion using nvim_cmp with LSP source if available
     opts.capabilities = require('cmp_nvim_lsp').default_capabilities()
+    opts.capabilities.offsetEncoding = { "utf-16" }
   end
 
   -- null-ls
-  require('plugins.config.null-ls').setup(opts)
+  null_ls_setup()
 
   -- Installer
   local lspinstaller = prequire('nvim-lsp-installer')
@@ -147,4 +163,50 @@ function M.setup()
   end
 end
 
-return M
+
+--
+-- [[ LSP related Plug-in List ]]
+--
+
+return {
+  -- Collection of configurations for the built-in LSP client
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "williamboman/nvim-lsp-installer",
+      "jose-elias-alvarez/null-ls.nvim",
+      "folke/neoconf.nvim",
+      "folke/neodev.nvim",
+    },
+    config = lsp_setup,
+  },
+
+  -- Light bulb shown when a code action is available
+  {
+    "kosayoda/nvim-lightbulb",
+    dependencies = { "antoinemadec/FixCursorHold.nvim" },
+    opts = {
+      ignore = { "null-ls" },
+      {autocmd = {enabled = true}},
+      {float = {enable = true}},
+    }
+  },
+
+  -- Code Action menu for lsp
+  {
+    "weilbith/nvim-code-action-menu",
+    cmd = "CodeActionMenu",
+    keys = {
+      { ";a", vim.lsp.buf.code_action, desc = "LSP code action" },
+      { "<leader>ca", "<cmd>CodeActionMenu<cr>", desc = "Code action menu" },
+    },
+  },
+
+  -- nvim-lsp progress. Eye candy for the impatient
+  {
+    "j-hui/fidget.nvim",
+    event = "BufReadPre",
+    config = true,
+  },
+}

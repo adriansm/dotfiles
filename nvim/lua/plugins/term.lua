@@ -7,7 +7,15 @@ return {
   "wsdjeg/vim-fetch",
 
   -- Tmux integration
-  "christoomey/vim-tmux-navigator",
+  {
+    "christoomey/vim-tmux-navigator",
+    keys = {
+      { "<C-h>", "<C-\\><C-N><cmd>TmuxNavigateLeft<cr>", mode = "t", desc = "Navigate to left tmux pane or buffer" },
+      { "<C-j>", "<C-\\><C-N><cmd>TmuxNavigateDown<cr>", mode = "t", desc = "Navigate to down tmux pane or buffer" },
+      { "<C-k>", "<C-\\><C-N><cmd>TmuxNavigateUp<cr>", mode = "t", desc = "Navigate to up tmux pane or buffer" },
+      { "<C-l>", "<C-\\><C-N><cmd>TmuxNavigateRight<cr>", mode = "t", desc = "Navigate to right tmux pane or buffer" },
+    }
+  },
 
   -- Split resizing/navigation
   {

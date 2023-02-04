@@ -2,8 +2,8 @@ return {
   "folke/lazy.nvim",                      -- Plugin Manager
 
   -- [[ Perf Plugins ]]
-  { "lewis6991/impatient.nvim", lazy = false },
-  { "dstein64/vim-startuptime", lazy = false },
+  "lewis6991/impatient.nvim",
+  "dstein64/vim-startuptime",
 
   -- [[ Common Plugins ]]
 
@@ -16,22 +16,5 @@ return {
   {
     "aymericbeaumet/vim-symlink",         -- Handling of symlinks
     dependencies = { "moll/vim-bbye" }
-  },
-  {                                       -- Highlight trailing white space
-    "ntpeters/vim-better-whitespace",
-    init = function()
-      vim.g.better_whitespace_ctermcolor = "red"
-      vim.g.better_whitespace_guicolor = "red"
-      vim.g.strip_whitespace_on_save = 1
-      vim.g.strip_only_modified_lines = 1
-    end
-  },
-  {
-    "alker0/chezmoi.vim",
-    init = function()
-      vim.cmd[[
-        let g:chezmoi#use_external = 1
-      ]]
-    end
   },
 }

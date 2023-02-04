@@ -17,6 +17,7 @@ cmd[[
 vim.opt.shortmess:append({ c = true })   -- don't give |ins-completion-menu| messages.
 vim.opt.completeopt = { "menuone", "noselect" }, -- mostly just for cmp
 
+---@diagnostic disable-next-line: redundant-value
 set_options({
   --
   -- Editor options
@@ -26,7 +27,7 @@ set_options({
   cursorline = true,       -- Show cursor line
 
   foldmethod = "marker",
-  encoding = "UTF-8",
+  encoding = "utf-32",
 
   wrap = false,            -- Do not wrap words (view)
   whichwrap = 'h,l,~,[,]',

@@ -18,15 +18,7 @@ return {
     }
   },
 
-  {
-    "kdheepak/tabline.nvim",
-    dependencies = {
-      "nvim-lualine/lualine.nvim",
-      "kyazdani42/nvim-web-devicons",
-    },
-    config = function()
-      require("plugins.config.tabline").setup()
-    end
-  }
-
+  "marko-cerovac/material.nvim",
+  "navarasu/onedark.nvim",
+  "tiagovla/tokyodark.nvim",
 }
