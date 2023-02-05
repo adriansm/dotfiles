@@ -11,61 +11,61 @@ cmd[[
   let &showbreak="\u21aa "
 ]]
 
--- jump to the last position when reopening a file
--- cmd[[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+local opt = vim.opt
 
-vim.opt.shortmess:append({ c = true })   -- don't give |ins-completion-menu| messages.
-vim.opt.completeopt = { "menuone", "noselect" }, -- mostly just for cmp
-
----@diagnostic disable-next-line: redundant-value
-set_options({
-  --
-  -- Editor options
-  --
-  number = true,           -- show line numbers
-  relativenumber = true,   -- relative line numbers
-  cursorline = true,       -- Show cursor line
-
-  foldmethod = "marker",
-  encoding = "utf-32",
-
-  wrap = false,            -- Do not wrap words (view)
-  whichwrap = 'h,l,~,[,]',
-
-  list = true,
-  shiftwidth = 2,
-  shiftround = true,
-  tabstop = 2,
-  expandtab = true,
-
-  --
-  -- Search
-  --
-  gdefault = true,         -- Subsitute all matches by default
-  incsearch = true,        -- Incremental search
-  hlsearch = true,         -- Highlight search match
-  ignorecase = true,       -- Do case insensitive matching
-  smartcase = true,        -- do not ignore if search pattern has CAPS
-
-  --
-  -- Status Line
-  --
-  showcmd = true,          -- Show (partial) command in status line.
-  cmdheight = 2,           -- Better display for messages
-
-  --
-  -- Misc
-  --
-  updatetime=300,          -- Bad experience for diagnostic messages when it's default 4000.
-  visualbell = true,       -- use visual bell instead of beeping
-  hidden = true,           -- TextEdit might fail if hidden is not set
-
-  backup = false,          -- do not backup files
-  writebackup = false,     -- do not write backup files
-  swapfile = false,        -- do not write swap files
-  autoread = true,         -- re-read file if change was detected outside of vim
-
-  history = 50,
-  termguicolors = true,
-  mouse = 'a',
-})
+opt.autoread = true,         -- re-read file if change was detected outside of vim
+opt.autowrite = true -- Enable auto write
+opt.backup = false,          -- do not backup files
+opt.clipboard = "unnamedplus" -- Sync with system clipboard
+opt.cmdheight = 2,           -- Better display for messages
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 3 -- Hide * markup for bold and italic
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true -- Enable highlighting of the current line
+opt.encoding = "utf-16",
+opt.expandtab = true -- Use spaces instead of tabs
+opt.formatoptions = "jcroqlnt" -- tcqj
+opt.foldmethod = "marker",
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.gdefault = true,         -- Subsitute all matches by default
+opt.hidden = true,           -- TextEdit might fail if hidden is not set
+opt.hlsearch = true,         -- Highlight search match
+opt.history = 50,
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.incsearch = true,        -- Incremental search
+opt.laststatus = 0
+opt.list = true -- Show some invisible characters (tabs...
+opt.mouse = "a" -- Enable mouse mode
+opt.number = true -- Print line number
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.relativenumber = true -- Relative line numbers
+opt.scrolloff = 4 -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.shortmess:append { W = true, I = true, c = true }
+opt.showcmd = true,          -- Show (partial) command in status line.
+opt.showmode = false -- Dont show mode since we have a statusline
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.spelllang = { "en" }
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
+opt.swapfile = false,        -- do not write swap files
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.timeoutlen = 300
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200 -- Save swap file and trigger CursorHold
+opt.visualbell = true,       -- use visual bell instead of beeping
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.winminwidth = 5 -- Minimum window width
+opt.whichwrap = 'h,l,~,[,]',
+opt.wrap = false -- Disable line wrap
+opt.writebackup = false,     -- do not write backup files

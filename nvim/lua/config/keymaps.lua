@@ -1,7 +1,3 @@
---
--- Map Helpers
---
-
 local map = vim.keymap.set
 
 -- windows
@@ -51,10 +47,9 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 -- Easily get out of terminal mode
 map("t", "<esc><esc>", "<c-\\><c-n>", {desc = "Enter Normal Mode"})
 
-
 -- Code completion handling
-map("n", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true })
-map("n", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
+vim.api.nvim_set_keymap('i', '<c-j>', 'pumvisible() ? "\\<c-n>" : "\\<c-j>"' , { noremap = true, expr=true })
+vim.api.nvim_set_keymap('i', '<c-k>', 'pumvisible() ? "\\<c-p>" : "\\<c-j>"' , { noremap = true, expr=true })
 map("n", "%%", "getcmdtype() == ':' ? expand('%:p:h').'/' : '%%'", { expr = true, noremap = true })
 map("n", "%H", "<C-R>=expand('%:h:p') . std#path#separator()<CR>", { expr = false, noremap = true })
 map("n", "%T",  "<C-R>=expand('%:t')<CR>", { expr = false, noremap = true })
