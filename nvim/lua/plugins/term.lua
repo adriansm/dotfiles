@@ -14,7 +14,8 @@ return {
       { "<C-j>", "<C-\\><C-N><cmd>TmuxNavigateDown<cr>", mode = "t", desc = "Navigate to down tmux pane or buffer" },
       { "<C-k>", "<C-\\><C-N><cmd>TmuxNavigateUp<cr>", mode = "t", desc = "Navigate to up tmux pane or buffer" },
       { "<C-l>", "<C-\\><C-N><cmd>TmuxNavigateRight<cr>", mode = "t", desc = "Navigate to right tmux pane or buffer" },
-    }
+    },
+    lazy = false,
   },
 
   -- Split resizing/navigation
@@ -22,10 +23,10 @@ return {
     "mrjones2014/smart-splits.nvim",
     config = function()
       local splits = require("smart-splits")
-      vim.keymap.set("n", "<A-h>", splits.resize_left)
-      vim.keymap.set("n", "<A-j>", splits.resize_down)
-      vim.keymap.set("n", "<A-k>", splits.resize_up)
-      vim.keymap.set("n", "<A-l>", splits.resize_right)
+      vim.keymap.set("n", "<C-Left>", splits.resize_left)
+      vim.keymap.set("n", "<C-Down>", splits.resize_down)
+      vim.keymap.set("n", "<C-Up>", splits.resize_up)
+      vim.keymap.set("n", "<C-Right>", splits.resize_right)
     end
   },
 

@@ -18,7 +18,16 @@ return {
     }
   },
 
-  "marko-cerovac/material.nvim",
-  "navarasu/onedark.nvim",
-  "tiagovla/tokyodark.nvim",
+  -- indent guides for Neovim
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPost",
+    opts = {
+      -- char = "▏",
+      char = "│",
+      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+      show_trailing_blankline_indent = false,
+      show_current_context = false,
+    },
+  },
 }
