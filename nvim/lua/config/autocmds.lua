@@ -1,4 +1,4 @@
-local set_options = require('utils.common').set_options
+local opt = vim.opt
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, { command = "checktime" })
@@ -58,9 +58,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Terminal specific options
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
-    set_options({
-      number = false,
-      relativenumber = false,
-    })
+    opt.number = false
+    opt.relativenumber = false
   end,
 })
