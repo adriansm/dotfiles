@@ -1,23 +1,32 @@
 [".config/bash/git-aware-prompt"]
-type = "archive"
-url = "https://github.com/jimeh/git-aware-prompt/archive/refs/heads/master.zip"
-exact = true
-stripComponents = 1
+  type = "archive"
+  url = "https://github.com/jimeh/git-aware-prompt/archive/refs/heads/master.zip"
+  exact = true
+  stripComponents = 1
 [".config/tmux/plugins/tpm"]
-type = "archive"
-url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip"
-exact = true
-stripComponents = 1
+  type = "archive"
+  url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip"
+  exact = true
+  stripComponents = 1
 [".zplug"]
-type = "archive"
-url = "https://github.com/zplug/zplug/archive/refs/heads/master.zip"
-stripComponents = 1
+  type = "archive"
+  url = "https://github.com/zplug/zplug/archive/refs/heads/master.zip"
+  stripComponents = 1
 {{  if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") -}}
 [".local/bin/nvim"]
-type = "file"
-url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
-executable = true
-refreshPeriod = "168h"
+  type = "file"
+  url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+  executable = true
+  refreshPeriod = "168h"
+{{ $lazyGitVersion := "0.37.0" -}}
+[".local/bin/lazygit"]
+  type = "file"
+  url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ $lazyGitVersion }}/lazygit_{{ $lazyGitVersion }}_Linux_x86_64.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/lazygit".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lazygit"]
 {{  end -}}
 {{- if and (not .ephemeral) (not .headless) -}}
 {{-   $fontDir := "" -}}
