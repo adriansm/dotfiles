@@ -1,7 +1,6 @@
 {{ if and (not .ephemeral) (not (eq .chezmoi.arch "arm")) -}}
 
 {{ $packages := list
-      "neovim"
       "pynvim" -}}
 
 {{ if not .headless -}}
@@ -18,7 +17,7 @@
 
 set -eufo pipefail
 
-pip install --user {{ $packages | join " " }}
+python3 -m pip install --user --upgrade {{ $packages | join " " }}
 
 # for nvim
 yarnpkg global add tree-sitter-cli
