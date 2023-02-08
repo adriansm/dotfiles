@@ -80,8 +80,8 @@
 {{- end -}}
 
 sourceDir = {{ .chezmoi.sourceDir | quote }}
+umask = 0o27
 verbose = true
-umask = 0o22
 
 [data]
 email = {{ $email | quote }}

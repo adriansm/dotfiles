@@ -32,3 +32,5 @@ if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[
   pkill ssh-agent
   eval $(ssh-agent -s)
 fi
+
+umask 027
