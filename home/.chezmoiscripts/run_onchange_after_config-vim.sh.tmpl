@@ -6,6 +6,6 @@ set -eufo pipefail
 vim -c PlugInstall -c qall
 
 {{ if not (eq .chezmoi.arch "arm") -}}
-nvim --headless -c 'Lazy install' -c quitall
+nvim --headless -c 'Lazy! install' -c quitall
 {{- end }}
 {{ end -}}
