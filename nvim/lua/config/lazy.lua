@@ -28,6 +28,10 @@ require("lazy").setup({
   },
   install = { colorscheme = { "vscode", "tokyonight", "habamax" } },
   checker = { enabled = false }, -- automatically check for plugin updates
+  concurrency = 8,
+  change_detection = {
+    notify = false,
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins
