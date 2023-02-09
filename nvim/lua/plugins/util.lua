@@ -21,8 +21,8 @@ return {
 
       map("n", "<M-Left>", splits.resize_left, { desc = "Resize window to the left" })
       map("n", "<M-Down>", splits.resize_down, { desc = "Resize window downwards" })
-      map("n", "<M-Right>", splits.resize_right, { desc = "Resize window upwards" })
-      map("n", "<M-Up>", splits.resize_up, { desc = "Resize window to the right" })
+      map("n", "<M-Right>", splits.resize_right, { desc = "Resize window to the right" })
+      map("n", "<M-Up>", splits.resize_up, { desc = "Resize window upwards" })
 
       map("n", "<C-h>", splits.move_cursor_left, { desc = "Go to left window" })
       map("n", "<C-j>", splits.move_cursor_down, { desc = "Go to lower window" })
