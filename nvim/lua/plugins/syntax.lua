@@ -44,5 +44,6 @@ return {
         let g:chezmoi#use_external = 1
       ]])
     end,
+    priority = 100,
   },
 }
