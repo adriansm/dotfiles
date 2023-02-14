@@ -1,6 +1,11 @@
-let $VIMHOME = $HOME."/.vim"
+if has("win32") || has ("win64")
+  let $VIMHOME = $VIM."/vimfiles"
+else
+  let $VIMHOME = $HOME."/.vim"
+endif
+
 if filereadable(expand($HOME.'/.vimrc.local'))
-    source $HOME/.vimrc.local
+  source $HOME/.vimrc.local
 end
 
 source $VIMHOME/init.vim

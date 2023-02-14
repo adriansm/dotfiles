@@ -1,12 +1,3 @@
-if has("win32") || has ("win64")
-    let $VIMHOME = $VIM."/vimfiles"
-else
-    let $VIMHOME = $HOME."/.vim"
-    if filereadable(expand($HOME.'/.vimrc.local'))
-        source $HOME/.vimrc.local
-    end
-endif
-
 call plug#begin(expand($VIMHOME.'/plugged'))
 source $VIMHOME/init-plug.vim   " All plugins required
 " Initialize plugin system

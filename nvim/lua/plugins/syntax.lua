@@ -37,13 +37,4 @@ return {
       vim.g.strip_only_modified_lines = 1
     end,
   },
-  {
-    "alker0/chezmoi.vim",
-    init = function()
-      vim.cmd([[
-        let g:chezmoi#use_external = 1
-      ]])
-    end,
-    priority = 100,
-  },
 }
