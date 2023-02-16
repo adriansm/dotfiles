@@ -1,8 +1,8 @@
-# Adrian's dotfiles
+# Adrian's dot files
 
-These are my set of dotfile collected over time
+These are my set of dot file collected over time
 
-To one line instalation command:
+To one line installation command:
 ```
 sh -c "$(curl -fsLS github.com/adriansm/dotfiles/releases/download/latest/install.sh)"
 ```
