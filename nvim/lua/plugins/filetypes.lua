@@ -14,11 +14,19 @@ return {
           hal = "java",
           proto = "proto",
           asciipb = "protobuf",
+          bazel = "bzl",
         },
         complex = {
           [".*/.ssh/config.d/.*"] = "sshconfig",
         }
       }
     }
-  }
+  },
+  {
+    "bazelbuild/vim-bazel",
+    cmd = "Bazel",
+    dependencies = {
+      "google/vim-maktaba"
+    },
+  },
 }

@@ -4,6 +4,7 @@ local has_words_before_cursor = function()
 end
 
 return {
+  -- completion
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
@@ -61,4 +62,22 @@ return {
       }
     end,
   },
+
+  -- comments
+  {
+    -- disable mini.comment included from LazyVim
+    "echasnovski/mini.comment",
+    enabled = false,
+  },
+  {
+    "numToStr/Comment.nvim",
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring"
+    },
+    event = "VeryLazy",
+    config = function(_, opts)
+      opts.pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+      require("Comment").setup(opts)
+    end
+  }
 }
