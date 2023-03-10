@@ -22,8 +22,6 @@ return {
     },
   },
 
-  -- the git plugin
-  "tpope/vim-fugitive",
   -- Cursor line only for current window (conflicts with neo-tree)
   -- "vim-scripts/CursorLineCurrentWindow",
 }
