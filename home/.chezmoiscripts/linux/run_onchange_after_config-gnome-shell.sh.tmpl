@@ -5,16 +5,6 @@ set -eufo pipefail
 
 test -n "$(command -v gnome-shell)" || exit 0
 
-## gsettings set org.gnome.shell.extensions.app-switcher current-workspace-only true
-gnome-extensions enable dash-to-panel@jderose9.github.com
-gsettings set org.gnome.shell.extensions.dash-to-panel multi-monitors false
-gsettings set org.gnome.shell.extensions.dash-to-panel panel-positions '{"0":"TOP","1":"TOP","2":"TOP"}'
-gsettings set org.gnome.shell.extensions.dash-to-panel multi-monitors true
-
-gnome-extensions enable window-list@gnome-shell-extensions.gcampax.github.com
-gsettings set org.gnome.shell.extensions.window-list grouping-mode "'auto'"
-gsettings set org.gnome.shell.extensions.window-list show-on-all-monitors true
-
 
 ## [settings-daemon/plugins/media-keys]
 ## calculator=['<Super>c']
