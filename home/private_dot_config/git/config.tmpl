@@ -47,18 +47,24 @@ email = {{ .email }}
 	branch = magenta
 
 [diff]
-	tool = vimdiff
+	tool = nvimdiff
 
 [difftool]
-	prompt = false
+	prompt = true
+
+[difftool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd L\"
 
 [merge]
-	tool = vimdiff
+	tool = nvimdiff
 	conflictstyle = diff3
 	renamelimit = 9999
 
 [mergetool]
-	prompt = false
+	prompt = true
+
+[mergetool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd J\" -c \"norm ]c\"
 
 [log]
 	decorate = short
