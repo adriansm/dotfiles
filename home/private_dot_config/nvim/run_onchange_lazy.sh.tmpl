@@ -1,0 +1,11 @@
+#!/bin/bash
+
+nvim_dir="{{ .chezmoi.sourceDir }}/../nvim"
+NVIM_CONFIG={{ .chezmoi.homeDir }}/.config/nvim
+
+if [ ! -f ${NVIM_CONFIG}/init.lua ]; then
+  ln -s default_init.lua ${NVIM_CONFIG}/init.lua
+fi
+if [ ! -f ${NVIM_CONFIG}/lazy-lock.json ]; then
+  cp "${nvim_dir}/lazy-lock.json" "${NVIM_CONFIG}"
+fi

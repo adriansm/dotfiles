@@ -7,9 +7,14 @@ return {
   {
     "TimUntersberger/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
     },
-    config = true,
+    opts = {
+      integrations = {
+        diffview = true,
+      }
+    },
     keys = {
       { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
     }
