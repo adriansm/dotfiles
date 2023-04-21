@@ -10,6 +10,25 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- Custom file types
+local filetypes = {
+  bzl = {"*.bazel"},
+  dts = {"*.dts", "*.dtsi"},
+  java = {"*.aidl", "*.hal"},
+  practice = {"*.cmm"},
+  proto = {"*.proto"},
+  protobuf = {"*.asciipb"},
+  sshconfig = {".*/.ssh/config.d/.*"},
+}
+
+for ft, p in pairs(filetypes) do
+  vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    group = "filetypedetect",
+    pattern = p,
+    command = "setfiletype " .. ft,
+  })
+end
+
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()
