@@ -1,0 +1,12 @@
+#!/bin/bash
+
+export XSECURELOCK_KEY_XF86AudioPlay_COMMAND="playerctl play-pause"
+export XSECURELOCK_KEY_XF86AudioNext_COMMAND="playerctl next"
+export XSECURELOCK_KEY_XF86AudioPrev_COMMAND="playerctl previous"
+export XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="pactl set-sink-volume @DEFAULT_SINK@ +5%"
+export XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="pactl set-sink-volume @DEFAULT_SINK@ -5%"
+export XSECURELOCK_KEY_XF86AudioMute_COMMAND="pactl set-sink-mute @DEFAULT_SINK@ toggle"
+
+# Pause media before locking
+playerctl pause
+
