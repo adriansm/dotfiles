@@ -35,4 +35,8 @@ return {
       hlgroup = "DiffDelete",
     }
   },
+  -- fish syntax
+  {
+    "dag/vim-fish",
+  }
 }
