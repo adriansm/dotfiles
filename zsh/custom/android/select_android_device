@@ -4,6 +4,8 @@
 [ ! -x "$FASTBOOT_BIN" ] && FASTBOOT_BIN=$(whence -p fastboot)
 [ ! -x "$ADB_BIN" ] && ADB_BIN=$(whence -p adb)
 
+quiet=false
+
 declare -a ANDROID_DEVICES_COLUMNS=(serial devrev build protocol transport)
 declare -A ANDROID_DEVICES_HEADERS=(
   serial    " Serial No"
@@ -161,7 +163,7 @@ function show_android_device()
   eval "declare -A devinfo=${info#*=}"
 
   >&2 echo -n "${devinfo[dev]}"
-  [ -n "${devinfo[rev]}" -a "${devinfo[rev]}" != "0" ] && echo -n " (${devinfo[rev]})"
+  [ -n "${devinfo[rev]}" -a "${devinfo[rev]}" != "0" ] && >&2 echo -n " (${devinfo[rev]})"
   [ -n "${devinfo[build]}" ] && >&2 echo -n ":${devinfo[build]# }"
   >&2 echo -n ":"
   echo -n "${aserial}"
@@ -204,6 +206,7 @@ function select_android_device_fzf()
   fi
 
   export ANDROID_SERIAL=${aserial}
+  $quiet && echo "$ANDROID_SERIAL" && return
   >&2 echo -n "Selected device: "
   show_android_device
 }
@@ -255,16 +258,18 @@ Options:
   -a      Use list and prompt for device selection instead of fzf
   -f      Force use of fzf for device selection
   -l      List Android devices connected and exit
+  -q      Output serial only
   -h      Print this help"
 }
 
 pref="auto"
-while getopts 'aflhp?' arg; do
+while getopts 'aflhpq?' arg; do
   case $arg in
     a) pref="list" ;;
     f) pref="fzf" ;;
     l) list_android_devices -h; return 0 ;;
     p) show_android_device; return 0 ;;
+    q) quiet=true ;;
     h|?) usage; return 0; ;;
   esac
 done

@@ -4,3 +4,6 @@ if status is-interactive
         direnv hook fish | source
     end
 end
+
+fish_add_path $HOME/.local/bin
+
