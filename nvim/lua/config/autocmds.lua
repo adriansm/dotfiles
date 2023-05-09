@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Custom file types
 local filetypes = {
+  bash = {"build.config*"},
   bzl = {"*.bazel"},
   dts = {"*.dts", "*.dtsi"},
   java = {"*.aidl", "*.hal"},
