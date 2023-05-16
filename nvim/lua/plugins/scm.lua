@@ -2,7 +2,6 @@ return {
   -- the git plugin
   "tpope/vim-fugitive",
 
-
   -- a magit clone for Neovim
   {
     "TimUntersberger/neogit",
