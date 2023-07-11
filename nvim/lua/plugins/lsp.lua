@@ -29,6 +29,7 @@ return {
   -- Standalone UI for nvim-lsp progress. Eye candy for the impatient
   {
     "j-hui/fidget.nvim",
+    tag = "legacy",
     config = true,
   }
 }
