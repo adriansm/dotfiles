@@ -10,12 +10,6 @@ return {
       return opts
     end,
   },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      autoformat = false,
-    },
-  },
 
   -- render diagnostics using virtual lines
   {
