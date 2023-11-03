@@ -1,6 +1,9 @@
 local cmd = vim.api.nvim_command
 local opt = vim.opt
 
+-- Disable LazyVim auto format
+vim.g.autoformat = false
+
 -- vim.opt.listchars.tab = "\\u2192"
 -- vim.opt.listchars.trail = "\\u2022"
 -- vim.opt.listchars.extends = "\\u27E9"
