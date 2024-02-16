@@ -17,7 +17,8 @@
 
 set -eufo pipefail
 
-python3 -m pip install --user --upgrade {{ $packages | join " " }}
+python3 -m venv ~/.local --system-site-packages
+~/.local/bin/pip install --user --upgrade {{ $packages | join " " }}
 
 # install fisher fish is installed
 [ -z $(command -v fish) ] || {{ .chezmoi.sourceDir }}/../update_fish.fish
