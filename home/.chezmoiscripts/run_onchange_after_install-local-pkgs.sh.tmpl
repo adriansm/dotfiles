@@ -19,6 +19,9 @@ set -eufo pipefail
 
 python3 -m pip install --user --upgrade {{ $packages | join " " }}
 
+# install fisher fish is installed
+[ -z $(command -v fish) ] || {{ .chezmoi.sourceDir }}/../update_fish.fish
+
 # for nvim
 yarnpkg global add tree-sitter-cli
 {{ end -}}

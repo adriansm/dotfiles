@@ -8,8 +8,6 @@ jobs:
   clone-and-install:
     runs-on: ubuntu-latest
     steps:
-      - name: Install curl
-        run: sudo apt-get install -y curl
       - name: checkout
         uses: actions/checkout@v2
       - name: Install
