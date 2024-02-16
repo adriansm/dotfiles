@@ -18,7 +18,7 @@
   url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
   executable = true
   refreshPeriod = "168h"
-{{ $lazyGitVersion := "0.37.0" -}}
+{{ $lazyGitVersion := "0.40.2" -}}
 [".local/bin/lazygit"]
   type = "file"
   url = "https://github.com/jesseduffield/lazygit/releases/download/v{{ $lazyGitVersion }}/lazygit_{{ $lazyGitVersion }}_Linux_x86_64.tar.gz"
@@ -35,16 +35,16 @@
 {{-   else if eq .chezmoi.os "linux" -}}
 {{-     $fontDir = ".local/share/fonts" -}}
 {{-   end }}
-["{{ $fontDir }}/Sauce Code Pro Nerd Font Complete.ttf"]
+["{{ $fontDir }}/SauceCodeProNerdFontMono-Regular.ttf"]
 type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf"
-["{{ $fontDir }}/Sauce Code Pro Nerd Font Complete Mono.ttf"]
+url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/SauceCodeProNerdFontMono-Regular.ttf"
+["{{ $fontDir }}/SauceCodeProNerdFont-Regular.ttf"]
 type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf"
-["{{ $fontDir }}/Roboto Mono Nerd Font Complete.ttf"]
+url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/SauceCodeProNerdFont-Regular.ttf"
+["{{ $fontDir }}/RobotoMonoNerdFont-Regular.ttf"]
 type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf"
-["{{ $fontDir }}/Anonymice Nerd Font Complete.ttf"]
+url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/RobotoMonoNerdFont-Regular.ttf"
+["{{ $fontDir }}/AnonymiceProNerdFontMono-Regular.ttf"]
 type = "file"
 url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/AnonymousPro/Regular/AnonymiceProNerdFontMono-Regular.ttf"
 {{  end -}}
