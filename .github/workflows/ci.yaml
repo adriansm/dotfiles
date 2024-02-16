@@ -1,4 +1,4 @@
-name: ci
+name: Dotfiles CI
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
 jobs:
   clone-and-install:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
-      env:
-        CODESPACES: true
     steps:
-      - uses: actions/checkout@v2
-      - run: ./install.sh
-      - name: chezmoi data
+      - name: Install curl
+        run: sudo apt-get install -y curl
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: ./install.sh
+      - name: Chezmoi data
         run: '"$HOME/.local/bin/chezmoi" data'
