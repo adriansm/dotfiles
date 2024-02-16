@@ -11,6 +11,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: Install
-        run: ./install.sh
+        run: ./install.sh --verbose
       - name: Chezmoi data
         run: '"$HOME/.local/bin/chezmoi" data'
