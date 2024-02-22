@@ -44,3 +44,4 @@ TAGS
 .vim-bookmarks
 .ccls-cache
 node_modules
+compile_commands.json

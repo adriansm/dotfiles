@@ -5,3 +5,8 @@ git:
 
 gui:
   nerdFontsVersion: "3"
+
+quitOnTopLevelReturn: true
+keybinding:
+  universal:
+    quit: '<c-q>'
