@@ -1,6 +1,8 @@
 local Util = require("lazyvim.util")
 
 return {
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
