@@ -17,7 +17,6 @@ cmd([[
 opt.autoread = true -- re-read file if change was detected outside of vim
 opt.autowrite = true -- Enable auto write
 opt.backup = false -- do not backup files
-opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.cmdheight = 2 -- Better display for messages
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 3 -- Hide * markup for bold and italic

@@ -45,6 +45,7 @@ return {
       require("osc52").setup(opts)
       vim.api.nvim_create_autocmd("TextYankPost", { callback = copy })
     end,
+    lazy = false,
   },
 
   -- open files from a terminal buffer in current neovim instance
