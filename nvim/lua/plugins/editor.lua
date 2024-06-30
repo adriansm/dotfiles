@@ -7,8 +7,8 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      { ";o", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      { ";p", Util.telescope("files"), desc = "Find Files (root dir)" },
+      { ";o", Util.pick("files", { cwd = nil }), desc = "Find Files (cwd)" },
+      { ";p", Util.pick("files"), desc = "Find Files (root dir)" },
     },
   },
 

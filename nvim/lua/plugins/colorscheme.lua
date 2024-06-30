@@ -17,6 +17,11 @@ return {
 
       -- Enable italic comment
       italic_comments = true,
+
+      -- Override colors (see ./lua/vscode/colors.lua)
+      color_overrides = {
+        vscCursorDarkDark = '#2d2d2d',
+      },
     },
     config = function(_, opts)
       local c = require('vscode.colors').get_colors()
