@@ -15,7 +15,7 @@
 {{  if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") -}}
 [".local/bin/nvim"]
   type = "file"
-  url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+  url = "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage"
   executable = true
   refreshPeriod = "168h"
 {{ $lazyGitVersion := "0.40.2" -}}

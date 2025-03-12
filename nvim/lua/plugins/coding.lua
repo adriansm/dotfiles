@@ -4,6 +4,13 @@ local has_words_before_cursor = function()
 end
 
 return {
+  -- pairs
+  {
+    "echasnovski/mini.pairs",
+    opts = function(_, opts)
+      opts.modes = { insert = true, command = false, terminal = false }
+    end
+  },
   -- completion
   {
     "hrsh7th/nvim-cmp",

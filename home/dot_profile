@@ -33,4 +33,5 @@ if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[
   eval $(ssh-agent -s)
 fi
 
+GIT_TEST_DEFAULT_HASH_ALGO=sha1
 umask 027

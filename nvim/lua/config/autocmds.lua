@@ -75,6 +75,16 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "cpp",
+    "c",
+  },
+  callback = function()
+    vim.g.root_spec = { { "BUILD.bazel", ".git" }, "lsp", "cwd" }
+  end,
+})
+
 -- Terminal specific options
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
