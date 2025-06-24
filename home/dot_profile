@@ -28,10 +28,11 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
 # ssh-agent fix
-if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
-  pkill ssh-agent
-  eval $(ssh-agent -s)
-fi
+# if [[ -z "$SSH_CONNECTION" ]] && [[ -z "$CHROME_REMOTE_DESKTOP_SESSION" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
+#   pkill ssh-agent
+#   eval $(ssh-agent -s)
+# fi
+[[ $(pgrep -c '^ssh-agent') -gt 0 ]] || eval $(ssh-agent -s -a $SSH_AUTH_SOCK) > /dev/null
 
 GIT_TEST_DEFAULT_HASH_ALGO=sha1
 umask 027
