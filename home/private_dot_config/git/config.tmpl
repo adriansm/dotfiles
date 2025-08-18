@@ -66,6 +66,9 @@ email = {{ .email }}
 [mergetool "nvimdiff"]
 	cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd J\" -c \"norm ]c\"
 
+[mergetool "diffview"]
+	cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+
 [log]
 	decorate = short
 
