@@ -6,7 +6,7 @@ end
 return {
   -- pairs
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     opts = function(_, opts)
       opts.modes = { insert = true, command = false, terminal = false }
     end
@@ -61,7 +61,7 @@ return {
   -- comments
   {
     -- disable mini.comment included from LazyVim
-    "echasnovski/mini.comment",
+    "nvim-mini/mini.comment",
     enabled = false,
   },
   {
