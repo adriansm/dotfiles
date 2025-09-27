@@ -58,4 +58,4 @@ update_ssh_sock()
     fi
 }
 
-update_ssh_sock
+# update_ssh_sock

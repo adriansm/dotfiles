@@ -32,7 +32,7 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 #   pkill ssh-agent
 #   eval $(ssh-agent -s)
 # fi
-[[ $(pgrep -c '^ssh-agent') -gt 0 ]] || eval $(ssh-agent -s -a $SSH_AUTH_SOCK) > /dev/null
+# [[ $(pgrep -c '^ssh-agent') -gt 0 ]] || eval $(ssh-agent -s -a $SSH_AUTH_SOCK) > /dev/null
 
 GIT_TEST_DEFAULT_HASH_ALGO=sha1
 umask 027
