@@ -45,6 +45,15 @@
       "xss-lock") -}}
 {{ end -}}
 
+{{- $sudo_access := false -}}{{/* true if user has access to sudo */}}
+{{- if output "sh" "-c" "sudo -vn 2>&1 || true" | regexMatch "is not allowed to run sudo" }}
+{{- $sudo_access := false -}}
+{{- else }}
+{{- $sudo_access := true -}}
+{{- end }}
+
+{{ if $sudo_access -}}
+
 {{ $sudo := "sudo " -}}
 {{ if eq .chezmoi.username "root" -}}
 {{   $sudo = "" -}}
@@ -58,4 +67,4 @@ set -eufo pipefail
 {{ $sudo }}apt-get install -y {{ $packages | join " " }}
 
 {{ end -}}
-
+{{ end -}}
