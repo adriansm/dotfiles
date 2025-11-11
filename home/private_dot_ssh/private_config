@@ -9,5 +9,8 @@ Host *
     ConnectTimeout 60
     ConnectionAttempts 2
 
+Host localhost
+    ForwardAgent yes
+
 Host gitlab.com github.com
     User git
