@@ -1,0 +1,4 @@
+Host *
+  # If we are NOT logged in over SSH, use the 1Password agent.
+  Match exec "test -S ~/.1password/agent.sock -a -z '$SSH_CLIENT'"
+  IdentityAgent ~/.1password/agent.sock

@@ -1,4 +1,7 @@
+fish_add_path $HOME/.cargo/env
+fish_add_path $HOME/.yarn/bin
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/bin
 
 status is-interactive || exit
 
