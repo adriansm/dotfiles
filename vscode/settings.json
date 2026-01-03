@@ -43,5 +43,9 @@
     "files.autoSave": "afterDelay",
     "remote.SSH.remotePlatform": {
         "localhost": "linux"
-    }
+    },
+    "geminicodeassist.project": "serene-gradient-276018",
+    "diffEditor.codeLens": true,
+    "git.enableSmartCommit": true,
+    "explorer.confirmDragAndDrop": false
 }

@@ -1,0 +1,30 @@
+%YAML 1.3
+---
+- Rule:
+  - And:
+    - Key: [Mouse Gesture Button, released]
+  - KeyPress:
+    - Super_L
+    - click
+- Rule:
+  - And:
+    - Key: [Haptic, released]
+    - MouseGesture: Mouse Right
+  - KeyPress:
+    - [Super_L, Page_Down]
+    - click
+- Rule:
+  - And:
+    - Key: [Haptic, released]
+    - MouseGesture: Mouse Left
+  - KeyPress:
+    - [Super_L, Page_Up]
+    - click
+- Rule:
+  - And:
+    - Key: [Haptic, released]
+    - MouseGesture: Mouse Up
+  - KeyPress:
+    - F10
+    - click
+...
