@@ -8,7 +8,8 @@ export TIMEFORMAT=$'\nreal %3lR\tuser %3lU\tsys %3lS\tpcpu %P\n'
 export HISTTIMEFORMAT="%H:%M > "
 export HISTIGNORE="&:bg:fg:ll:h"
 
-export PATH=~/bin:~/.local/bin:$PATH
+#export PATH=~/bin:~/.local/bin:$PATH
+#[[ -d ~/.cargo/bin ]] && export PATH="$PATH:$HOME/.cargo/bin"
 
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases

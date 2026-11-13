@@ -18,6 +18,7 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
+[ -d "$HOME/.cargo/bin" ] && PATH="$PATH:$HOME/.cargo/bin"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 [ -f "$HOME/.fzf/bin" ] && PATH="$PATH:$HOME/.fzf/bin"
 [ -d "$HOME/node_modules/.bin" ] && PATH="$HOME/node_modules/.bin:$PATH"

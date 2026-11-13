@@ -43,8 +43,8 @@ type = "file"
 url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/SauceCodeProNerdFont-Regular.ttf"
 ["{{ $fontDir }}/RobotoMonoNerdFont-Regular.ttf"]
 type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/RobotoMonoNerdFont-Regular.ttf"
+url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/RobotoMonoNerdFont-Regular.ttf"
 ["{{ $fontDir }}/AnonymiceProNerdFontMono-Regular.ttf"]
 type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/AnonymousPro/Regular/AnonymiceProNerdFontMono-Regular.ttf"
+url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/AnonymousPro/AnonymiceProNerdFontPropo-Regular.ttf"
 {{  end -}}
