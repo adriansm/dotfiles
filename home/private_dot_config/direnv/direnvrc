@@ -1,0 +1,19 @@
+export_alias() {
+  local name=$1
+  shift
+  local alias_dir="$PWD/.envrc-aliases"
+  local target="$alias_dir/$name"
+  local oldpath="$PATH"
+
+  if ! [[ ":$PATH:" == *":$alias_dir:"* ]]; then
+    mkdir -p "$alias_dir"
+    PATH_add "$alias_dir"
+  fi
+
+  cat << EOM > "$target"
+#!/usr/bin/env bash
+PATH="$oldpath"
+exec $@ \$@
+EOM
+  chmod +x "$target"
+}
